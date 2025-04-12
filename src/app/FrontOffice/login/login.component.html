@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glassmorphism Login Form</title>
+  <link rel="stylesheet" href="login.component.css">
+</head>
+<body>
+  <div class="wrapper">
+    <form (ngSubmit)="login()">
+      <h2>Login</h2>
+
+      <!-- Email input -->
+      <div class="input-field">
+        <input 
+          type="email" 
+          [(ngModel)]="email" 
+          name="email" 
+          required
+          (blur)="emailTouched = true">
+        <label>Enter your email</label>
+        <div *ngIf="emailTouched && !email" class="error-message">
+          Please enter your email.
+        </div>
+      </div>
+
+      <!-- Password input -->
+      <div class="input-field">
+        <input 
+          type="password" 
+          [(ngModel)]="password" 
+          name="password" 
+          required
+          (blur)="passwordTouched = true">
+        <label>Enter your password</label>
+        <div *ngIf="passwordTouched && !password" class="error-message">
+          Please enter your password.
+        </div>
+      </div>
+
+      <!-- Remember me and forgot password -->
+      <div class="forget">
+        <label for="remember">
+          <input type="checkbox" id="remember">
+          <p>Remember me</p>
+        </label>
+        <a href="#" (click)="navigateToForgetPassword()">Forgot password?</a>
+      </div>
+
+      <!-- Login button -->
+      <button type="submit" [disabled]="loading || !email || !password">Log In</button>
+
+      <!-- Register link -->
+      <div class="register">
+        <p>Don't have an account? <a routerLink="/signup">Sign-up</a></p>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+</body>
+</html>
