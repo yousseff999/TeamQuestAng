@@ -12,6 +12,9 @@ import { SignUpComponent } from './FrontOffice/sign-up/sign-up.component';
 import { ResetPwdComponent } from './FrontOffice/reset-pwd/reset-pwd.component';
 import { EventComponent } from './FrontOffice/event/event.component';
 import { ShoweventComponent } from './BackOffice/showevent/showevent.component';
+import { UpdateeventComponent } from './BackOffice/updateevent/updateevent.component';
+import { AddeventComponent } from './BackOffice/addevent/addevent.component';
+import { EventcategoryComponent } from './BackOffice/eventcategory/eventcategory.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { ShoweventComponent } from './BackOffice/showevent/showevent.component';
     ResetPwdComponent,
     EventComponent,
     ShoweventComponent,
+    UpdateeventComponent,
+    AddeventComponent,
+    EventcategoryComponent,
   ],
   imports: [
     BrowserModule,

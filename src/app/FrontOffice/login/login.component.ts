@@ -57,7 +57,7 @@ export class LoginComponent {
     this.router.navigate(['/forgetpassword']);
   }
 
-  logout(): void {
+  /*logout(): void {
     // Clear user session data (e.g., token, user info)
     localStorage.removeItem('token');
     localStorage.removeItem('role');
@@ -71,5 +71,5 @@ export class LoginComponent {
   // You can also add other helper methods to manage authentication, such as:
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token'); // Example check for auth
-  }
+  }*/
 }

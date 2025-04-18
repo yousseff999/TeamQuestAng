@@ -1,0 +1,428 @@
+<body class="bg-gray-100">
+    <!-- Start Navbar -->
+    <div
+      class="md:fixed md:w-full md:top-0 md:z-20 flex flex-row flex-wrap items-center bg-white p-6 border-b border-gray-300">
+      <!-- Logo -->
+      <div class="flex-none w-56 flex flex-row items-center">
+        <img src="assets/BackOffice/img/logo.png" class="w-10 flex-none" alt="TeamQuest Logo">
+        <strong class="capitalize ml-1 flex-1">TeamQuest</strong>
+        <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden md:block">
+          <i class="fad fa-list-ul"></i>
+        </button>
+      </div>
+      <!-- End Logo -->
+  
+      <!-- Navbar Content Toggle -->
+      <button id="navbarToggle" class="hidden md:block md:fixed right-0 mr-6">
+        <i class="fad fa-chevron-double-down"></i>
+      </button>
+      <!-- End Navbar Content Toggle -->
+  
+      <!-- Navbar Content -->
+      <div id="navbar"
+        class="animated md:hidden md:fixed md:top-0 md:w-full md:left-0 md:mt-16 md:border-t md:border-b md:border-gray-200 md:p-10 md:bg-white flex-1 pl-3 flex flex-row flex-wrap justify-between items-center md:flex-col md:items-center">
+        <!-- Left -->
+        <div
+          class="text-gray-600 md:w-full md:flex md:flex-row md:justify-evenly md:pb-10 md:mb-10 md:border-b md:border-gray-200">
+          <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i
+              class="fad fa-envelope-open-text"></i></a>
+          <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i
+              class="fad fa-comments-alt"></i></a>
+          <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i
+              class="fad fa-check-circle"></i></a>
+          <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i
+              class="fad fa-calendar-exclamation"></i></a>
+        </div>
+        <!-- End Left -->
+  
+        <!-- Right -->
+        <div class="flex flex-row-reverse items-center">
+          <!-- User -->
+          <div class="dropdown relative md:static">
+            <button class="menu-btn focus:outline-none focus:shadow-outline flex flex-wrap items-center">
+              <div class="w-8 h-8 overflow-hidden rounded-full">
+                <img class="w-full h-full object-cover" src="assets/BackOffice/img/user.svg" alt="User Avatar">
+              </div>
+              <div class="ml-2 capitalize flex">
+                <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">Si Youssef</h1>
+                <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
+              </div>
+            </button>
+            <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+            <div
+              class="text-gray-500 menu hidden md:mt-10 md:w-full rounded bg-white shadow-md absolute z-20 right-0 w-40 mt-5 py-2 animated faster">
+              <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
+                href="#">
+                <i class="fad fa-user-edit text-xs mr-1"></i>
+                edit my profile
+              </a>
+              <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
+                href="#">
+                <i class="fad fa-inbox-in text-xs mr-1"></i>
+                my inbox
+              </a>
+              <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
+                href="#">
+                <i class="fad fa-badge-check text-xs mr-1"></i>
+                tasks
+              </a>
+              <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
+                href="#">
+                <i class="fad fa-comment-alt-dots text-xs mr-1"></i>
+                chats
+              </a>
+              <hr>
+              <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
+                href="#">
+                <i class="fad fa-user-times text-xs mr-1"></i>
+                log out
+              </a>
+            </div>
+          </div>
+          <!-- End User -->
+  
+          <!-- Notification -->
+          <div class="dropdown relative mr-5 md:static">
+            <button
+              class="text-gray-500 menu-btn p-0 m-0 hover:text-gray-900 focus:text-gray-900 focus:outline-none transition-all ease-in-out duration-300">
+              <i class="fad fa-bells"></i>
+            </button>
+            <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+            <div
+              class="menu hidden rounded bg-white md:right-0 md:w-full shadow-md absolute z-20 right-0 w-84 mt-5 py-2 animated faster">
+              <div class="px-4 py-2 flex flex-row justify-between items-center capitalize font-semibold text-sm">
+                <h1>notifications</h1>
+                <div class="bg-teal-100 border border-teal-200 text-teal-500 text-xs rounded px-1">
+                  <strong>5</strong>
+                </div>
+              </div>
+              <hr>
+              <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                href="#">
+                <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
+                  <i class="fad fa-birthday-cake text-sm"></i>
+                </div>
+                <div class="flex-1 flex flex-row">
+                  <div class="flex-1">
+                    <h1 class="text-sm font-semibold">poll..</h1>
+                    <p class="text-xs text-gray-500">text here also</p>
+                  </div>
+                  <div class="text-right text-xs text-gray-500">
+                    <p>4 min ago</p>
+                  </div>
+                </div>
+              </a>
+              <hr>
+              <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                href="#">
+                <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
+                  <i class="fad fa-user-circle text-sm"></i>
+                </div>
+                <div class="flex-1 flex flex-row">
+                  <div class="flex-1">
+                    <h1 class="text-sm font-semibold">mohamed..</h1>
+                    <p class="text-xs text-gray-500">text here also</p>
+                  </div>
+                  <div class="text-right text-xs text-gray-500">
+                    <p>78 min ago</p>
+                  </div>
+                </div>
+              </a>
+              <hr>
+              <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                href="#">
+                <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
+                  <i class="fad fa-images text-sm"></i>
+                </div>
+                <div class="flex-1 flex flex-row">
+                  <div class="flex-1">
+                    <h1 class="text-sm font-semibold">new imag..</h1>
+                    <p class="text-xs text-gray-500">text here also</p>
+                  </div>
+                  <div class="text-right text-xs text-gray-500">
+                    <p>65 min ago</p>
+                  </div>
+                </div>
+              </a>
+              <hr>
+              <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                href="#">
+                <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
+                  <i class="fad fa-alarm-exclamation text-sm"></i>
+                </div>
+                <div class="flex-1 flex flex-row">
+                  <div class="flex-1">
+                    <h1 class="text-sm font-semibold">time is up..</h1>
+                    <p class="text-xs text-gray-500">text here also</p>
+                  </div>
+                  <div class="text-right text-xs text-gray-500">
+                    <p>1 min ago</p>
+                  </div>
+                </div>
+              </a>
+              <hr>
+              <div class="px-4 py-2 mt-2">
+                <a href="#"
+                  class="border border-gray-300 block text-center text-xs uppercase rounded p-1 hover:text-teal-500 transition-all ease-in-out duration-500">
+                  view all
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- End Notification -->
+  
+          <!-- Messages -->
+          <div class="dropdown relative mr-5 md:static">
+            <button
+              class="text-gray-500 menu-btn p-0 m-0 hover:text-gray-900 focus:text-gray-900 focus:outline-none transition-all ease-in-out duration-300">
+              <i class="fad fa-comments"></i>
+            </button>
+            <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+            <div
+              class="menu hidden md:w-full md:right-0 rounded bg-white shadow-md absolute z-20 right-0 w-84 mt-5 py-2 animated faster">
+              <div class="px-4 py-2 flex flex-row justify-between items-center capitalize font-semibold text-sm">
+                <h1>messages</h1>
+                <div class="bg-teal-100 border border-teal-200 text-teal-500 text-xs rounded px-1">
+                  <strong>3</strong>
+                </div>
+              </div>
+              <hr>
+              <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                href="#">
+                <div class="w-10 h-10 rounded-full overflow-hidden mr-3 bg-gray-100 border border-gray-300">
+                  <img class="w-full h-full object-cover" src="assets/BackOffice/img/user1.jpg" alt="User 1">
+                </div>
+                <div class="flex-1 flex flex-row">
+                  <div class="flex-1">
+                    <h1 class="text-sm font-semibold">mohamed said</h1>
+                    <p class="text-xs text-gray-500">yeah i know</p>
+                  </div>
+                  <div class="text-right text-xs text-gray-500">
+                    <p>4 min ago</p>
+                  </div>
+                </div>
+              </a>
+              <hr>
+              <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                href="#">
+                <div class="w-10 h-10 rounded-full overflow-hidden mr-3 bg-gray-100 border border-gray-300">
+                  <img class="w-full h-full object-cover" src="assets/BackOffice/img/user2.jpg" alt="User 2">
+                </div>
+                <div class="flex-1 flex flex-row">
+                  <div class="flex-1">
+                    <h1 class="text-sm font-semibold">sull goldmen</h1>
+                    <p class="text-xs text-gray-500">for sure</p>
+                  </div>
+                  <div class="text-right text-xs text-gray-500">
+                    <p>1 day ago</p>
+                  </div>
+                </div>
+              </a>
+              <hr>
+              <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                href="#">
+                <div class="w-10 h-10 rounded-full overflow-hidden mr-3 bg-gray-100 border border-gray-300">
+                  <img class="w-full h-full object-cover" src="assets/BackOffice/img/user3.jpg" alt="User 3">
+                </div>
+                <div class="flex-1 flex flex-row">
+                  <div class="flex-1">
+                    <h1 class="text-sm font-semibold">mick</h1>
+                    <p class="text-xs text-gray-500">is typing ....</p>
+                  </div>
+                  <div class="text-right text-xs text-gray-500">
+                    <p>31 feb</p>
+                  </div>
+                </div>
+              </a>
+              <hr>
+              <div class="px-4 py-2 mt-2">
+                <a href="#"
+                  class="border border-gray-300 block text-center text-xs uppercase rounded p-1 hover:text-teal-500 transition-all ease-in-out duration-500">
+                  view all
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- End Messages -->
+        </div>
+        <!-- End Right -->
+      </div>
+      <!-- End Navbar Content -->
+    </div>
+    <!-- End Navbar -->
+  
+    <!-- Start Wrapper -->
+    <div class="h-screen flex flex-row flex-wrap">
+      <!-- Start Sidebar -->
+      <div id="sideBar"
+        class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster">
+        <!-- Sidebar Content -->
+        <div class="flex flex-col">
+          <!-- Sidebar Toggle -->
+          <div class="text-right hidden md:block mb-4">
+            <button id="sideBarHideBtn">
+              <i class="fad fa-times-circle"></i>
+            </button>
+          </div>
+          <!-- End Sidebar Toggle -->
+          <p class="uppercase text-xs text-gray-600 mb-4 tracking-wider">homes</p>
+          <!-- Link -->
+          <a href="./index-1.html"
+            class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+            <i class="fad fa-shopping-cart text-xs mr-2"></i>
+            Events
+          </a>
+          <!-- End Link -->
+        </div>
+        <!-- End Sidebar Content -->
+      </div>
+      <!-- End Sidebar -->
+  
+      <!-- Start Content -->
+      <div class="bg-gray-100 flex-1 p-6 md:mt-16">
+        <!-- General Report -->
+        <div class="grid grid-cols-40000 gap-6 xl:grid-cols-1">
+          <!-- Form Section -->
+          <div class="container mx-auto px-40000 py-20">
+            <div class="container">
+                <h1 class="text-4xl font-bold text-gray-900 mb-8 tracking-tight text-center">Modifier l'événement</h1>       
+                       <div class="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto">
+                <!-- Error Message -->
+                <div *ngIf="errorMessage" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-r-lg animate-pulse">
+                  {{ errorMessage }}
+                </div>
+  
+                <!-- Form -->
+                <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="space-y-6">
+                  <!-- Event Name -->
+                  <div class="form-group">
+                    <label for="eventName" class="block text-sm font-medium text-gray-700 mb-1">Nom de l'événement</label>
+                    <input
+                      type="text"
+                      id="eventName"
+                      formControlName="eventName"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-300 ease-in-out"
+                      [ngClass]="{'border-red-500': eventForm.get('eventName')?.invalid && eventForm.get('eventName')?.touched}"
+                    >
+                    <div *ngIf="eventForm.get('eventName')?.invalid && eventForm.get('eventName')?.touched" class="text-red-600 text-xs mt-1">
+                      Le nom de l'événement est requis
+                    </div>
+                  </div>
+  
+                  <!-- Description -->
+                  <div class="form-group">
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <textarea
+                      id="description"
+                      formControlName="description"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-300 ease-in-out resize-y"
+                      rows="4"
+                      [ngClass]="{'border-red-500': eventForm.get('description')?.invalid && eventForm.get('description')?.touched}"
+                    ></textarea>
+                    <div *ngIf="eventForm.get('description')?.invalid && eventForm.get('description')?.touched" class="text-red-600 text-xs mt-1">
+                      La description est requise
+                    </div>
+                  </div>
+  
+                  <!-- Start Date -->
+                  <div class="form-group">
+                    <label for="startDate" class="block text-sm font-medium text-gray-700 mb-1">Date de début</label>
+                    <input
+                      type="datetime-local"
+                      id="startDate"
+                      formControlName="startDate"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-300 ease-in-out"
+                      [ngClass]="{'border-red-500': eventForm.get('startDate')?.invalid && eventForm.get('startDate')?.touched}"
+                    >
+                    <div *ngIf="eventForm.get('startDate')?.invalid && eventForm.get('startDate')?.touched" class="text-red-600 text-xs mt-1">
+                      La date de début est requise
+                    </div>
+                  </div>
+  
+                  <!-- End Date -->
+                  <div class="form-group">
+                    <label for="endDate" class="block text-sm font-medium text-gray-700 mb-1">Date de fin</label>
+                    <input
+                      type="datetime-local"
+                      id="endDate"
+                      formControlName="endDate"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-300 ease-in-out"
+                      [ngClass]="{'border-red-500': eventForm.get('endDate')?.invalid && eventForm.get('endDate')?.touched}"
+                    >
+                    <div *ngIf="eventForm.get('endDate')?.invalid && eventForm.get('endDate')?.touched" class="text-red-600 text-xs mt-1">
+                      La date de fin est requise
+                    </div>
+                  </div>
+  
+                  <!-- Location -->
+                  <div class="form-group">
+                    <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Lieu</label>
+                    <input
+                      type="text"
+                      id="location"
+                      formControlName="location"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-300 ease-in-out"
+                      [ngClass]="{'border-red-500': eventForm.get('location')?.invalid && eventForm.get('location')?.touched}"
+                    >
+                    <div *ngIf="eventForm.get('location')?.invalid && eventForm.get('location')?.touched" class="text-red-600 text-xs mt-1">
+                      Le lieu est requis
+                    </div>
+                  </div>
+  
+                  <!-- Event Image -->
+                  <div class="form-group">
+                    <label for="eventImage" class="block text-sm font-medium text-gray-700 mb-1">URL de l'image</label>
+                    <input
+                      type="text"
+                      id="eventImage"
+                      formControlName="eventImage"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-300 ease-in-out"
+                    >
+                  </div>
+  
+                  <!-- Event Type -->
+                  <div class="form-group">
+                    <label for="eventType" class="block text-sm font-medium text-gray-700 mb-1">Type d'événement</label>
+                    <select
+                      id="eventType"
+                      formControlName="eventType"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-300 ease-in-out"
+                      [ngClass]="{'border-red-500': eventForm.get('eventType')?.invalid && eventForm.get('eventType')?.touched}"
+                    >
+                      <option value="" disabled>Sélectionner un type</option>
+                      <option *ngFor="let type of typeEvents" [value]="type">{{type}}</option>
+                    </select>
+                    <div *ngIf="eventForm.get('eventType')?.invalid && eventForm.get('eventType')?.touched" class="text-red-600 text-xs mt-1">
+                      Le type d'événement est requis
+                    </div>
+                  </div>
+  
+                  <!-- Buttons -->
+                  <div class="flex justify-end space-x-4 mt-8">
+                    <button
+                      type="button"
+                      class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition duration-300 ease-in-out"
+                      (click)="cancel()"
+                    >
+                      Annuler
+                    </button>
+                    <button
+                      type="submit"
+                      class="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition duration-300 ease-in-out"
+                      [disabled]="eventForm.invalid"
+                    >
+                      Mettre à jour
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- End Form Section -->
+        </div>
+        <!-- End General Report -->
+      </div>
+      <!-- End Content -->
+    </div>
+    <!-- End Wrapper -->
+  </body>

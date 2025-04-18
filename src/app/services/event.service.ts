@@ -5,6 +5,7 @@ import { Event } from '../models/event';
 import { EventInteraction } from '../models/event-interaction';
 import { User } from '../models/user';
 import { AuthService } from './auth.service';
+import { Event as MyEvent } from 'src/app/models/event';
 
 @Injectable({
   providedIn: 'root'
@@ -15,64 +16,54 @@ export class EventService {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   // Helper method to get headers with Authorization token
-  private getHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      'Authorization': `Bearer ${this.authService.getToken()}`
-    });
-  }
+ // Helper method to get headers with Authorization token
+ private getHeaders(): HttpHeaders {
+  return new HttpHeaders({
+    'Authorization': `Bearer ${this.authService.getToken()}`
+  });
+}
+
 
   // Get all events (added the method you requested)
-  getEvents(): Observable<Event[]> {
+  /*getEvents(): Observable<Event[]> {
     return this.http.get<Event[]>(`${this.apiUrl}/all`); // No headers needed
-}
+}*/
 
   // Create event
   addEvent(event: Event): Observable<Event> {
-    return this.http.post<Event>(this.apiUrl, event, {
-      headers: this.getHeaders()
-    });
+    return this.http.post<Event>(`${this.apiUrl}/add`, event);
   }
 
   // Update event
   updateEvent(eventId: number, updatedEvent: Event): Observable<Event> {
-    return this.http.put<Event>(`${this.apiUrl}/${eventId}`, updatedEvent, {
-      headers: this.getHeaders()
-    });
+    return this.http.put<Event>(`${this.apiUrl}/update/${eventId}`, updatedEvent); 
   }
 
   // Delete event
   deleteEvent(eventId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${eventId}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.delete<void>(`${this.apiUrl}/delete/${eventId}`);
   }
 
   // Get event by ID
   getEventById(eventId: number): Observable<Event> {
-    return this.http.get<Event>(`${this.apiUrl}/${eventId}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<Event>(`${this.apiUrl}/getevent/${eventId}`);
   }
 
   // Get events by category
-  showEventsByCategory(category: string): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.apiUrl}/category/${category}`, {
-      headers: this.getHeaders()
-    });
+  showEventsByCategory(category: string): Observable<MyEvent[]> {
+    return this.http.get<MyEvent[]>(`${this.apiUrl}/category/${category}`);
   }
 
   // Get all events
   getAllEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(this.apiUrl, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<Event[]>(`${this.apiUrl}/all`);
   }
 
   // Add user to event
   addUserToEvent(eventId: number, userId: number): Observable<Event> {
     return this.http.post<Event>(
-      `${this.apiUrl}/${eventId}/register`,
-      { userId },
+      `${this.apiUrl}/${eventId}/addUser/${userId}`,
+      {},
       { headers: this.getHeaders() }
     );
   }
@@ -89,9 +80,7 @@ export class EventService {
     const formData = new FormData();
     formData.append('eventImage', eventImage);
 
-    return this.http.put<Event>(`${this.apiUrl}/${idEvent}/image`, formData, {
-      headers: this.getHeaders()
-    });
+    return this.http.put<Event>(`${this.apiUrl}/${idEvent}/upload-image`, formData);
   }
 
   // Get image URL for event
@@ -104,7 +93,7 @@ export class EventService {
   // Record interaction
   recordInteraction(userId: number, eventId: number, interactionType: string): Observable<EventInteraction> {
     return this.http.post<EventInteraction>(
-      `${this.apiUrl}/${eventId}/interactions`,
+      `${this.apiUrl}/${eventId}/interact`,
       { userId, interactionType },
       { headers: this.getHeaders() }
     );

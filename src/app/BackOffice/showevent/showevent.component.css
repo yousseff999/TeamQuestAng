@@ -1,0 +1,10 @@
+.event-card {
+    border: 1px solid #e5e7eb; /* Light gray border to match the image */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Softer shadow */
+    border-radius: 0.5rem; /* Matches rounded-lg */
+  }
+  
+  /* Ensure the container doesn't break the layout */
+  .container {
+    max-width: 100%; /* Override Tailwind's default max-width */
+  }

@@ -3,10 +3,10 @@ import { User } from './user';
 import { Activity } from './activity';
 
 export enum TypeEvent {
-    WORKSHOP = 'WORKSHOP',
-    CONFERENCE = 'CONFERENCE',
-    HACKATHON = 'HACKATHON',
-    MEETUP = 'MEETUP'
+    SPORTS = 'SPORTS',
+    CULTURAL = 'CULTURAL',
+    CAMPING = 'CAMPING',
+    PARTY = 'PARTY'
   }
 
 export interface Event {

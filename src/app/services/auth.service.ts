@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 /*interface LoginResponse {
     id: number;
     role: string;
@@ -15,7 +16,7 @@ export class AuthService {
   private apiUrl = 'http://localhost:8086/api/auth'; // Replace with your actual backend API URL
   
  
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router: Router) {}
 
   // Login method that sends credentials to the backend and stores user data
   login(email: string, password: string): Observable<any> {
@@ -54,11 +55,16 @@ export class AuthService {
     localStorage.removeItem('userId');
     localStorage.removeItem('role');
     localStorage.removeItem('token');
+    sessionStorage.clear();
+    // Redirect to login page
+    this.router.navigate(['/login']);
   }
 
   // Method to check if the user is authenticated (has token)
-  isAuthenticated(): boolean {
+  /*isAuthenticated(): boolean {
     return !!this.getToken(); // Returns true if token exists, false otherwise
-  }
+  }*/
+    isAuthenticated(): boolean {
+      return !!localStorage.getItem('token');
+    }
 }
-

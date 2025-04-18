@@ -1,32 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/services/event.service';
 import { Event, TypeEvent } from 'src/app/models/event';
-
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-showevent',
   templateUrl: './showevent.component.html',
   styleUrls: ['./showevent.component.css']
 })
 export class ShoweventComponent implements OnInit {
-
   events: Event[] = [];
-  event: Event = {} as Event;
   eventTypeEnum = TypeEvent;
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService,private router: Router,private location: Location) { }
 
   ngOnInit(): void {
     this.loadEvents();
   }
-
-  // Load all events
-  loadEvents(): void {
-    this.eventService.getEvents().subscribe((events) => {
-      this.events = events;
-    }, error => {
-      console.error('Error fetching events:', error);
-    });
+  goBack() {
+    this.location.back();
   }
+  
+    loadEvents(): void {
+      this.eventService.getAllEvents().subscribe((data: Event[]) => {
+        this.events = data;
+        console.log('data',data);
+      });
+    }
 
   // Add a new event
   addEvent(event: Event): void {
@@ -44,16 +44,19 @@ export class ShoweventComponent implements OnInit {
 
   // Delete an event
   deleteEvent(eventId: number): void {
-    this.eventService.deleteEvent(eventId).subscribe(() => {
-      this.loadEvents();
+    this.eventService.deleteEvent(eventId).subscribe({
+      next: () => {
+        this.loadEvents(); // Refresh the event list after deletion
+      },
+      error: (err) => {
+        console.error('Error deleting event:', err);
+      }
     });
   }
 
   // Get event details
   getEventDetails(eventId: number): void {
-    this.eventService.getEventById(eventId).subscribe((event) => {
-      this.event = event;
-    });
+    this.router.navigate(['/event/update', eventId]);
   }
 
   // Get events by category
