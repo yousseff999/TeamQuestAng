@@ -22,9 +22,11 @@ export class TeamService {
 
   // Create team
   createTeam(team: Team): Observable<Team> {
-    return this.http.post<Team>(this.apiUrl, team, {
-      headers: this.getHeaders()
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
     });
+  
+    return this.http.post<Team>(`${this.apiUrl}/create`, team, { headers });
   }
 
   // Get team by ID
@@ -57,12 +59,9 @@ export class TeamService {
 
   // Add user to team
   addUserToTeam(teamId: number, userId: number): Observable<Team> {
-    return this.http.post<Team>(
-      `${this.apiUrl}/${teamId}/members`,
-      { userId },
-      { headers: this.getHeaders() }
-    );
+    return this.http.post<Team>(`${this.apiUrl}/${teamId}/add-user/${userId}`, {});
   }
+  
 
   // Remove user from team
   removeUserFromTeam(teamId: number, userId: number): Observable<Team> {

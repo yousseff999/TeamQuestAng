@@ -906,61 +906,83 @@
         </div>
         <!-- end Browser Stats -->
     
-        <!-- Start Recent Sales -->
-        <div class="card col-span-2 xl:col-span-1">
-            <div class="card-header">Recent Sales</div>
+       <!-- Event Participants Table -->
+<div class="card col-span-2 xl:col-span-1">
+  <div class="card-header">Event Participants</div>
+
+  <div *ngIf="error" class="p-4 text-red-500">
+      {{error}}
+  </div>
+
+  <table class="table-auto w-full text-left">
+      <thead>
+          <tr>
+              <th class="px-4 py-2 border-r">Event</th>
+              <th class="px-4 py-2 border-r">Participant Name</th>
+              <th class="px-4 py-2">Email</th>
+          </tr>
+      </thead>
+      <tbody class="text-gray-600">
+        <ng-container *ngIf="!loading; else loadingTemplate">
+            <ng-container *ngFor="let item of eventParticipants">
+                <!-- First row shows event name -->
+                <tr *ngIf="item.users.length > 0">                    
+                    <td class="border border-l-0 px-4 py-2 font-medium" [attr.rowspan]="item.users.length">
+                        <div class="flex items-center">
+                            <i class="fas fa-plus-circle mr-2 text-indigo-500 text-sm cursor-pointer hover:text-indigo-700" 
+                               [title]="'Add user to event'"
+                               (click)="navigateToAddUser(item.event.eventId)"></i>
+                            <span>{{item.event.eventName}}</span>
+                        </div>
+                    </td>
+                    <td class="border border-l-0 px-4 py-2">
+                        {{item.users[0].username}} 
+                    </td>
+                    <td class="border border-l-0 border-r-0 px-4 py-2">
+                        {{item.users[0].email}}
+                    </td>
+                </tr>
+                
+                <!-- Subsequent rows for additional users -->
+                <tr *ngFor="let user of item.users.slice(1)">
+                    <td class="border border-l-0 px-4 py-2">
+                        {{user.username}} 
+                    </td>
+                    <td class="border border-l-0 border-r-0 px-4 py-2">
+                        {{user.email}}
+                    </td>
+                </tr>
     
-            <table class="table-auto w-full text-left">
-                <thead>
-                    <tr>
-                        <th class="px-4 py-2 border-r"></th>
-                        <th class="px-4 py-2 border-r">product</th>
-                        <th class="px-4 py-2 border-r">price</th>
-                        <th class="px-4 py-2">date</th>
-                    </tr>
-                </thead>
-                <tbody class="text-gray-600">
+                <!-- Case when no participants -->
+                <tr *ngIf="item.users.length === 0">
+                    <td class="border border-l-0 px-4 py-2">
+                        <div class="flex items-center">
+                            <i class="fas fa-plus-circle mr-2 text-indigo-500 text-sm cursor-pointer hover:text-indigo-700" 
+                               [title]="'Add user to this event'"
+                               (click)="navigateToAddUser(item.event.eventId)"></i>
+                            <span>{{item.event.eventName}}</span>
+                        </div>
+                    </td>
+                    <td class="border border-l-0 border-r-0 px-4 py-2 text-gray-400" colspan="2">
+                        No participants yet
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-container>
     
-                    <tr>                    
-                        <td class="border border-l-0 px-4 py-2 text-center text-green-500"><i class="fad fa-circle"></i></td>
-                        <td class="border border-l-0 px-4 py-2">Lightning to USB-C Adapter Lightning.</td>
-                        <td class="border border-l-0 px-4 py-2">$<span class="num-2"></span></td>
-                        <td class="border border-l-0 border-r-0 px-4 py-2"><span class="num-2"></span> minutes ago</td>
-                    </tr>
-                    <tr>                    
-                        <td class="border border-l-0 px-4 py-2 text-center text-yellow-500"><i class="fad fa-circle"></i></td>
-                        <td class="border border-l-0 px-4 py-2">Apple iPhone 8.</td>
-                        <td class="border border-l-0 px-4 py-2">$<span class="num-2"></span></td>
-                        <td class="border border-l-0 border-r-0 px-4 py-2"><span class="num-2"></span> minutes ago</td>
-                    </tr>
-                    <tr>                    
-                        <td class="border border-l-0 px-4 py-2 text-center text-green-500"><i class="fad fa-circle"></i></td>
-                        <td class="border border-l-0 px-4 py-2">Apple MacBook Pro.</td>
-                        <td class="border border-l-0 px-4 py-2">$<span class="num-2"></span></td>
-                        <td class="border border-l-0 border-r-0 px-4 py-2"><span class="num-2"></span> minutes ago</td>
-                    </tr>
-                    <tr>                    
-                        <td class="border border-l-0 px-4 py-2 text-center text-red-500"><i class="fad fa-circle"></i></td>
-                        <td class="border border-l-0 px-4 py-2">Samsung Galaxy S9.</td>
-                        <td class="border border-l-0 px-4 py-2">$<span class="num-2"></span></td>
-                        <td class="border border-l-0 border-r-0 px-4 py-2"><span class="num-2"></span> minutes ago</td>
-                    </tr>
-                    <tr>                    
-                        <td class="border border-l-0 px-4 py-2 text-center text-yellow-500"><i class="fad fa-circle"></i></td>
-                        <td class="border border-l-0 px-4 py-2">Samsung Galaxy S8 256GB.</td>
-                        <td class="border border-l-0 px-4 py-2">$<span class="num-2"></span></td>
-                        <td class="border border-l-0 border-r-0 px-4 py-2"><span class="num-2"></span> minutes ago</td>
-                    </tr>
-                    <tr>                    
-                        <td class="border border-l-0 border-b-0 px-4 py-2 text-center text-green-500"><i class="fad fa-circle"></i></td>
-                        <td class="border border-l-0 border-b-0 px-4 py-2">apple watch.</td>
-                        <td class="border border-l-0 border-b-0 px-4 py-2">$<span class="num-2"></span></td>
-                        <td class="border border-l-0 border-b-0 border-r-0 px-4 py-2"><span class="num-2"></span> minutes ago</td>
-                    </tr>
-                    
-                </tbody>
-            </table>
-        </div>
+        <ng-template #loadingTemplate>
+            <tr>
+                <td colspan="3" class="border border-l-0 border-r-0 px-4 py-2 text-center">
+                    <div class="flex justify-center items-center py-4">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                        <span class="ml-2">Loading participants...</span>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </tbody>
+  </table>
+</div>
         <!-- End Recent Sales -->
     
     

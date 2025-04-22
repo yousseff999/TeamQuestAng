@@ -15,6 +15,9 @@ import { ShoweventComponent } from './BackOffice/showevent/showevent.component';
 import { UpdateeventComponent } from './BackOffice/updateevent/updateevent.component';
 import { AddeventComponent } from './BackOffice/addevent/addevent.component';
 import { EventcategoryComponent } from './BackOffice/eventcategory/eventcategory.component';
+import { AddusertoeventComponent } from './BackOffice/addusertoevent/addusertoevent.component';
+import { UsercheckComponent } from './FrontOffice/usercheck/usercheck.component';
+import { TeamcreationComponent } from './FrontOffice/teamcreation/teamcreation.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,10 @@ import { EventcategoryComponent } from './BackOffice/eventcategory/eventcategory
     UpdateeventComponent,
     AddeventComponent,
     EventcategoryComponent,
+    AddusertoeventComponent,
+    UsercheckComponent,
+    TeamcreationComponent,
+    
   ],
   imports: [
     BrowserModule,

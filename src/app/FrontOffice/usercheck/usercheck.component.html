@@ -15,16 +15,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
-            <li class="dropdown relative">
-              <a href="#" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium flex items-center">
-                <span>Team</span>
-                <i class="bi bi-chevron-down toggle-dropdown ml-1"></i>
-              </a>
-              <ul class="dropdown-menu absolute hidden bg-gray-700 shadow-xl rounded-lg mt-2 w-48 z-10">
-                <li><a href="#all-teams" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">All Teams</a></li>
-                <li><a routerLink="/teamcreation" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Create Team</a></li>
-              </ul>
-            </li>
+            <li><a href="#team">Team</a></li>
             <li class="dropdown"><a href="#"><span>Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
                 <li><a href="#">Dropdown 1</a></li>
@@ -47,7 +38,7 @@
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
   
-       
+        <button class="cta-btn" (click)="goToLogin()">Connexion</button>
   
       </div>
     </header>
@@ -77,26 +68,24 @@
   
           <div class="row gy-4">
             <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-              <h3>Voluptatem dignissimos provident laboris nisi ut aliquip ex ea commodo</h3>
-              <img src="assets/FrontOffice/img/about.jpg" class="img-fluid rounded-4 mb-4" alt="">
-              <p>Ut fugiat ut sunt quia veniam. Voluptate perferendis perspiciatis quod nisi et. Placeat debitis quia recusandae odit et consequatur voluptatem. Dignissimos pariatur consectetur fugiat voluptas ea.</p>
-              <p>Temporibus nihil enim deserunt sed ea. Provident sit expedita aut cupiditate nihil vitae quo officia vel. Blanditiis eligendi possimus et in cum. Quidem eos ut sint rem veniam qui. Ut ut repellendus nobis tempore doloribus debitis explicabo similique sit. Accusantium sed ut omnis beatae neque deleniti repellendus.</p>
+              <h3>Sopra HR Software – L’innovation au service des Ressources Humaines et de l’Expérience Collaborateur</h3>
+              <img src="assets/FrontOffice/img/sopra_hr.jpeg" class="img-fluid rounded-4 mb-4" alt="">
+              <p>Bienvenue sur notre plateforme développée par Sopra HR Software, un acteur majeur dans le domaine des solutions RH innovantes. Cette application a été pensée pour faciliter la gestion et la participation aux événements organisés en interne.</p>
+              <p>Elle permet aux collaborateurs de découvrir les événements à venir, de s’y inscrire, de suivre les participants, et même d’interagir via une interface intuitive et moderne. Notre objectif est de renforcer la cohésion d’équipe, encourager l’engagement des employés et simplifier l’organisation des activités au sein de l’entreprise.</p>
             </div>
             <div class="col-lg-6" data-aos="fade-up" data-aos-delay="250">
               <div class="content ps-0 ps-lg-5">
                 <p class="fst-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua.
-                </p>
-                <ul>
-                  <li><i class="bi bi-check-circle-fill"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                  <li><i class="bi bi-check-circle-fill"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-                  <li><i class="bi bi-check-circle-fill"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
-                </ul>
-                <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident
-                </p>
+                    Notre application développée au sein de Sopra HR Software vise à renforcer la cohésion et l’esprit d’équipe en entreprise à travers des événements de team building. Elle offre une plateforme simple et intuitive pour organiser, gérer et suivre la participation des collaborateurs à diverses activités collectives.
+                  </p>
+                  <ul>
+                    <li><i class="bi bi-check-circle-fill"></i> <span>Facilite la gestion des événements internes et améliore l'engagement des collaborateurs.</span></li>
+                    <li><i class="bi bi-check-circle-fill"></i> <span>Encourage la communication et la collaboration entre les équipes.</span></li>
+                    <li><i class="bi bi-check-circle-fill"></i> <span>Contribue à créer un environnement de travail plus humain, motivant et interactif.</span></li>
+                  </ul>
+                  <p>
+                    En promouvant des activités de team building, cette initiative s’inscrit dans une démarche d’innovation RH, au cœur des valeurs de Sopra HR Software : performance, bien-être au travail et transformation digitale.
+                  </p>
   
                 <div class="position-relative mt-4">
                   <img src="assets/FrontOffice/img/about-2.jpg" class="img-fluid rounded-4" alt="">

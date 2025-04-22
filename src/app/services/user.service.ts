@@ -42,9 +42,7 @@ export class UserService {
 
   // Get all users
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<User[]>(`${this.apiUrl}/getallusers`);
   }
 
   // Delete user

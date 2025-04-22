@@ -396,38 +396,54 @@
   <div class="bg-gray-100 flex-1 p-6 md:mt-16">
     <!-- Events Section - Premium Design -->
     <!-- events section -->
-    <div class="mt-32 px-8">
-        <h2 class="text-xl font-bold mb-4">Events in {{ selectedCategory }}</h2>
-      
-        <ul *ngIf="events.length > 0; else noEvents">
-          <li *ngFor="let event of events" class="mb-4 p-4 border rounded shadow bg-white">
-            <div class="absolute top-4 right-4">
-                <span class="inline-block bg-white/90 text-indigo-600 text-xs font-semibold px-3 py-1 rounded-full">
-                  {{event.eventType}}
-                </span>
-              </div>
-            <div class="p-5">
-              <div class="flex items-center text-sm text-gray-500 mb-2">
-                <i class="far fa-calendar-alt mr-2"></i>
-                <span>{{ event.startDate | date: 'mediumDate' }}</span>
-              </div>
-      
-              <h3 class="text-xl font-bold text-gray-900 mb-2">{{ event.eventName }}</h3>
-      
-              <p class="text-gray-600 mb-4 line-clamp-2">{{ event.description }}</p>
-      
-              <div class="flex items-center text-sm text-gray-500 mb-4">
-                <i class="far fa-map-marker-alt mr-2"></i>
-                <span>{{ event.location }}</span>
-              </div>
-            </div>
-          </li>
-        </ul>
-      
-        <ng-template #noEvents>
-          <p class="text-gray-600">No events found for {{ selectedCategory }}.</p>
-        </ng-template>
+<div class="mt-32 px-8">
+  <h2 class="text-xl font-bold mb-4">Events in {{ selectedCategory }}</h2>
+
+  <ul *ngIf="events.length > 0; else noEvents">
+    <li *ngFor="let event of events" class="relative mb-4 p-4 border rounded shadow bg-white">
+      <div class="absolute top-4 right-4">
+        <span class="inline-block bg-white/90 text-indigo-600 text-xs font-semibold px-3 py-1 rounded-full">
+          {{ event.eventType }}
+        </span>
       </div>
+      <div class="p-5">
+        <div class="flex items-center text-sm text-gray-500 mb-2">
+          <i class="far fa-calendar-alt mr-2"></i>
+          <span>{{ event.startDate | date: 'mediumDate' }}</span>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-900 mb-2">{{ event.eventName }}</h3>
+
+        <p class="text-gray-600 mb-4 line-clamp-2">{{ event.description }}</p>
+
+        <div class="flex items-center text-sm text-gray-500 mb-4">
+          <i class="far fa-map-marker-alt mr-2"></i>
+          <span>{{ event.location }}</span>
+        </div>
+
+        <!-- Edit & Delete Buttons -->
+        
+        <!-- Edit & Delete Buttons (styled) -->
+        <div class="flex justify-between">
+          <a [routerLink]="['/event/update', event.eventId]"
+             class="text-indigo-600 hover:text-indigo-800 font-medium text-sm flex items-center transition">
+            <i class="far fa-edit mr-1"></i> Edit
+          </a>
+
+          <button (click)="deleteEvent(event.eventId)"
+                  class="text-red-600 hover:text-red-800 font-medium text-sm flex items-center transition">
+            <i class="far fa-trash-alt mr-1"></i> Delete
+          </button>
+        </div>  
+      </div>
+    </li>
+  </ul>
+
+  <ng-template #noEvents>
+    <p class="text-gray-600">No events found for {{ selectedCategory }}.</p>
+  </ng-template>
+</div>
+
       
   <!-- end events section -->
   

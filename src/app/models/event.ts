@@ -21,4 +21,5 @@ export interface Event {
   feedbacks: Feedback[];
   participants: User[];
   activities: Activity[];
+  users?: User[];
 }

@@ -63,16 +63,18 @@ export class EventService {
   addUserToEvent(eventId: number, userId: number): Observable<Event> {
     return this.http.post<Event>(
       `${this.apiUrl}/${eventId}/addUser/${userId}`,
-      {},
-      { headers: this.getHeaders() }
+      {}
     );
   }
 
+  removeUserFromEvent(eventId: number, userId: number): Observable<Event> {
+    return this.http.delete<Event>(`${this.apiUrl}/${eventId}/users/${userId}`);
+  }
+  
+
   // Get event users
   showEventUsers(eventId: number): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/${eventId}/users`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<User[]>(`${this.apiUrl}/${eventId}/users`);
   }
 
   // Update event image
@@ -85,9 +87,7 @@ export class EventService {
 
   // Get image URL for event
   getImageUrlForEventByID(idEvent: number): Observable<{ imageUrl: string }> {
-    return this.http.get<{ imageUrl: string }>(`${this.apiUrl}/${idEvent}/image-url`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<{ imageUrl: string }>(`${this.apiUrl}/${idEvent}/image-url`);
   }
 
   // Record interaction

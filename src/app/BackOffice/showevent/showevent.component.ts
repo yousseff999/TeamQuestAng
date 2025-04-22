@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 export class ShoweventComponent implements OnInit {
   events: Event[] = [];
   eventTypeEnum = TypeEvent;
-
+  
   constructor(private eventService: EventService,private router: Router,private location: Location) { }
 
   ngOnInit(): void {
@@ -27,7 +27,7 @@ export class ShoweventComponent implements OnInit {
         console.log('data',data);
       });
     }
-
+    
   // Add a new event
   addEvent(event: Event): void {
     this.eventService.addEvent(event).subscribe((newEvent) => {
@@ -72,4 +72,5 @@ export class ShoweventComponent implements OnInit {
       console.log('User added to event', event);
     });
   }
+ 
 }

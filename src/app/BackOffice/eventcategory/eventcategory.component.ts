@@ -24,4 +24,31 @@ export class EventcategoryComponent implements OnInit {
       }
     });
   }
+
+loadEventsByCategory() {
+    this.eventService.showEventsByCategory(this.selectedCategory).subscribe({
+      next: (data) => this.events = data,
+      error: (err) => console.error(err)
+    });
+  }
+  
+  updateEvent(eventId: number, updatedEvent: MyEvent) {
+    this.eventService.updateEvent(eventId, updatedEvent).subscribe({
+      next: (updated) => {
+        console.log('Event updated successfully:', updated);
+        this.loadEventsByCategory();
+      },
+      error: (err) => console.error('Error updating event:', err)
+    });
+  }
+
+  deleteEvent(eventId: number) {
+    this.eventService.deleteEvent(eventId).subscribe({
+      next: () => {
+        console.log('Event deleted successfully');
+        this.loadEventsByCategory();
+      },
+      error: (err) => console.error('Error deleting event:', err)
+    });
+  }
 }

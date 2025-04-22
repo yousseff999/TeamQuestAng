@@ -4,6 +4,7 @@ import { Rank } from './rank';
 export interface Team {
   id: number;
   name: string;
+  description: string;
   creationDate: Date;
   score_t: number;
   members: User[];
