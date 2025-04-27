@@ -325,16 +325,11 @@
     
           <p class="uppercase text-xs text-gray-600 mb-4 tracking-wider">homes</p>
     
-          <!-- link -->
-          <a href="./index.html" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-            <i class="fad fa-chart-pie text-xs mr-2"></i>                
-            Analytics dashboard
-          </a>
-          <!-- end link -->
+          
     <!-- link -->
     <div class="relative mb-3">
       <button class="flex items-center capitalize font-medium text-sm text-gray-600 hover:text-teal-600 transition ease-in-out duration-500 w-full text-left" (click)="toggleDropdown()">
-        <i class="fad fa-shopping-cart text-xs mr-2"></i>
+        <i class="fad fa-calendar-alt text-xs mr-2"></i>
         Events
         <i class="fad fa-chevron-down text-xs ml-auto" [ngClass]="{'rotate-180': dropdownOpen}"></i>
       </button>
@@ -366,8 +361,27 @@
         </div>
         
         
+        
       </div>
     </div>
+    <!-- link -->
+    <a routerLink="/allteams" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <i class="fad fa-users text-xs mr-2"></i>         
+      Users
+    </a>
+    <!-- end link -->
+     <!-- link -->
+     <a routerLink="/allteams" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <i class="fas fa-users text-xs mr-2"></i>         
+      Teams
+    </a>
+    <!-- end link -->
+     <!-- link -->
+<a routerLink="/allteams" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+  <i class="fas fa-building text-xs mr-2"></i>         
+  Departments
+</a>
+<!-- end link -->
 <!-- end link -->
 
           <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">apps</p>

@@ -23,7 +23,7 @@ export class AddusertoeventComponent implements OnInit {
     private router: Router
   ) {}
   goBack(): void {
-    this.router.navigate(['/admin/:userId']); // Adjust the route as needed
+    this.router.navigate(['/admin']);
   }
   ngOnInit() {
     const eventId = Number(this.route.snapshot.paramMap.get('id'));

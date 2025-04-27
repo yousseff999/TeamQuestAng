@@ -13,6 +13,10 @@ import { EventcategoryComponent } from './BackOffice/eventcategory/eventcategory
 import { AddusertoeventComponent } from './BackOffice/addusertoevent/addusertoevent.component';
 import { UsercheckComponent } from './FrontOffice/usercheck/usercheck.component';
 import { TeamcreationComponent } from './FrontOffice/teamcreation/teamcreation.component';
+import { AllteamsComponent } from './BackOffice/allteams/allteams.component';
+import { JointeamComponent } from './FrontOffice/jointeam/jointeam.component';
+import { CreatechallengeComponent } from './FrontOffice/createchallenge/createchallenge.component';
+import { QuestionComponent } from './FrontOffice/question/question.component';
 
 const routes: Routes = [
   {path: '',component: UsercheckComponent},
@@ -26,7 +30,10 @@ const routes: Routes = [
   {path: 'eventcategory/:category',component: EventcategoryComponent},
   {path: 'addusertoevent/:id',component: AddusertoeventComponent},
   {path: 'teamcreation',component: TeamcreationComponent},
-
+  {path: 'allteams',component: AllteamsComponent},
+  {path: 'jointeam',component: JointeamComponent},
+  {path: 'createchallenge',component: CreatechallengeComponent},
+  {path: 'questions',component: QuestionComponent},
   //{path: '',redirectTo: '/login',pathMatch: 'full'}
   //{ path: '**', redirectTo: '/home' } // Handle invalid routes
 ];

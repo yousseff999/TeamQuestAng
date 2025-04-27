@@ -1,0 +1,154 @@
+.quiz-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease;
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+  
+  .title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 28px;
+  }
+  
+  .difficulty-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  
+  .label {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .select {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  .orange-btn {
+    background-color: #ff9800;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: fit-content;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  .orange-btn:hover {
+    background-color: #fb8c00;
+    transform: scale(1.05);
+  }
+  
+  .loading {
+    text-align: center;
+    color: #777;
+    font-size: 18px;
+  }
+  
+  .error {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  
+  .questions-section {
+    margin-top: 30px;
+  }
+  
+  .section-title {
+    margin-bottom: 20px;
+    font-size: 22px;
+    text-align: center;
+    color: #444;
+  }
+  
+  .question-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+  }
+  
+  .question-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .question-text {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 18px;
+  }
+  
+  .options-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .option-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .option-input {
+    margin-right: 10px;
+  }
+  .orange-btn {
+    background-color: #ff9800;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: fit-content;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  .btn-submit {
+    background-color: #ff9800;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: fit-content;
+    margin: 20px auto;
+    display: block;
+  }
+  
+  .btn-submit:hover {
+    background-color: #fb8c00;
+    transform: scale(1.05);
+  }
+  

@@ -1,0 +1,237 @@
+<body class="index-page bg-gradient-to-br from-indigo-100 to-teal-100 min-h-screen">
+    <!-- Header (Simplified for this component, can reuse the same header as teamcreation) -->
+    <header id="header" class="header d-flex align-items-center fixed-top shadow-lg bg-gray-800 bg-opacity-95 backdrop-blur-sm">
+      <div class="container-fluid container-xl position-relative d-flex align-items-center">
+        <a href="index.html" class="logo d-flex align-items-center me-auto">
+          <h1 class="sitename text-2xl font-extrabold text-indigo-400 tracking-wide">TeamQuest</h1>
+        </a>
+        <nav id="navmenu" class="navmenu">
+          <ul class="flex space-x-6">
+            <li><a href="#" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium cursor-pointer">Home</a></li>
+            <li><a href="#about" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">About</a></li>
+            <li><a href="#services" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Services</a></li>
+            <li><a href="#portfolio" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Portfolio</a></li>
+            <li class="dropdown relative">
+              <a href="#" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium flex items-center">
+                <i class="fad fa-calendar-alt text-xs mr-2"></i>
+                <span>Team</span>
+                <i class="bi bi-chevron-down toggle-dropdown ml-1"></i>
+              </a>
+              <ul class="dropdown-menu absolute hidden bg-gray-700 shadow-xl rounded-lg mt-2 w-48 z-10">
+                <li><a href="#all-teams" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">All Teams</a></li>
+                <li><a href="#create-team" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Create Team</a></li>
+              </ul>
+            </li>
+            <li class="dropdown relative">
+              <a href="#" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium flex items-center">
+                <span>Event</span>
+                <i class="bi bi-chevron-down toggle-dropdown ml-1"></i>
+              </a>
+              <ul class="dropdown-menu absolute hidden bg-gray-700 shadow-xl rounded-lg mt-2 w-48 z-10">
+                <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Dropdown 1</a></li>
+                <li class="dropdown relative">
+                  <a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300 flex items-center">
+                    <span>Deep Dropdown</span>
+                    <i class="bi bi-chevron-down toggle-dropdown ml-1"></i>
+                  </a>
+                  <ul class="dropdown-menu absolute hidden bg-gray-700 shadow-xl rounded-lg ml-48 -mt-10 w-48">
+                    <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 1</a></li>
+                    <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 2</a></li>
+                    <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 3</a></li>
+                    <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 4</a></li>
+                    <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 5</a></li>
+                  </ul>
+                </li>
+                <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Dropdown 2</a></li>
+                <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Dropdown 3</a></li>
+                <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Dropdown 4</a></li>
+              </ul>
+            </li>
+            <li><a href="#contact" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Contact</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list text-gray-200 cursor-pointer"></i>
+        </nav>
+      </div>
+    </header>
+  
+    <!-- Main Content -->
+<main class="main pt-24 pb-16">
+    <div class="container max-w-4xl mx-auto">
+  
+      <!-- Show Only If Not Editing -->
+      <div *ngIf="!selectedTeam" class="relative bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c')] bg-cover bg-center rounded-2xl shadow-2xl p-10 border border-gray-300/50 shadow-indigo-500/20 transform hover:shadow-indigo-500/40 hover:scale-102 transition duration-500 bg-gray-800/70 bg-blend-multiply">
+        <h2 class="relative text-4xl font-extrabold text-white mb-8 flex items-center">
+          <i class="fas fa-users text-indigo-400 mr-4"></i>
+          All Teams
+          <span class="absolute -bottom-2 left-0 w-24 h-1 bg-gradient-to-r from-indigo-400 to-teal-400 rounded-full"></span>
+        </h2>
+  
+        <!-- Message Display -->
+        <div *ngIf="message" class="mb-6 p-4 rounded-lg text-white text-center font-medium" [ngClass]="message.type === 'success' ? 'bg-green-600' : 'bg-red-600'">
+          {{ message.text }}
+        </div>
+  
+        <!-- Loading Spinner -->
+        <div *ngIf="isLoading" class="flex justify-center mb-6">
+          <svg class="animate-spin h-8 w-8 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </div>
+  
+        <!-- Teams List -->
+        <div>
+          <ul class="space-y-4">
+            <li *ngFor="let team of teams" class="flex items-center justify-between text-gray-800 bg-gray-300/90 p-4 rounded-lg shadow-sm hover:bg-gray-400 hover:shadow-md transition duration-300">
+              <div class="flex items-center">
+                <i class="fas fa-users text-indigo-600 mr-3"></i>
+                <div>
+                  <span class="font-semibold">{{ team.name }}</span>
+                  <p class="text-sm text-gray-600">{{ team.description }}</p>
+                  <span class="text-xs text-gray-500">Created on: {{ team.creationDate | date:'mediumDate' }}</span>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <button (click)="editTeam(team)" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300 font-semibold shadow-sm">
+                  Edit
+                </button>
+                <button (click)="deleteTeam(team.id)" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300 font-semibold shadow-sm">
+                  Delete
+                </button>
+              </div>
+            </li>
+            <li *ngIf="!teams || teams.length === 0 && !isLoading" class="text-gray-200 italic p-4">No teams available.</li>
+          </ul>
+        </div>
+      </div>
+  
+     <!-- Edit Team Form -->
+<div *ngIf="selectedTeam" class="relative bg-gray-800/90 p-10 rounded-2xl shadow-xl border border-gray-400/50">
+  <h3 class="relative text-3xl font-bold text-white mb-6">
+    Edit Team
+    <span class="absolute -bottom-1 left-0 w-20 h-1 bg-gradient-to-r from-indigo-400 to-teal-400 rounded-full"></span>
+  </h3>
+
+  <div class="space-y-6">
+    <div>
+      <label class="block font-semibold text-white mb-2">Team Name</label>
+      <input
+        type="text"
+        [(ngModel)]="selectedTeam.name"
+        class="w-full p-4 border border-gray-300 rounded-lg bg-white"
+        placeholder="Enter team name"
+      />
+    </div>
+
+    <div>
+      <label class="block font-semibold text-white mb-2">Description</label>
+      <textarea
+        [(ngModel)]="selectedTeam.description"
+        class="w-full p-4 border border-gray-300 rounded-lg bg-white"
+        rows="4"
+        placeholder="Describe your team"
+      ></textarea>
+    </div>
+    <div>
+      <label class="block font-semibold text-white mb-2">Creation Date</label>
+      <input
+        type="date"
+        [(ngModel)]="selectedTeam.creationDate"
+        class="w-full p-4 border border-gray-300 rounded-lg bg-white"
+      />
+    </div>
+
+    <div class="flex gap-4">
+      <!-- Update Button -->
+      <button
+        (click)="updateTeam()"
+        class="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition"
+      >
+        Update Team
+      </button>
+
+      <!-- Cancel Button -->
+      <button
+        (click)="cancelEdit()"
+        class="w-full bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+  
+    </div>
+  </main>
+  
+  
+    <!-- Footer (Reused from teamcreation.component.html) -->
+     <!-- Footer -->
+     <footer id="footer" class="footer dark-background">
+    
+      <div class="container footer-top">
+      <div class="row gy-4">
+          <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+              <span class="sitename">Dewi</span>
+          </a>
+          <div class="footer-contact pt-3">
+              <p>A108 Adam Street</p>
+              <p>New York, NY 535022</p>
+              <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+              <p><strong>Email:</strong> <span>info@example.com</span></p>
+          </div>
+          <div class="social-links d-flex mt-4">
+              <a href=""><i class="bi bi-twitter-x"></i></a>
+              <a href=""><i class="bi bi-facebook"></i></a>
+              <a href=""><i class="bi bi-instagram"></i></a>
+              <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+          </div>
+  
+          <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+          </ul>
+          </div>
+  
+          <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
+          </ul>
+          </div>
+  
+          <div class="col-lg-4 col-md-12 footer-newsletter">
+          <h4>Our Newsletter</h4>
+          <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
+          <form action="forms/newsletter.php" method="post" class="php-email-form">
+              <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+              <div class="loading">Loading</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+          </form>
+          </div>
+  
+      </div>
+      </div>
+  
+      <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Dewi</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
+      </div>
+      </div>
+  
+  </footer>
+  </body>

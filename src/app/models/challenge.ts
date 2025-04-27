@@ -6,5 +6,6 @@ export interface Challenge {
     description: string;
     difficultyLevel: number;
     score_c: number;
-    user: User;
+    creatorId: number;
+    opponentId: number;
   }

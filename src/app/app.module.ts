@@ -18,6 +18,10 @@ import { EventcategoryComponent } from './BackOffice/eventcategory/eventcategory
 import { AddusertoeventComponent } from './BackOffice/addusertoevent/addusertoevent.component';
 import { UsercheckComponent } from './FrontOffice/usercheck/usercheck.component';
 import { TeamcreationComponent } from './FrontOffice/teamcreation/teamcreation.component';
+import { AllteamsComponent } from './BackOffice/allteams/allteams.component';
+import { JointeamComponent } from './FrontOffice/jointeam/jointeam.component';
+import { CreatechallengeComponent } from './FrontOffice/createchallenge/createchallenge.component';
+import { QuestionComponent } from './FrontOffice/question/question.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,10 @@ import { TeamcreationComponent } from './FrontOffice/teamcreation/teamcreation.c
     AddusertoeventComponent,
     UsercheckComponent,
     TeamcreationComponent,
+    AllteamsComponent,
+    JointeamComponent,
+    CreatechallengeComponent,
+    QuestionComponent,
     
   ],
   imports: [

@@ -31,30 +31,22 @@ export class TeamService {
 
   // Get team by ID
   getTeamById(id: number): Observable<Team> {
-    return this.http.get<Team>(`${this.apiUrl}/${id}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<Team>(`${this.apiUrl}/getteam/${id}`);
   }
 
   // Get all teams
   getAllTeams(): Observable<Team[]> {
-    return this.http.get<Team[]>(this.apiUrl, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<Team[]>(`${this.apiUrl}/getall`);
   }
 
   // Update team
   updateTeam(id: number, team: Team): Observable<Team> {
-    return this.http.put<Team>(`${this.apiUrl}/${id}`, team, {
-      headers: this.getHeaders()
-    });
+    return this.http.put<Team>(`${this.apiUrl}/updateteam/${id}`, team);
   }
 
   // Delete team
   deleteTeam(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
   }
 
   // Add user to team
@@ -72,8 +64,6 @@ export class TeamService {
 
   // Get team rankings
   getTeamRankings(): Observable<Rank[]> {
-    return this.http.get<Rank[]>(`${this.apiUrl}/rankings`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<Rank[]>(`${this.apiUrl}/rankings`);
   }
 }

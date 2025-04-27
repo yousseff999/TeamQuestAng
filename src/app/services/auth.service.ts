@@ -59,7 +59,9 @@ export class AuthService {
     // Redirect to login page
     this.router.navigate(['/login']);
   }
-
+  getUsername(): string | null {
+    return localStorage.getItem('username'); // Or however you are saving username
+  }
   // Method to check if the user is authenticated (has token)
   /*isAuthenticated(): boolean {
     return !!this.getToken(); // Returns true if token exists, false otherwise
