@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChatMessage } from 'src/app/models/chat-message';
 import { NotificationService } from 'src/app/services/notification.service';
 
@@ -10,7 +10,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class HomeComponent implements OnInit  {
 
-  constructor(private router: Router,private notificationService: NotificationService) {}
+  constructor(private router: Router,private notificationService: NotificationService,private route: ActivatedRoute) {}
 
   goToLogin(): void {
     this.router.navigate(['/login']);
@@ -21,7 +21,14 @@ export class HomeComponent implements OnInit  {
       alert(`📢 Message from ${msg.sender}: ${msg.content}`);
     });
   }
-
+  scrollTo(id: string, event: Event) {
+    event.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+  
   ngOnDestroy(): void {
     this.notificationService.disconnect();
   }

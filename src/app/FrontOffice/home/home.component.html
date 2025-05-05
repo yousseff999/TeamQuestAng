@@ -11,38 +11,33 @@
   
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="#hero" class="active">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li class="dropdown relative">
-              <a href="#" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium flex items-center">
-                <span>Team</span>
-                <i class="bi bi-chevron-down toggle-dropdown ml-1"></i>
-              </a>
-              <ul class="dropdown-menu absolute hidden bg-gray-700 shadow-xl rounded-lg mt-2 w-48 z-10">
-                <li><a routerLink="/jointeam" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">All Teams</a></li>
-                <li><a routerLink="/teamcreation" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Create Team</a></li>
+            <li><a href="#" (click)="scrollTo('hero', $event)">Home</a></li>
+            <li><a href="#" (click)="scrollTo('about', $event)">About</a></li>
+            <li><a href="#" (click)="scrollTo('services', $event)">Services</a></li>
+            <li><a href="#" (click)="scrollTo('portfolio', $event)">Portfolio</a></li>   
+            <li class="dropdown">
+              <a href="#"><span>Team</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a routerLink="/jointeam">All Teams</a></li>
+                <li><a routerLink="/teamcreation">Create Team</a></li>
               </ul>
             </li>
-            <li class="dropdown"><a href="#"><span>Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            
+            <li class="dropdown"><a href="#"><span>Upcoming Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
-                <li><a href="#">Dropdown 1</a></li>
-                <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <li><a href="#">All events</a></li>
+                <li class="dropdown"><a href="#"><span>Select event category</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                   <ul>
-                    <li><a href="#">Deep Dropdown 1</a></li>
-                    <li><a href="#">Deep Dropdown 2</a></li>
-                    <li><a href="#">Deep Dropdown 3</a></li>
-                    <li><a href="#">Deep Dropdown 4</a></li>
-                    <li><a href="#">Deep Dropdown 5</a></li>
+                    <li><a href="#">Sport</a></li>
+                    <li><a href="#">Party</a></li>
+                    <li><a href="#">Camping</a></li>
+                    <li><a href="#">Culture</a></li>
                   </ul>
                 </li>
-                <li><a href="#">Dropdown 2</a></li>
-                <li><a href="#">Dropdown 3</a></li>
-                <li><a href="#">Dropdown 4</a></li>
+                <!-- <li><a href="#">Dropdown 2</a></li> -->
               </ul>
             </li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#" (click)="scrollTo('contact', $event)">Contact</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
@@ -57,7 +52,7 @@
       <!-- Hero Section -->
       <section id="hero" class="hero section dark-background">
   
-        <img src="assets/FrontOffice/img/hero-bg.jpg" alt="" data-aos="fade-in">
+        <img src="assets/FrontOffice/img/home.avif" alt="" data-aos="fade-in">
   
         <div class="container d-flex flex-column align-items-center">
           <h2 data-aos="fade-up" data-aos-delay="100">BOOST YOUR TEAM SPIRIT</h2>
@@ -77,8 +72,8 @@
   
           <div class="row gy-4">
             <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-              <h3>Voluptatem dignissimos provident laboris nisi ut aliquip ex ea commodo</h3>
-              <img src="assets/FrontOffice/img/about.jpg" class="img-fluid rounded-4 mb-4" alt="">
+              <h3>Our Sopra team is collaborative, friendly, and always brings good vibes to work.</h3>
+              <img src="assets/FrontOffice/img/lawled.jpg" class="img-fluid rounded-4 mb-4" alt="">
               <p>Ut fugiat ut sunt quia veniam. Voluptate perferendis perspiciatis quod nisi et. Placeat debitis quia recusandae odit et consequatur voluptatem. Dignissimos pariatur consectetur fugiat voluptas ea.</p>
               <p>Temporibus nihil enim deserunt sed ea. Provident sit expedita aut cupiditate nihil vitae quo officia vel. Blanditiis eligendi possimus et in cum. Quidem eos ut sint rem veniam qui. Ut ut repellendus nobis tempore doloribus debitis explicabo similique sit. Accusantium sed ut omnis beatae neque deleniti repellendus.</p>
             </div>

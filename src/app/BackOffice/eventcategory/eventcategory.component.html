@@ -395,10 +395,9 @@
     <!-- strat content -->
   <div class="bg-gray-100 flex-1 p-6 md:mt-16">
     <!-- Events Section - Premium Design -->
+     <h2 class="text-xl font-bold mb-4">Events in : {{ selectedCategory }}</h2>
     <!-- events section -->
 <div class="mt-32 px-8">
-  <h2 class="text-xl font-bold mb-4">Events in {{ selectedCategory }}</h2>
-
   <ul *ngIf="events.length > 0; else noEvents">
     <li *ngFor="let event of events" class="relative mb-4 p-4 border rounded shadow bg-white">
       <div class="absolute top-4 right-4">
@@ -407,6 +406,7 @@
         </span>
       </div>
       <div class="p-5">
+        <img *ngIf="imageUrls[event.eventId]" [src]="imageUrls[event.eventId]" alt="Event image" class="w-full h-48 object-cover rounded mb-4">
         <div class="flex items-center text-sm text-gray-500 mb-2">
           <i class="far fa-calendar-alt mr-2"></i>
           <span>{{ event.startDate | date: 'mediumDate' }}</span>

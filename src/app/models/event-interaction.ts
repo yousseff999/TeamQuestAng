@@ -4,8 +4,7 @@ import { Event } from './event';
 export enum InteractionType {
     LIKE = 'LIKE',
     COMMENT = 'COMMENT',
-    SHARE = 'SHARE',
-    ATTEND = 'ATTEND'
+    PARTICIPATE = 'PARTICIPATE'
   }
 
 export interface EventInteraction {

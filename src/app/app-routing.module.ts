@@ -17,13 +17,22 @@ import { AllteamsComponent } from './BackOffice/allteams/allteams.component';
 import { JointeamComponent } from './FrontOffice/jointeam/jointeam.component';
 import { CreatechallengeComponent } from './FrontOffice/createchallenge/createchallenge.component';
 import { QuestionComponent } from './FrontOffice/question/question.component';
+import { MapDialogComponent } from './map-dialog/map-dialog.component';
+import { AddactivityComponent } from './BackOffice/addactivity/addactivity.component';
+import { AllactivitiesComponent } from './BackOffice/allactivities/allactivities.component';
+import { UpdateactivityComponent } from './BackOffice/updateactivity/updateactivity.component';
+import { AllusersComponent } from './BackOffice/allusers/allusers.component';
+import { AlldepatmentsComponent } from './BackOffice/alldepatments/alldepatments.component';
+import { CreatedepatmentComponent } from './BackOffice/createdepatment/createdepatment.component';
+import { AlleventsComponent } from './FrontOffice/allevents/allevents.component';
+
 
 const routes: Routes = [
   {path: '',component: UsercheckComponent},
   {path: 'login',component: LoginComponent},
   {path: 'signup',component: SignUpComponent},
-  {path: 'home/:userId',component: HomeComponent,canActivate: [AuthGuard],data: { roles: ['USER'] }},
-  {path: 'admin/:userId',component: AdminComponent,canActivate: [AuthGuard],data: { roles: ['ADMIN'] }},
+  {path: 'home',component: HomeComponent,canActivate: [AuthGuard],data: { roles: ['USER'] }},
+  {path: 'admin',component: AdminComponent,canActivate: [AuthGuard],data: { roles: ['ADMIN'] }},
   {path: 'showevent',component: ShoweventComponent},
   {path: 'event/update/:id',component: UpdateeventComponent},
   {path: 'addevent',component: AddeventComponent},
@@ -34,6 +43,14 @@ const routes: Routes = [
   {path: 'jointeam',component: JointeamComponent},
   {path: 'createchallenge',component: CreatechallengeComponent},
   {path: 'questions',component: QuestionComponent},
+  {path: 'maps',component: MapDialogComponent},
+  {path: 'addactivity',component: AddactivityComponent},
+  {path: 'allactivities',component: AllactivitiesComponent},
+  {path: 'updateactivity',component: UpdateactivityComponent},
+  {path: 'allusers',component: AllusersComponent},
+  {path: 'alldepartments',component: AlldepatmentsComponent},
+  {path: 'createdepartment',component: CreatedepatmentComponent},
+  {path: 'allevents',component: AlleventsComponent},
   //{path: '',redirectTo: '/login',pathMatch: 'full'}
   //{ path: '**', redirectTo: '/home' } // Handle invalid routes
 ];

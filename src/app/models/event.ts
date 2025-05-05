@@ -10,6 +10,7 @@ export enum TypeEvent {
   }
 
 export interface Event {
+  target: HTMLInputElement;
   eventId: number;
   eventName: string;
   description: string;

@@ -1,0 +1,563 @@
+<body class="bg-gray-100">
+    <!-- Start Navbar (keep your existing navbar code exactly as provided) -->
+    <!-- ... your existing navbar code ... -->
+    <!-- End Navbar -->
+  <!-- start navbar -->
+  <div
+  class="md:fixed md:w-full md:top-0 md:z-20 flex flex-row flex-wrap items-center bg-white p-6 border-b border-gray-300">
+
+  <!-- logo -->
+  <div class="flex-none w-56 flex flex-row items-center">
+    <img src="assets/BackOffice/img/logo.png" class="w-10 flex-none">
+    <strong class="capitalize ml-1 flex-1">TeamQuest</strong>
+
+    <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden md:block">
+      <i class="fad fa-list-ul"></i>
+    </button>
+  </div>
+  <!-- end logo -->
+
+  <!-- navbar content toggle -->
+  <button id="navbarToggle" class="hidden md:block md:fixed right-0 mr-6">
+    <i class="fad fa-chevron-double-down"></i>
+  </button>
+  <!-- end navbar content toggle -->
+
+  <!-- navbar content -->
+  <div id="navbar"
+    class="animated md:hidden md:fixed md:top-0 md:w-full md:left-0 md:mt-16 md:border-t md:border-b md:border-gray-200 md:p-10 md:bg-white flex-1 pl-3 flex flex-row flex-wrap justify-between items-center md:flex-col md:items-center">
+    <!-- left -->
+    <div
+      class="text-gray-600 md:w-full md:flex md:flex-row md:justify-evenly md:pb-10 md:mb-10 md:border-b md:border-gray-200">
+      <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i
+          class="fad fa-envelope-open-text"></i></a>
+      <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i
+          class="fad fa-comments-alt"></i></a>
+      <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i
+          class="fad fa-check-circle"></i></a>
+      <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i
+          class="fad fa-calendar-exclamation"></i></a>
+    </div>
+    <!-- end left -->
+
+    <!-- right -->
+    <div class="flex flex-row-reverse items-center">
+
+      <!-- user -->
+      <div class="dropdown relative md:static">
+
+        <button class="menu-btn focus:outline-none focus:shadow-outline flex flex-wrap items-center">
+          <div class="w-8 h-8 overflow-hidden rounded-full">
+            <img class="w-full h-full object-cover" src="assets/BackOffice/img/user.svg">
+          </div>
+
+          <div class="ml-2 capitalize flex ">
+            <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">Si Youssef</h1>
+            <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
+          </div>
+        </button>
+
+        <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+
+        <div
+          class="text-gray-500 menu hidden md:mt-10 md:w-full rounded bg-white shadow-md absolute z-20 right-0 w-40 mt-5 py-2 animated faster">
+
+          <!-- item -->
+          <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
+            href="#">
+            <i class="fad fa-user-edit text-xs mr-1"></i>
+            edit my profile
+          </a>
+
+          <!-- end item -->
+
+          <!-- item -->
+          <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
+            href="#">
+            <i class="fad fa-inbox-in text-xs mr-1"></i>
+            my inbox
+          </a>
+          <!-- end item -->
+
+          <!-- item -->
+          <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
+            href="#">
+            <i class="fad fa-badge-check text-xs mr-1"></i>
+            tasks
+          </a>
+          <!-- end item -->
+
+          <!-- item -->
+          <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
+            href="#">
+            <i class="fad fa-comment-alt-dots text-xs mr-1"></i>
+            chats
+          </a>
+          <!-- end item -->
+
+          <hr>
+
+          <!-- item -->
+          <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
+            href="#">
+            <i class="fad fa-user-times text-xs mr-1"></i>
+            log out
+          </a>
+          <!-- end item -->
+
+        </div>
+      </div>
+      <!-- end user -->
+
+      <!-- notifcation -->
+      <div class="dropdown relative mr-5 md:static">
+
+        <button
+          class="text-gray-500 menu-btn p-0 m-0 hover:text-gray-900 focus:text-gray-900 focus:outline-none transition-all ease-in-out duration-300">
+          <i class="fad fa-bells"></i>
+        </button>
+
+        <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+
+        <div
+          class="menu hidden rounded bg-white md:right-0 md:w-full shadow-md absolute z-20 right-0 w-84 mt-5 py-2 animated faster">
+          <!-- top -->
+          <div class="px-4 py-2 flex flex-row justify-between items-center capitalize font-semibold text-sm">
+            <h1>notifications</h1>
+            <div class="bg-teal-100 border border-teal-200 text-teal-500 text-xs rounded px-1">
+              <strong>5</strong>
+            </div>
+          </div>
+          <hr>
+          <!-- end top -->
+
+          <!-- body -->
+
+          <!-- item -->
+          <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+            href="#">
+
+            <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
+              <i class="fad fa-birthday-cake text-sm"></i>
+            </div>
+
+            <div class="flex-1 flex flex-rowbg-green-100">
+              <div class="flex-1">
+                <h1 class="text-sm font-semibold">poll..</h1>
+                <p class="text-xs text-gray-500">text here also</p>
+              </div>
+              <div class="text-right text-xs text-gray-500">
+                <p>4 min ago</p>
+              </div>
+            </div>
+
+          </a>
+          <hr>
+          <!-- end item -->
+
+          <!-- item -->
+          <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+            href="#">
+
+            <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
+              <i class="fad fa-user-circle text-sm"></i>
+            </div>
+
+            <div class="flex-1 flex flex-rowbg-green-100">
+              <div class="flex-1">
+                <h1 class="text-sm font-semibold">mohamed..</h1>
+                <p class="text-xs text-gray-500">text here also</p>
+              </div>
+              <div class="text-right text-xs text-gray-500">
+                <p>78 min ago</p>
+              </div>
+            </div>
+
+          </a>
+          <hr>
+          <!-- end item -->
+
+          <!-- item -->
+          <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+            href="#">
+
+            <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
+              <i class="fad fa-images text-sm"></i>
+            </div>
+
+            <div class="flex-1 flex flex-rowbg-green-100">
+              <div class="flex-1">
+                <h1 class="text-sm font-semibold">new imag..</h1>
+                <p class="text-xs text-gray-500">text here also</p>
+              </div>
+              <div class="text-right text-xs text-gray-500">
+                <p>65 min ago</p>
+              </div>
+            </div>
+
+          </a>
+          <hr>
+          <!-- end item -->
+
+          <!-- item -->
+          <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+            href="#">
+
+            <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
+              <i class="fad fa-alarm-exclamation text-sm"></i>
+            </div>
+
+            <div class="flex-1 flex flex-rowbg-green-100">
+              <div class="flex-1">
+                <h1 class="text-sm font-semibold">time is up..</h1>
+                <p class="text-xs text-gray-500">text here also</p>
+              </div>
+              <div class="text-right text-xs text-gray-500">
+                <p>1 min ago</p>
+              </div>
+            </div>
+
+          </a>
+          <!-- end item -->
+
+
+          <!-- end body -->
+
+          <!-- bottom -->
+          <hr>
+          <div class="px-4 py-2 mt-2">
+            <a href="#"
+              class="border border-gray-300 block text-center text-xs uppercase rounded p-1 hover:text-teal-500 transition-all ease-in-out duration-500">
+              view all
+            </a>
+          </div>
+          <!-- end bottom -->
+        </div>
+      </div>
+      <!-- end notifcation -->
+
+      <!-- messages -->
+      <div class="dropdown relative mr-5 md:static">
+
+        <button
+          class="text-gray-500 menu-btn p-0 m-0 hover:text-gray-900 focus:text-gray-900 focus:outline-none transition-all ease-in-out duration-300">
+          <i class="fad fa-comments"></i>
+        </button>
+
+        <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+
+        <div
+          class="menu hidden md:w-full md:right-0 rounded bg-white shadow-md absolute z-20 right-0 w-84 mt-5 py-2 animated faster">
+          <!-- top -->
+          <div class="px-4 py-2 flex flex-row justify-between items-center capitalize font-semibold text-sm">
+            <h1>messages</h1>
+            <div class="bg-teal-100 border border-teal-200 text-teal-500 text-xs rounded px-1">
+              <strong>3</strong>
+            </div>
+          </div>
+          <hr>
+          <!-- end top -->
+
+          <body class="bg-gray-100">
+            <!-- start navbar -->
+            <!-- [Paste your navbar code here as-is, which you already provided] -->
+            <!-- end navbar -->
+
+           
+          </body>
+
+          <!-- body -->
+
+          <!-- item -->
+          <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+            href="#">
+
+            <div class="w-10 h-10 rounded-full overflow-hidden mr-3 bg-gray-100 border border-gray-300">
+              <img class="w-full h-full object-cover" src="assets/BackOffice/img/user1.jpg" alt="">
+            </div>
+
+            <div class="flex-1 flex flex-rowbg-green-100">
+              <div class="flex-1">
+                <h1 class="text-sm font-semibold">mohamed said</h1>
+                <p class="text-xs text-gray-500">yeah i know</p>
+              </div>
+              <div class="text-right text-xs text-gray-500">
+                <p>4 min ago</p>
+              </div>
+            </div>
+
+          </a>
+          <hr>
+          <!-- end item -->
+
+          <!-- item -->
+          <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+            href="#">
+
+            <div class="w-10 h-10 rounded-full overflow-hidden mr-3 bg-gray-100 border border-gray-300">
+              <img class="w-full h-full object-cover" src="assets/BackOffice/img/user2.jpg" alt="">
+            </div>
+
+            <div class="flex-1 flex flex-rowbg-green-100">
+              <div class="flex-1">
+                <h1 class="text-sm font-semibold">sull goldmen</h1>
+                <p class="text-xs text-gray-500">for sure</p>
+              </div>
+              <div class="text-right text-xs text-gray-500">
+                <p>1 day ago</p>
+              </div>
+            </div>
+
+          </a>
+          <hr>
+          <!-- end item -->
+
+          <!-- item -->
+          <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out"
+            href="#">
+
+            <div class="w-10 h-10 rounded-full overflow-hidden mr-3 bg-gray-100 border border-gray-300">
+              <img class="w-full h-full object-cover" src="assets/BackOffice/img/user3.jpg" alt="">
+            </div>
+
+            <div class="flex-1 flex flex-rowbg-green-100">
+              <div class="flex-1">
+                <h1 class="text-sm font-semibold">mick</h1>
+                <p class="text-xs text-gray-500">is typing ....</p>
+              </div>
+              <div class="text-right text-xs text-gray-500">
+                <p>31 feb</p>
+              </div>
+            </div>
+
+          </a>
+          <!-- end item -->
+
+
+          <!-- end body -->
+
+          <!-- bottom -->
+          <hr>
+          <div class="px-4 py-2 mt-2">
+            <a href="#"
+              class="border border-gray-300 block text-center text-xs uppercase rounded p-1 hover:text-teal-500 transition-all ease-in-out duration-500">
+              view all
+            </a>
+          </div>
+          <!-- end bottom -->
+        </div>
+      </div>
+      <!-- end messages -->
+
+
+    </div>
+    <!-- end right -->
+  </div>
+  <!-- end navbar content -->
+
+</div>
+<!-- end navbar -->
+
+    <!-- Start Wrapper -->
+    <div class="h-screen flex flex-row flex-wrap">
+      <!-- Start Sidebar (keep your existing sidebar code) -->
+      <!-- ... your existing sidebar code ... -->
+      <!-- End Sidebar -->
+    <!-- start sidebar -->
+    <div id="sideBar"
+    class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster">
+
+
+    <!-- sidebar content -->
+    <div class="flex flex-col">
+
+      <!-- sidebar toggle -->
+      <div class="text-right hidden md:block mb-4">
+        <button id="sideBarHideBtn">
+          <i class="fad fa-times-circle"></i>
+        </button>
+      </div>
+      <!-- end sidebar toggle -->
+
+      <p class="uppercase text-xs text-gray-600 mb-4 tracking-wider">homes</p>
+
+      <!-- link -->
+      <a href="/admin"
+   class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+  <i class="fad fa-shopping-cart text-xs mr-2"></i>
+  Back to dashboard
+</a>
+
+      <!-- end link -->
+    </div>
+    <!-- end sidebar content -->
+
+  </div>
+  <!-- end sidbar -->
+
+      <!-- Main Content -->
+      <main class="flex-1 p-6 md:ml-64 pt-24">
+          <!-- Header Section -->
+          <div class="bg-gradient-to-r from-indigo-500 to-purple-600 p-6 text-white">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+              <div>
+                <h1 class="text-2xl font-bold flex items-center">
+                  <i class="fas fa-users mr-3"></i>
+                  User Management
+                </h1>
+                <p class="text-black mt-1">Manage all system users and their roles</p>
+              </div>
+              
+              <!-- Search Bar -->
+              <div class="mt-4 md:mt-0 relative">
+                <div class="flex">
+                  <input 
+                    [(ngModel)]="searchQuery"
+                    (keyup.enter)="searchUsers()"
+                    type="text" 
+                    class="w-full md:w-64 px-4 py-2 rounded-l-lg focus:outline-none text-gray-800"
+                    placeholder="Search users...">
+                  <button 
+                    (click)="searchUsers()"
+                    class="bg-indigo-800 hover:bg-indigo-900 px-4 py-2 rounded-r-lg transition duration-300">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Users Table -->
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    User
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Email
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Role
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <!-- Loading State -->
+                <tr *ngIf="!users">
+                  <td colspan="5" class="px-6 py-4 text-center">
+                    <div class="flex justify-center">
+                      <i class="fas fa-circle-notch fa-spin text-indigo-500 text-2xl"></i>
+                    </div>
+                  </td>
+                </tr>
+                
+                <!-- Empty State -->
+                <tr *ngIf="users && users.length === 0">
+                  <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                    <i class="fas fa-user-slash text-3xl mb-2"></i>
+                    <p class="text-lg">No users found</p>
+                  </td>
+                </tr>
+                
+                <!-- User Rows -->
+                <tr *ngFor="let user of users" class="hover:bg-gray-50 transition duration-150">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10">
+                        <img class="h-10 w-10 rounded-full" src="assets/BackOffice/img/user.svg" alt="">
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">
+                          {{ user.username }}
+                        </div>
+                        <div class="text-sm text-gray-500">
+                          @{{ user.username }}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ user.email }}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Active
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div class="flex items-center">
+                      <span class="mr-2">{{ user.role || 'No role assigned' }}</span>
+                      <i class="fas fa-pencil-alt text-indigo-500 cursor-pointer hover:text-indigo-700" 
+                         (click)="selectedUserId = user.id"></i>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <div class="flex justify-end space-x-2">
+                      <button (click)="assignRole(user.id, 'ADMIN')" 
+                              class="text-indigo-600 hover:text-indigo-900">
+                        <i class="fas fa-user-shield"></i>
+                      </button>
+                      <button (click)="assignRole(user.id, 'TEAMLEAD')" 
+                      class="text-green-600 hover:text-green-900">
+                <i class="fas fa-user-tie"></i>
+              </button>
+              
+                      <button (click)="assignRole(user.id, 'USER')" 
+                              class="text-green-600 hover:text-green-900">
+                        <i class="fas fa-user"></i>
+                      </button>
+                      
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+          <!-- Role Assignment Modal -->
+          <div *ngIf="selectedUserId" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-gray-900">Assign Role</h3>
+                <button (click)="selectedUserId = null" class="text-gray-400 hover:text-gray-500">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Select Role</label>
+                  <select [(ngModel)]="selectedRole" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="">Select a role</option>
+                    <option value="ADMIN">Administrator</option>
+                    <option value="USER">Regular User</option>
+                    <option value="TEAMLEAD">TeamLead</option>
+                  </select>
+                </div>
+                
+                <div class="flex justify-end space-x-3 pt-4">
+                  <button (click)="selectedUserId = null" 
+                          class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    Cancel
+                  </button>
+                  <button (click)="assignRole(selectedUserId, selectedRole)" 
+                          class="px-4 py-2 bg-indigo-600 rounded-md text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+                          [disabled]="!selectedRole">
+                    Assign Role
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </main>
+    </div>
+  </body>

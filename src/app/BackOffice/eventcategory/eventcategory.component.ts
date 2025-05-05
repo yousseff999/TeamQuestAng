@@ -11,27 +11,46 @@ import { Event as MyEvent } from 'src/app/models/event';
 export class EventcategoryComponent implements OnInit {
   events: MyEvent[] = [];
   selectedCategory: string = '';
+  imageUrls: { [eventId: number]: string } = {};
+
   constructor(private eventService: EventService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const category = params.get('category');
       if (category) {
+        this.selectedCategory = category;
         this.eventService.showEventsByCategory(category).subscribe({
-          next: (data) => this.events = data,
+          next: (data) => {
+            this.events = data;
+            this.loadImageUrls(); 
+          },
           error: (err) => console.error(err)
         });
       }
     });
   }
 
+
 loadEventsByCategory() {
     this.eventService.showEventsByCategory(this.selectedCategory).subscribe({
-      next: (data) => this.events = data,
+      next: (data) => {
+        this.events = data;
+        this.loadImageUrls(); 
+      },
       error: (err) => console.error(err)
     });
   }
-  
+
+  loadImageUrls() {
+    this.events.forEach(event => {
+      this.eventService.getImageUrlForEventByID(event.eventId).subscribe({
+        next: (url) => this.imageUrls[event.eventId] = url,
+        error: (err) => console.error(`Error loading image for event ${event.eventId}:`, err)
+      });
+    });
+  }
+
   updateEvent(eventId: number, updatedEvent: MyEvent) {
     this.eventService.updateEvent(eventId, updatedEvent).subscribe({
       next: (updated) => {

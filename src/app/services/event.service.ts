@@ -12,6 +12,7 @@ import { Event as MyEvent } from 'src/app/models/event';
 })
 export class EventService {
   private apiUrl = 'http://localhost:8086/Event';
+  private nominatimUrl = 'https://nominatim.openstreetmap.org/search';
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -86,30 +87,25 @@ export class EventService {
   }
 
   // Get image URL for event
-  getImageUrlForEventByID(idEvent: number): Observable<{ imageUrl: string }> {
-    return this.http.get<{ imageUrl: string }>(`${this.apiUrl}/${idEvent}/image-url`);
-  }
+  getImageUrlForEventByID(idEvent: number): Observable<string> {
+    return this.http.get(`${this.apiUrl}/${idEvent}/image-url`, { responseType: 'text' });
+}
 
   // Record interaction
   recordInteraction(userId: number, eventId: number, interactionType: string): Observable<EventInteraction> {
     return this.http.post<EventInteraction>(
       `${this.apiUrl}/${eventId}/interact`,
-      { userId, interactionType },
-      { headers: this.getHeaders() }
+      { userId, interactionType }
     );
   }
 
   // Get user interactions
   getUserInteractions(userId: number): Observable<EventInteraction[]> {
-    return this.http.get<EventInteraction[]>(`${this.apiUrl}/user/${userId}/interactions`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<EventInteraction[]>(`${this.apiUrl}/user/${userId}/interactions`);
   }
 
   // Get event interactions
   getEventInteractions(eventId: number): Observable<EventInteraction[]> {
-    return this.http.get<EventInteraction[]>(`${this.apiUrl}/${eventId}/interactions`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<EventInteraction[]>(`${this.apiUrl}/${eventId}/interactions`);
   }
 }

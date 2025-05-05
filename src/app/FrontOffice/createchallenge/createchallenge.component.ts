@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ChatMessage } from 'src/app/models/chat-message';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-createchallenge',
@@ -30,7 +31,8 @@ export class CreatechallengeComponent implements OnInit {
     private challengeService: ChallengeService,
     private authService: AuthService,
     private userService: UserService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private router: Router 
   ) {
     this.challengeForm = this.fb.group({
       title: ['', Validators.required],
@@ -116,7 +118,7 @@ export class CreatechallengeComponent implements OnInit {
         } else {
           console.error('Opponent not found');
         }
-        /////
+        this.router.navigate(['/questions']);
       },
       error: (err: HttpErrorResponse) => {
         this.isLoading = false;

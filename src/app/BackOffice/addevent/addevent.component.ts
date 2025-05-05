@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
-import { Event, TypeEvent } from 'src/app/models/event';
+import { Event as EventModel, TypeEvent } from 'src/app/models/event'; // <- rename your Event model here
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -15,6 +15,7 @@ export class AddeventComponent implements OnInit {
   typeEvents = Object.values(TypeEvent);
   errorMessage: string | null = null;
   isLoading: boolean = false;
+  selectedImageFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -34,10 +35,18 @@ export class AddeventComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  // ✔ This uses browser Event correctly, no clash
+  onFileSelected(event: any): void {   
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedImageFile = input.files[0];
+    }
+  }
+
   onSubmit(): void {
     if (this.eventForm.valid) {
       this.isLoading = true;
-      const newEvent: Event = {
+      const newEvent: EventModel = { // <- use EventModel here
         ...this.eventForm.value,
         startDate: new Date(this.eventForm.value.startDate),
         endDate: new Date(this.eventForm.value.endDate),
@@ -47,10 +56,25 @@ export class AddeventComponent implements OnInit {
       };
 
       this.eventService.addEvent(newEvent).subscribe({
-        next: () => {
-          this.errorMessage = null;
-          this.isLoading = false;
-          this.router.navigate(['/showevent']);
+        next: (createdEvent) => {
+          if (this.selectedImageFile && createdEvent.eventId) {
+            this.eventService.updateEventImage(createdEvent.eventId, this.selectedImageFile).subscribe({
+              next: () => {
+                this.errorMessage = null;
+                this.isLoading = false;
+                this.router.navigate(['/showevent']);
+              },
+              error: (err: HttpErrorResponse) => {
+                console.error('Error uploading image:', err);
+                this.errorMessage = 'Event created, but failed to upload image.';
+                this.isLoading = false;
+              }
+            });
+          } else {
+            this.errorMessage = null;
+            this.isLoading = false;
+            this.router.navigate(['/showevent']);
+          }
         },
         error: (err: HttpErrorResponse) => {
           console.error('Error adding event:', {

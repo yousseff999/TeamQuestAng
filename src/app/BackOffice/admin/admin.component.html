@@ -337,6 +337,9 @@
         <a routerLink="/showevent" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-teal-600 transition ease-in-out duration-300">
           All Events
         </a>
+        <a routerLink="/allactivities" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-teal-600 transition ease-in-out duration-300">
+          All Activities
+        </a>
         <div class="relative">
           <button
             (click)="toggleDropdown()"
@@ -365,7 +368,7 @@
       </div>
     </div>
     <!-- link -->
-    <a routerLink="/allteams" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+    <a routerLink="/allusers" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
       <i class="fad fa-users text-xs mr-2"></i>         
       Users
     </a>
@@ -377,7 +380,7 @@
     </a>
     <!-- end link -->
      <!-- link -->
-<a routerLink="/allteams" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+<a routerLink="/alldepartments" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
   <i class="fas fa-building text-xs mr-2"></i>         
   Departments
 </a>
@@ -921,92 +924,89 @@
         <!-- end Browser Stats -->
     
        <!-- Event Participants Table -->
-<div class="card col-span-2 xl:col-span-1">
-  <div class="card-header">Event Participants</div>
+<div class="card col-span-2 xl:col-span-1 bg-white rounded-xl shadow-md overflow-hidden">
+  <div class="card-header bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-4 text-lg font-semibold">
+    Event Participants
+  </div>
 
-  <div *ngIf="error" class="p-4 text-red-500">
-      {{error}}
+  <div *ngIf="error" class="p-4 text-red-500 bg-red-50 border-l-4 border-red-500 mx-4 my-2 rounded">
+    {{error}}
   </div>
 
   <table class="table-auto w-full text-left">
-      <thead>
-          <tr>
-              <th class="px-4 py-2 border-r">Event</th>
-              <th class="px-4 py-2 border-r">Participant Name</th>
-              <th class="px-4 py-2">Email</th>
+    <thead>
+      <tr class="bg-gray-50 text-gray-700">
+        <th class="px-6 py-3 border-b border-gray-200 font-medium">Event</th>
+        <th class="px-6 py-3 border-b border-gray-200 font-medium">Participant Name</th>
+        <th class="px-6 py-3 border-b border-gray-200 font-medium">Email</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      <ng-container *ngIf="!loading; else loadingTemplate">
+        <ng-container *ngFor="let item of eventParticipants">
+          <!-- First row shows event name -->
+          <tr *ngIf="item.users.length > 0" class="hover:bg-gray-50 transition-colors">                    
+            <td class="px-6 py-4 font-medium whitespace-nowrap" [attr.rowspan]="item.users.length">
+              <div class="flex items-center">
+                <i class="fas fa-plus-circle mr-3 text-indigo-500 text-sm cursor-pointer hover:text-indigo-700 transition-colors" 
+                   [title]="'Add user to event'"
+                   (click)="navigateToAddUser(item.event.eventId)"></i>
+                <span class="text-gray-800">{{item.event.eventName}}</span>
+              </div>
+            </td>
+            <td class="px-6 py-4">
+              <span class="text-gray-800 font-medium">{{item.users[0].username}}</span> 
+            </td>
+            <td class="px-6 py-4">
+              <span class="text-gray-600">{{item.users[0].email}}</span>
+            </td>
           </tr>
-      </thead>
-      <tbody class="text-gray-600">
-        <ng-container *ngIf="!loading; else loadingTemplate">
-            <ng-container *ngFor="let item of eventParticipants">
-                <!-- First row shows event name -->
-                <tr *ngIf="item.users.length > 0">                    
-                    <td class="border border-l-0 px-4 py-2 font-medium" [attr.rowspan]="item.users.length">
-                        <div class="flex items-center">
-                            <i class="fas fa-plus-circle mr-2 text-indigo-500 text-sm cursor-pointer hover:text-indigo-700" 
-                               [title]="'Add user to event'"
-                               (click)="navigateToAddUser(item.event.eventId)"></i>
-                            <span>{{item.event.eventName}}</span>
-                        </div>
-                    </td>
-                    <td class="border border-l-0 px-4 py-2">
-                        {{item.users[0].username}} 
-                    </td>
-                    <td class="border border-l-0 border-r-0 px-4 py-2">
-                        {{item.users[0].email}}
-                    </td>
-                </tr>
-                
-                <!-- Subsequent rows for additional users -->
-                <tr *ngFor="let user of item.users.slice(1)">
-                    <td class="border border-l-0 px-4 py-2">
-                        {{user.username}} 
-                    </td>
-                    <td class="border border-l-0 border-r-0 px-4 py-2">
-                        {{user.email}}
-                    </td>
-                </tr>
-    
-                <!-- Case when no participants -->
-                <tr *ngIf="item.users.length === 0">
-                    <td class="border border-l-0 px-4 py-2">
-                        <div class="flex items-center">
-                            <i class="fas fa-plus-circle mr-2 text-indigo-500 text-sm cursor-pointer hover:text-indigo-700" 
-                               [title]="'Add user to this event'"
-                               (click)="navigateToAddUser(item.event.eventId)"></i>
-                            <span>{{item.event.eventName}}</span>
-                        </div>
-                    </td>
-                    <td class="border border-l-0 border-r-0 px-4 py-2 text-gray-400" colspan="2">
-                        No participants yet
-                    </td>
-                </tr>
-            </ng-container>
+          
+          <!-- Subsequent rows for additional users -->
+          <tr *ngFor="let user of item.users.slice(1)" class="hover:bg-gray-50 transition-colors">
+            <td class="px-6 py-4">
+              <span class="text-gray-800 font-medium">{{user.username}}</span> 
+            </td>
+            <td class="px-6 py-4">
+              <span class="text-gray-600">{{user.email}}</span>
+            </td>
+          </tr>
+
+          <!-- Case when no participants -->
+          <tr *ngIf="item.users.length === 0" class="hover:bg-gray-50 transition-colors">
+            <td class="px-6 py-4">
+              <div class="flex items-center">
+                <i class="fas fa-plus-circle mr-3 text-indigo-500 text-sm cursor-pointer hover:text-indigo-700 transition-colors" 
+                   [title]="'Add user to this event'"
+                   (click)="navigateToAddUser(item.event.eventId)"></i>
+                <span class="text-gray-800">{{item.event.eventName}}</span>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-gray-400 italic" colspan="2">
+              No participants yet
+            </td>
+          </tr>
         </ng-container>
-    
-        <ng-template #loadingTemplate>
-            <tr>
-                <td colspan="3" class="border border-l-0 border-r-0 px-4 py-2 text-center">
-                    <div class="flex justify-center items-center py-4">
-                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
-                        <span class="ml-2">Loading participants...</span>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
+      </ng-container>
+
+      <ng-template #loadingTemplate>
+        <tr>
+          <td colspan="3" class="px-6 py-8 text-center">
+            <div class="flex justify-center items-center">
+              <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-500"></div>
+              <span class="ml-3 text-gray-600">Loading participants...</span>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
     </tbody>
   </table>
 </div>
-        <!-- End Recent Sales -->
-    
-    
-    </div>
-        <!-- end quick Info -->
-            
-    
-      </div>
-
-      
+         <!-- End Recent Sales -->
+        </div>
+        <!-- end quick Info -->         
+      </div> 
       <!-- end content -->
-    
     </div>
+
+    

@@ -16,6 +16,9 @@ export class UpdateeventComponent implements OnInit {
   typeEvents = Object.values(TypeEvent); // For the select dropdown
   errorMessage: string | null = null; // Add error message property
   isLoading: boolean = false;
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+  selectedImage: File | null = null;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -38,7 +41,9 @@ export class UpdateeventComponent implements OnInit {
     this.eventId = +this.route.snapshot.paramMap.get('id')!;
     this.loadEvent();
   }
-
+  onImageSelected(event: any): void {
+    this.selectedImage = event.target.files[0];
+  }
   loadEvent(): void {
     this.isLoading = true;
     this.eventService.getEventById(this.eventId).subscribe({
@@ -52,7 +57,7 @@ export class UpdateeventComponent implements OnInit {
           eventImage: event.eventImage,
           eventType: event.eventType
         });
-        this.errorMessage = null; // Clear error on success
+        this.errorMessage = null;         
       },
       error: (err: HttpErrorResponse) => {
         console.error('Error loading event:', {
@@ -61,9 +66,7 @@ export class UpdateeventComponent implements OnInit {
           message: err.message,
           error: err.error
         });
-        //this.errorMessage = 'Unable to load event. Please try again later.';
-        // Optionally, redirect after a delay to show the error
-        //setTimeout(() => this.router.navigate(['/showevent']), 3000);
+  
         if (err.status === 401 || err.error?.message?.includes('JWT')) {
           this.errorMessage = 'Authentication error. Please log in again.';
         } else if (err.status === 404) {
@@ -87,15 +90,32 @@ export class UpdateeventComponent implements OnInit {
         endDate: new Date(this.eventForm.value.endDate),
         feedbacks: [],
         participants: [],
-        activities: []
+        activities: [],
       };
-
+  
       this.eventService.updateEvent(this.eventId, updatedEvent).subscribe({
         next: () => {
           console.log('Event updated successfully');
+  
+          
+          if (this.selectedImage) {
+            this.eventService.updateEventImage(this.eventId, this.selectedImage).subscribe({
+              next: () => {
+                console.log('Event image updated successfully');
+                this.router.navigate(['/showevent']);
+              },
+              error: (err: HttpErrorResponse) => {
+                console.error('Error updating image:', err);
+                this.errorMessage = 'Event updated, but failed to update image.';
+                this.isLoading = false;
+              }
+            });
+          } else {
+            this.router.navigate(['/showevent']);
+          }
+  
           this.errorMessage = null;
           this.isLoading = false;
-          this.router.navigate(['/showevent']);
         },
         error: (err: HttpErrorResponse) => {
           console.error('Error updating event:', {
@@ -104,6 +124,7 @@ export class UpdateeventComponent implements OnInit {
             message: err.message,
             error: err.error
           });
+  
           if (err.status === 401 || err.error?.message?.includes('JWT')) {
             this.errorMessage = 'Authentication error. Please log in again.';
           } else if (err.status === 404) {
@@ -116,8 +137,9 @@ export class UpdateeventComponent implements OnInit {
       });
     }
   }
+  
 
   cancel(): void {
-    this.router.navigate(['/showevent']); // Redirect to events list
+    this.router.navigate(['/showevent']);   
   }
 }

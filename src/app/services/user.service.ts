@@ -21,23 +21,17 @@ export class UserService {
 
   // Create user
   createUser(user: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl, user, {
-      headers: this.getHeaders()
-    });
+    return this.http.post<User>(this.apiUrl, user);
   }
 
   // Update user
   updateUser(id: number, updatedUser: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/${id}`, updatedUser, {
-      headers: this.getHeaders()
-    });
+    return this.http.put<User>(`${this.apiUrl}/${id}`, updatedUser);
   }
 
   // Get user by ID
   getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/${id}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<User>(`${this.apiUrl}/${id}`);
   }
 
   // Get all users
@@ -47,50 +41,37 @@ export class UserService {
 
   // Delete user
   deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
   // Assign role to user
   assignRoleToUser(id: number, role: string): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/${id}/role`, { role }, {
-      headers: this.getHeaders()
-    });
+    return this.http.put<User>(`${this.apiUrl}/${id}/assign-role`, { role });
   }
+  
 
   // Get users by role
   getUsersByRole(role: string): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/role/${role}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<User[]>(`${this.apiUrl}/role/${role}`);
   }
 
   // Search users
   searchUsers(query: string): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/search?query=${query}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<User[]>(`${this.apiUrl}/search?query=${query}`);
   }
 
   // Count users by role
   countUsersByRole(role: string): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/count?role=${role}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<number>(`${this.apiUrl}/count?role=${role}`);
   }
 
   // Get user rankings
   getUserRankings(): Observable<Rank[]> {
-    return this.http.get<Rank[]>(`${this.apiUrl}/rankings`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<Rank[]>(`${this.apiUrl}/rankings`);
   }
 
   // Update user score
   updateUserScore(userId: number, score: number): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/${userId}/score`, { score }, {
-      headers: this.getHeaders()
-    });
+    return this.http.put<User>(`${this.apiUrl}/${userId}/score`, { score });
   }
 }

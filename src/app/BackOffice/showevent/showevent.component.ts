@@ -3,6 +3,12 @@ import { EventService } from 'src/app/services/event.service';
 import { Event, TypeEvent } from 'src/app/models/event';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { MapDialogComponent } from 'src/app/map-dialog/map-dialog.component';
+interface NominatimResponse {
+  lat: string;
+  lon: string;
+}
 @Component({
   selector: 'app-showevent',
   templateUrl: './showevent.component.html',
@@ -12,19 +18,36 @@ export class ShoweventComponent implements OnInit {
   events: Event[] = [];
   eventTypeEnum = TypeEvent;
   
-  constructor(private eventService: EventService,private router: Router,private location: Location) { }
-
+  constructor(private eventService: EventService,private router: Router,private location: Location,private dialog: MatDialog) { }
+  openMap(location: string): void {
+    this.dialog.open(MapDialogComponent, {
+      width: '500px',
+      data: location
+    });
+  }
   ngOnInit(): void {
     this.loadEvents();
   }
-  goBack() {
-    this.location.back();
+  goBack(): void {
+    this.router.navigate(['/admin']); 
   }
   
     loadEvents(): void {
       this.eventService.getAllEvents().subscribe((data: Event[]) => {
         this.events = data;
         console.log('data',data);
+        this.events.forEach(event => {
+          if (event.eventId) {  // if your Event entity has 'id' called differently, replace 'reclamationID' by the correct id
+            this.eventService.getImageUrlForEventByID(event.eventId).subscribe({
+              next: (url: string) => {
+                event.eventImage = url;
+              },
+              error: (err) => {
+                console.error(`Failed to load image for event ID ${event.eventId}`, err);
+              }
+            });
+          }
+        });
       });
     }
     
@@ -72,5 +95,8 @@ export class ShoweventComponent implements OnInit {
       console.log('User added to event', event);
     });
   }
- 
+  addActivity(eventId: number): void {
+    this.router.navigate(['/addactivity'], { queryParams: { eventId } });
+    // You can store the ID or use it for future logic
+  }
 }

@@ -406,20 +406,21 @@
     </div>
 
     <!-- Enhanced Event Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-      <div *ngFor="let event of events" class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
-        <!-- Event Image with Gradient Overlay -->
-        <div class="relative h-48 overflow-hidden">
-          <img *ngIf="event.eventImage" [src]="event.eventImage" alt="Event image" 
-               class="w-full h-full object-cover">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-          <div class="absolute top-4 right-4">
-            <span class="inline-block bg-white/90 text-indigo-600 text-xs font-semibold px-3 py-1 rounded-full">
-              {{event.eventType}}
-            </span>
-          </div>
-        </div>
-
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+  <div *ngFor="let event of events" class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
+    
+    <!-- Event Image with Gradient Overlay -->
+    <span class="inline-block bg-white/90 text-indigo-600 text-xs font-semibold px-3 py-1 rounded-full">
+      {{event.eventType}}
+    </span>
+    <div class="relative h-48 overflow-hidden">
+      <img *ngIf="event.eventImage" [src]="event.eventImage" alt="Event image" 
+           class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+      <div class="absolute top-4 right-4">
+        
+      </div>
+    </div>
         <!-- Event Content -->
         <div class="p-5">
           <div class="flex items-center text-sm text-gray-500 mb-2">
@@ -430,7 +431,7 @@
           <h3 class="text-xl font-bold text-gray-900 mb-2">{{event.eventName}}</h3>
           <p class="text-gray-600 mb-4 line-clamp-2">{{event.description}}</p>
           
-          <div class="flex items-center text-sm text-gray-500 mb-4">
+          <div class="flex items-center text-sm text-gray-500 mb-4 cursor-pointer" (click)="openMap(event.location)">
             <i class="far fa-map-marker-alt mr-2"></i>
             <span>{{event.location}}</span>
           </div>
@@ -441,6 +442,11 @@
                     (click)="getEventDetails(event.eventId)">
               <i class="far fa-edit mr-1"></i> Edit
             </button>
+            <button class="text-green-600 hover:text-green-800 font-medium text-sm flex items-center transition"
+        (click)="addActivity(event.eventId)">
+  <i class="fas fa-plus mr-1"></i> Add Activity
+</button>
+
             <button class="text-red-600 hover:text-red-800 font-medium text-sm flex items-center transition"
                     (click)="deleteEvent(event.eventId)">
               <i class="far fa-trash-alt mr-1"></i> Delete

@@ -7,6 +7,7 @@ import { Activity } from './activity';
 export enum Role {
     ADMIN = 'ADMIN',
     USER = 'USER',
+    TEAMLEAD = 'TEAMLEAD'
     
   }
 

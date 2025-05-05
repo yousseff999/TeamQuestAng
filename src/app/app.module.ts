@@ -22,6 +22,16 @@ import { AllteamsComponent } from './BackOffice/allteams/allteams.component';
 import { JointeamComponent } from './FrontOffice/jointeam/jointeam.component';
 import { CreatechallengeComponent } from './FrontOffice/createchallenge/createchallenge.component';
 import { QuestionComponent } from './FrontOffice/question/question.component';
+import { MapDialogComponent } from './map-dialog/map-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EventService } from './services/event.service';
+import { AddactivityComponent } from './BackOffice/addactivity/addactivity.component';
+import { AllactivitiesComponent } from './BackOffice/allactivities/allactivities.component';
+import { UpdateactivityComponent } from './BackOffice/updateactivity/updateactivity.component';
+import { AllusersComponent } from './BackOffice/allusers/allusers.component';
+import { AlldepatmentsComponent } from './BackOffice/alldepatments/alldepatments.component';
+import { CreatedepatmentComponent } from './BackOffice/createdepatment/createdepatment.component';
+import { AlleventsComponent } from './FrontOffice/allevents/allevents.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +53,14 @@ import { QuestionComponent } from './FrontOffice/question/question.component';
     JointeamComponent,
     CreatechallengeComponent,
     QuestionComponent,
+    MapDialogComponent,
+    AddactivityComponent,
+    AllactivitiesComponent,
+    UpdateactivityComponent,
+    AllusersComponent,
+    AlldepatmentsComponent,
+    CreatedepatmentComponent,
+    AlleventsComponent,
     
   ],
   imports: [
@@ -50,7 +68,9 @@ import { QuestionComponent } from './FrontOffice/question/question.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
