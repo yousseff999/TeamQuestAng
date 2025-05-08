@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un Portfolio - TeamQuest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --primary-dark: #2667cc;
+            --secondary: #8338ec;
+            --accent: #ff006e;
+            --accent-dark: #d1005b;
+            --dark-bg: #1a1a2e;
+            --dark-card: #16213e;
+            --text-light: #ffffff;
+            --text-muted: rgba(255,255,255,0.7);
+            --quiz: #00bbf9;
+            --quiz-dark: #0095c8;
+            --photo: #f15bb5;
+            --photo-dark: #d13d9b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1c1841 0%, #1b1b45 100%);
+            min-height: 250vh;
+            color: var(--text-light);
+            position: relative;
+            padding-top: 80px;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: -300px;
+            right: -300px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(193, 174, 182, 0.15) 0%, rgba(215, 215, 215, 0.897) 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+        body::after {
+            content: '';
+            position: absolute;
+            bottom: -300px;
+            left: -300px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(58,134,255,0.15) 0%, rgba(58,134,255,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            height: 80px;
+        }
+
+        .container-fluid {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .sitename {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+        }
+
+        .navmenu {
+            display: flex;
+            align-items: center;
+        }
+
+        .navmenu ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 1.5rem;
+        }
+
+        .navmenu li {
+            position: relative;
+        }
+
+        .navmenu a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .navmenu a:hover {
+            color: var(--accent);
+        }
+
+        .dropdown .toggle-dropdown {
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+
+        .dropdown:hover .toggle-dropdown {
+            transform: rotate(180deg);
+        }
+
+        .dropdown ul {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background: var(--dark-card);
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            z-index: 99;
+            padding: 10px 0;
+        }
+
+        .dropdown:hover > ul {
+            display: block;
+        }
+
+        .dropdown ul li {
+            padding: 0;
+        }
+
+        .dropdown ul a {
+            padding: 8px 20px;
+            font-size: 0.9rem;
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content Styles */
+        main.container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .card {
+            background: var(--dark-card);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgb(255, 255, 255);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.721);
+            padding: 2.5rem;
+            position: relative;
+            color: var(--text-light); /* Ensure all text is white */
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgb(255, 255, 255);
+        }
+
+        .card h2 {
+        color: white !important;
+        background: none !important;
+        -webkit-background-clip: initial !important;
+        background-clip: initial !important;
+    }
+
+    .card h2::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+        border-radius: 5px;
+    }
+    .form-label {
+        color: white !important;
+    }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.541);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(58, 133, 255, 0.404);
+            background: rgba(255, 255, 255, 0.534);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .alert-success {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            color: #28a745;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(58, 133, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 0, 110, 0.4);
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        /* File Input Customization */
+        input[type="file"] {
+            padding: 0.5rem;
+        }
+
+        input[type="file"]::file-selector-button {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 1rem;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .mobile-nav-toggle {
+                display: block;
+            }
+
+            .navmenu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background: var(--dark-bg);
+                flex-direction: column;
+                transition: all 0.3s;
+                padding: 2rem;
+            }
+
+            .navmenu.active {
+                left: 0;
+            }
+
+            .navmenu ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .navmenu li {
+                padding: 15px 0;
+            }
+
+            .dropdown ul {
+                position: static;
+                display: none;
+                box-shadow: none;
+                padding-left: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 2rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="index-page">
+    <!-- HEADER -->
+    <header id="header" class="header d-flex align-items-center fixed-top">
+      <div class="container-fluid container-xl position-relative d-flex align-items-center">
+        <a href="/" class="logo d-flex align-items-center me-auto">
+          <h1 class="sitename">TeamQuest</h1>
+        </a>
+  
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="#" >Home</a></li>
+            <li><a href="#" >Services</a></li>
+            <li><a href="#" >Games</a></li>
+            <li><a href="#" >Classement</a></li>
+            <li><a href="#" >Portfolio</a></li>
+            <li class="dropdown">
+              <a href="#"><span>Team</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a routerLink="/jointeam">All Teams</a></li>
+                <li><a routerLink="/teamcreation">Create Team</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#"><span>Upcoming Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a routerLink="/allevents">All events</a></li>
+                <li class="dropdown">
+                  <a href="#"><span>Select event category</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                  <ul>
+                    <li><a href="#">Sport</a></li>
+                    <li><a href="#">Party</a></li>
+                    <li><a href="#">Camping</a></li>
+                    <li><a href="#">Culture</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#" >Contact</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+      </div>
+    </header>
+  
+    <!-- MAIN CONTENT -->
+    <main class="container mt-5 pt-5">
+        <div class="page-header" style="margin-top: -50px; margin-bottom: 30px;">
+            <h1 style="font-size: 3.5rem; 
+                       background: linear-gradient(135deg, #3a86ff 0%, #ff006e 100%); 
+                       -webkit-background-clip: text; 
+                       background-clip: text; 
+                       color: transparent; 
+                       text-align: center; 
+                       width: 100%;
+                       padding-top: 20px;
+                       font-weight: 800;">
+                Post your Art Work
+            </h1>
+        </div>
+        <div class="card shadow-lg">
+            <!-- Form Title - Now in white -->
+            <h2 class="mb-4" style="color: white !important; background: none !important; -webkit-background-clip: initial !important; background-clip: initial !important;">
+                Créer un Portfolio
+            </h2>
+        
+            <form (ngSubmit)="createPortfolio()" enctype="multipart/form-data">
+                <!-- Title Field -->
+                <div class="form-group">
+                    <label for="title" class="form-label" style="color: white !important;">Titre</label>
+                    <input type="text" 
+                           class="form-control" 
+                           id="title" 
+                           [(ngModel)]="title" 
+                           name="title" 
+                           placeholder="Ex : Mon Projet de Design" 
+                           required
+                           style="color: white !important;">
+                </div>
+          
+                <!-- Description Field -->
+                <div class="form-group">
+                    <label for="description" class="form-label" style="color: white !important;">Description</label>
+                    <textarea class="form-control" 
+                              id="description" 
+                              [(ngModel)]="description" 
+                              name="description" 
+                              rows="4" 
+                              placeholder="Donnez une brève description de votre portfolio..." 
+                              required
+                              style="color: white !important;"></textarea>
+                </div>
+          
+                <!-- Image Upload -->
+                <div class="form-group">
+                    <label for="image" class="form-label" style="color: white !important;">Image</label>
+                    <input type="file"
+                           class="form-control"
+                           id="image"
+                           (change)="onFileSelected($event)"
+                           accept="image/*"
+                           required
+                           style="color: white !important;">
+                </div>
+  
+          <!-- Submit Button -->
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-upload me-2"></i>Créer Portfolio
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script>
+        // Mobile navigation toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+            const navmenu = document.querySelector('#navmenu');
+            
+            if (mobileNavToggle) {
+                mobileNavToggle.addEventListener('click', function() {
+                    navmenu.classList.toggle('active');
+                    this.classList.toggle('bi-list');
+                    this.classList.toggle('bi-x');
+                });
+            }
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown') && !e.target.classList.contains('toggle-dropdown')) {
+                    document.querySelectorAll('.dropdown ul').forEach(function(dropdown) {
+                        dropdown.style.display = 'none';
+                    });
+                }
+            });
+        });
+    </script>
+     <!-- Footer -->
+     <footer id="footer" class="footer dark-background">
+        <div class="container footer-top">
+          <div class="row gy-4">
+            <div class="col-lg-4 col-md-6 footer-about">
+              <a routerLink="/" class="logo d-flex align-items-center">
+                <span class="sitename">TeamQuest</span>
+              </a>
+              <div class="footer-contact pt-3">
+                <p>A108 Adam Street</p>
+                <p>New York, NY 535022</p>
+                <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+                <p><strong>Email:</strong> <span>info@example.com</span></p>
+              </div>
+              <div class="social-links d-flex mt-4">
+                <a href=""><i class="bi bi-twitter-x"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+    
+            <div class="col-lg-2 col-md-3 footer-links">
+              <h4>Useful Links</h4>
+              <ul>
+                <li><i class="bi bi-chevron-right"></i> <a routerLink="/">Home</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a routerLink="/about">About us</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a routerLink="/services">Services</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              </ul>
+            </div>
+    
+            <div class="col-lg-2 col-md-3 footer-links">
+              <h4>Our Services</h4>
+              <ul>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
+              </ul>
+            </div>
+    
+            <div class="col-lg-4 col-md-12 footer-newsletter">
+              <h4>Our Newsletter</h4>
+              <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
+              <!-- Removed PHP form; can be replaced with an Angular form if needed -->
+              <p class="text-gray-400">Newsletter subscription coming soon!</p>
+            </div>
+          </div>
+        </div>
+    
+        <div class="container copyright text-center mt-4">
+          <p>© <span>Copyright</span> <strong class="px-1 sitename">TeamQuest</strong> <span>All Rights Reserved</span></p>
+          <div class="credits">
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
+          </div>
+        </div>
+      </footer>
+</body>
+</html>

@@ -32,6 +32,8 @@ import { AllusersComponent } from './BackOffice/allusers/allusers.component';
 import { AlldepatmentsComponent } from './BackOffice/alldepatments/alldepatments.component';
 import { CreatedepatmentComponent } from './BackOffice/createdepatment/createdepatment.component';
 import { AlleventsComponent } from './FrontOffice/allevents/allevents.component';
+import { GetstartedComponent } from './FrontOffice/getstarted/getstarted.component';
+import { PortfolioComponent } from './FrontOffice/portfolio/portfolio.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { AlleventsComponent } from './FrontOffice/allevents/allevents.component'
     AlldepatmentsComponent,
     CreatedepatmentComponent,
     AlleventsComponent,
+    GetstartedComponent,
+    PortfolioComponent,
     
   ],
   imports: [

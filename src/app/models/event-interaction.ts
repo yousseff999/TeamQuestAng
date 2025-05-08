@@ -3,8 +3,8 @@ import { Event } from './event';
 
 export enum InteractionType {
     LIKE = 'LIKE',
-    COMMENT = 'COMMENT',
-    PARTICIPATE = 'PARTICIPATE'
+    DISLIKE = 'DISLIKE',
+    INTERRESTED = 'INTERRESTED'
   }
 
 export interface EventInteraction {

@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class RankService {
-  private apiUrl = 'http://localhost:8080/Rank';
+  private apiUrl = 'http://localhost:8086/Rank';
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 

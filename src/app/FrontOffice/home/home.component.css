@@ -1,4 +1,50 @@
 .dark-background {
     background-color: #ffffff !important;
   }
-  
+  /* Fix for disappearing section titles */
+  .section-title {
+    margin-bottom: 10px; /* Or try 5px if you want it tighter */
+  }
+
+.section-title h2 {
+  font-size: 32px; /* Ensure proper size */
+  line-height: 1.2;
+  margin-bottom: 15px;
+}
+
+.section-title p {
+  font-size: 16px;
+  margin: 0;
+  color: #6c757d; /* Subtitle color */
+}
+
+:host ::ng-deep .portfolio-item {
+  margin-bottom: 30px;
+}
+
+:host ::ng-deep .portfolio-item img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+:host ::ng-deep .portfolio-item:hover img {
+  transform: scale(1.03);
+}
+
+:host ::ng-deep .portfolio-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* Optional: Adjust the masonry layout spacing */
+.isotope-container {
+  margin: 30px; /* Counteracts column padding */
+}
+

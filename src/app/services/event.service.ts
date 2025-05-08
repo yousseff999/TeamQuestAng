@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Event } from '../models/event';
 import { EventInteraction } from '../models/event-interaction';
@@ -92,12 +92,18 @@ export class EventService {
 }
 
   // Record interaction
-  recordInteraction(userId: number, eventId: number, interactionType: string): Observable<EventInteraction> {
-    return this.http.post<EventInteraction>(
+  recordInteraction(userId: number, eventId: number, interactionType: string): Observable<string> {
+    const params = new HttpParams()
+      .set('userId', userId.toString())
+      .set('interactionType', interactionType);
+  
+    return this.http.post(
       `${this.apiUrl}/${eventId}/interact`,
-      { userId, interactionType }
+      {}, // empty body
+      { params, responseType: 'text' } // 👈 Tell Angular to expect plain text
     );
   }
+  
 
   // Get user interactions
   getUserInteractions(userId: number): Observable<EventInteraction[]> {

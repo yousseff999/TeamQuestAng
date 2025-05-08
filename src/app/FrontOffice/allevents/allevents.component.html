@@ -1,1 +1,111 @@
-<p>allevents works!</p>
+<main class="bg-gray-100 min-h-screen pt-20 pb-12 px-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-3xl font-bold text-gray-900">Your Events</h2>
+      </div>
+  
+      <!-- Event Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div
+          *ngFor="let event of events; let i = index"
+          class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300 animate-fade-in-up"
+          [style.animation-delay]="i * 100 + 'ms'"
+        >
+          <!-- Event Image with Type Badge -->
+          <div class="relative h-48 overflow-hidden">
+            <img
+              *ngIf="eventImageUrls[event.eventId]"
+              [src]="eventImageUrls[event.eventId]"
+              alt="{{ event.eventName }}"
+              class="w-full h-full object-cover"
+            />
+            <div *ngIf="!eventImageUrls[event.eventId]" class="w-full h-full bg-gray-200 flex items-center justify-center">
+              <span class="text-gray-500">No Image Available</span>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <span class="absolute top-3 left-3 inline-block bg-white/90 text-indigo-600 text-xs font-semibold px-3 py-1 rounded-full shadow">
+              {{ event.eventType }}
+            </span>
+          </div>
+  
+          <!-- Event Content -->
+          <div class="p-5">
+            <div class="flex items-center text-sm text-gray-500 mb-2">
+              <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <span>{{ event.startDate | date:'mediumDate' }}</span>
+            </div>
+  
+            <h3 class="text-xl font-bold text-gray-900 mb-2">{{ event.eventName }}</h3>
+            <p class="text-gray-600 mb-4 line-clamp-2">{{ event.description }}</p>
+  
+            <div class="flex items-center text-sm text-gray-500 mb-4 cursor-pointer" >
+              <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.104 0 2-.672 2-1.5S13.104 8 12 8s-2 .672-2 1.5.896 1.5 2 1.5zm0 0c-3.866 0-7 3.134-7 7h14c0-3.866-3.134-7-7-7z"/>
+              </svg>
+              <span>{{ event.location }}</span>
+            </div>
+  
+            
+  
+            <!-- Actions -->
+            <div class="flex justify-between gap-2">
+              <button
+                (click)="addUser(event.eventId)"
+                class="flex-1 px-4 py-2 bg-teal-600 text-white text-sm rounded-lg hover:bg-teal-700 transition flex items-center justify-center gap-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                Participer
+              </button>
+  
+              <button
+                (click)="interact(event.eventId, InteractionType.LIKE)"
+                class="flex-1 px-4 py-2 bg-pink-500 text-white text-sm rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                Like
+              </button>
+              <button
+                (click)="interact(event.eventId, InteractionType.DISLIKE)"
+                class="flex-1 px-4 py-2 bg-pink-500 text-white text-sm rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                DisLike
+              </button>
+              <button
+                (click)="interact(event.eventId, InteractionType.INTERRESTED)"
+                class="flex-1 px-4 py-2 bg-pink-500 text-white text-sm rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                Interrested
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Back Button -->
+      <div class="mt-12 flex justify-center">
+        <button
+          class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition duration-300 font-medium flex items-center gap-2"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Go Back
+        </button>
+      </div>
+    </div>
+  </main>
+  

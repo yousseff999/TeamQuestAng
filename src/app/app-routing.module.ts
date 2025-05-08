@@ -25,6 +25,8 @@ import { AllusersComponent } from './BackOffice/allusers/allusers.component';
 import { AlldepatmentsComponent } from './BackOffice/alldepatments/alldepatments.component';
 import { CreatedepatmentComponent } from './BackOffice/createdepatment/createdepatment.component';
 import { AlleventsComponent } from './FrontOffice/allevents/allevents.component';
+import { GetstartedComponent } from './FrontOffice/getstarted/getstarted.component';
+import { PortfolioComponent } from './FrontOffice/portfolio/portfolio.component';
 
 
 const routes: Routes = [
@@ -51,6 +53,8 @@ const routes: Routes = [
   {path: 'alldepartments',component: AlldepatmentsComponent},
   {path: 'createdepartment',component: CreatedepatmentComponent},
   {path: 'allevents',component: AlleventsComponent},
+  {path: 'getstarted',component: GetstartedComponent},
+  {path: 'portfolio',component: PortfolioComponent},
   //{path: '',redirectTo: '/login',pathMatch: 'full'}
   //{ path: '**', redirectTo: '/home' } // Handle invalid routes
 ];
