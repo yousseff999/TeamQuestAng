@@ -65,4 +65,37 @@ export class AlleventsComponent implements OnInit {
       error: (err) => console.error('Interaction failed:', err)
     });
   }
+  handleInteraction(
+  clickedBtn: HTMLButtonElement, 
+  otherBtn1: HTMLButtonElement, 
+  otherBtn2: HTMLButtonElement,
+  eventId: number,
+  interactionType: InteractionType
+) {
+  // Toggle clicked button
+  if (clickedBtn.classList.contains('bg-gray-200')) {
+    // Activate clicked button
+    clickedBtn.classList.remove('bg-gray-200');
+    clickedBtn.classList.remove(`text-${clickedBtn.classList.contains('like-btn') ? 'pink' : clickedBtn.classList.contains('dislike-btn') ? 'red' : 'blue'}-500`);
+    clickedBtn.classList.add(`bg-${clickedBtn.classList.contains('like-btn') ? 'pink' : clickedBtn.classList.contains('dislike-btn') ? 'red' : 'blue'}-500`);
+    clickedBtn.classList.add('text-white');
+    
+    // Reset other buttons
+    [otherBtn1, otherBtn2].forEach(btn => {
+      btn.classList.remove(`bg-${btn.classList.contains('like-btn') ? 'pink' : btn.classList.contains('dislike-btn') ? 'red' : 'blue'}-500`);
+      btn.classList.remove('text-white');
+      btn.classList.add('bg-gray-200');
+      btn.classList.add(`text-${btn.classList.contains('like-btn') ? 'pink' : btn.classList.contains('dislike-btn') ? 'red' : 'blue'}-500`);
+    });
+    
+    // Call your original interaction function
+    this.interact(eventId, interactionType);
+  } else {
+    // Deactivate if clicked again
+    clickedBtn.classList.add('bg-gray-200');
+    clickedBtn.classList.add(`text-${clickedBtn.classList.contains('like-btn') ? 'pink' : clickedBtn.classList.contains('dislike-btn') ? 'red' : 'blue'}-500`);
+    clickedBtn.classList.remove(`bg-${clickedBtn.classList.contains('like-btn') ? 'pink' : clickedBtn.classList.contains('dislike-btn') ? 'red' : 'blue'}-500`);
+    clickedBtn.classList.remove('text-white');
+  }
+}
 }

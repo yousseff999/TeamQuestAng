@@ -51,18 +51,19 @@ export class CreatechallengeComponent implements OnInit {
         this.errorMessage = 'Invalid user ID. Please log in again.';
       } else {
         this.loadUsers();
+      const username = this.authService.getUsername();
+        if (username) {
+          this.notificationService.connect(username, (message: ChatMessage) => {
+            alert(`New challenge: ${message.content}`); // Replace with toast notification
+          });
+        }
       }
     } else {
       this.errorMessage = 'You must be logged in to create a challenge.';
     }
-    // Connect to WebSocket and handle incoming private messages
-  const username = this.authService.getUsername(); // Make sure you have this function
-  if (username) {
-    this.notificationService.connect(username, (notification: any) => {
-      const message = JSON.parse(notification.body);
-      alert('New challenge: ' + message.content); // Simple popup
-    });
   }
+  ngOnDestroy(): void {
+    this.notificationService.disconnect(); // Clean up WebSocket connection
   }
 
   loadUsers(): void {
@@ -70,6 +71,7 @@ export class CreatechallengeComponent implements OnInit {
     this.userService.getAllUsers().subscribe({
       next: (users: User[]) => {
         this.availableParticipants = users.filter(user => user.id !== this.currentUserId);
+        console.log('Available participants:', this.availableParticipants);
         this.isLoading = false;
       },
       error: (err: HttpErrorResponse) => {
@@ -80,6 +82,11 @@ export class CreatechallengeComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('Selected opponentId:', this.challengeForm.value.opponentId); // Debug
+  if (this.challengeForm.invalid || !this.currentUserId) {
+    this.errorMessage = 'Please fill all required fields.';
+    return;
+  }
     if (this.challengeForm.invalid || !this.currentUserId) {
       this.errorMessage = 'Please fill all required fields.';
       return;
@@ -118,7 +125,11 @@ export class CreatechallengeComponent implements OnInit {
         } else {
           console.error('Opponent not found');
         }
-        this.router.navigate(['/questions']);
+        localStorage.setItem('selectedDifficulty', String(challengeData.difficultyLevel));
+
+        this.router.navigate(['/questions'], {
+  state: { difficulty: challengeData.difficultyLevel }
+});
       },
       error: (err: HttpErrorResponse) => {
         this.isLoading = false;

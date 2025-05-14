@@ -34,6 +34,7 @@ import { CreatedepatmentComponent } from './BackOffice/createdepatment/createdep
 import { AlleventsComponent } from './FrontOffice/allevents/allevents.component';
 import { GetstartedComponent } from './FrontOffice/getstarted/getstarted.component';
 import { PortfolioComponent } from './FrontOffice/portfolio/portfolio.component';
+import { RankComponent } from './FrontOffice/rank/rank.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { PortfolioComponent } from './FrontOffice/portfolio/portfolio.component'
     AlleventsComponent,
     GetstartedComponent,
     PortfolioComponent,
+    RankComponent,
     
   ],
   imports: [

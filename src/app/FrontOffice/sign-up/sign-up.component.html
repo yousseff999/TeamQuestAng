@@ -8,27 +8,61 @@
 </head>
 <body>
   <div class="wrapper">
-    <form action="#">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
       <h2>Sign Up</h2>
+
+      <!-- Success/Error Messages -->
+      <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Name Input -->
       <div class="input-field">
-        <input type="text" required>
+        <input type="text" formControlName="name" (input)="clearMessages()" required>
         <label>Enter your name</label>
+        <div *ngIf="signUpForm.get('name')?.touched && signUpForm.get('name')?.invalid" class="error">
+          Name is required.
+        </div>
       </div>
+
+      <!-- Email Input -->
       <div class="input-field">
-        <input type="email" required>
+        <input type="email" formControlName="email" (input)="clearMessages()" required>
         <label>Enter your email</label>
+        <div *ngIf="signUpForm.get('email')?.touched && signUpForm.get('email')?.invalid" class="error">
+          <div *ngIf="signUpForm.get('email')?.errors?.['required']">Email is required.</div>
+          <div *ngIf="signUpForm.get('email')?.errors?.['email']">Invalid email format.</div>
+        </div>
       </div>
+
+      <!-- Password Input -->
       <div class="input-field">
-        <input type="password" required>
+        <input type="password" formControlName="password" (input)="clearMessages()" required>
         <label>Enter your password</label>
+        <div *ngIf="signUpForm.get('password')?.touched && signUpForm.get('password')?.invalid" class="error">
+          <div *ngIf="signUpForm.get('password')?.errors?.['required']">Password is required.</div>
+          <div *ngIf="signUpForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</div>
+        </div>
       </div>
+
+      <!-- Confirm Password Input -->
       <div class="input-field">
-        <input type="password" required>
+        <input type="password" formControlName="confirmPassword" (input)="clearMessages()" required>
         <label>Confirm your password</label>
+        <div *ngIf="signUpForm.get('confirmPassword')?.touched && signUpForm.get('confirmPassword')?.invalid" class="error">
+          <div *ngIf="signUpForm.get('confirmPassword')?.errors?.['required']">Confirm password is required.</div>
+        </div>
+        <div *ngIf="signUpForm.errors?.['mismatch'] && signUpForm.get('confirmPassword')?.touched" class="error">
+          Passwords do not match.
+        </div>
       </div>
-      <button type="submit">Sign Up</button>
+
+      <button type="submit" [disabled]="signUpForm.invalid">Sign Up</button>
       <div class="register">
-        <p>Already have an account? <a href="/login">Log In</a></p>
+        <p>Already have an account? <a routerLink="/login">Log In</a></p>
       </div>
     </form>
   </div>

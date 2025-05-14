@@ -74,4 +74,12 @@ export class UserService {
   updateUserScore(userId: number, score: number): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}/${userId}/score`, { score });
   }
+
+  getUsersByScoreDesc(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/top-scores`);
+  }
+  
+  getTopScorer(): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/top-scorer`);
+  }
 }

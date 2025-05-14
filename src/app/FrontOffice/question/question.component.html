@@ -49,38 +49,49 @@
 <div class="quiz-container">
   <h2 class="title">🚀 Take on the Quiz Challenge!</h2>
 
-  <form [formGroup]="difficultyForm" (ngSubmit)="onGenerateQuestions()" class="difficulty-form">
-    <label for="difficulty" class="label">Choose Difficulty:</label>
-    <select id="difficulty" formControlName="difficulty" class="select">
-      <option value="" disabled selected>Select a level</option>
-      <option *ngFor="let level of difficultyLevels" [value]="level.value">{{ level.label }}</option>
-    </select>
+  <!-- Removed manual selection, just shows the chosen level -->
+<div *ngIf="selectedDifficultyLabel" class="info">
+  <p>Selected Difficulty: <strong>{{ selectedDifficultyLabel }}</strong></p>
+</div>
 
-    <button type="submit" [disabled]="isLoading" class="orange-btn">🎯 Generate Questions</button>
-  </form>
+<button (click)="onGenerateQuestions()" [disabled]="isLoading" class="generate-btn">
+  <span class="center-text" *ngIf="!isLoading">
+  <span class="white-dots">.......................................</span> 🎯 Generate Questions
+</span>
+  <span *ngIf="isLoading" class="loading-spinner"></span>
+</button>
+
 
   <div *ngIf="isLoading" class="loading">⏳ Loading your quiz...</div>
 
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 
-  <div *ngIf="questions.length > 0" class="questions-section">
-    <h3 class="section-title">📝 Answer the following questions:</h3>
+ <div *ngIf="questions.length > 0" class="questions-section">
+  <h3 class="section-title">📝 Answer the following questions:</h3>
 
-    <div *ngFor="let question of questions; let i = index" class="question-card">
-      <p class="question-text">{{ question.questionText }}</p>
+  <div *ngFor="let question of questions; let i = index" class="question-card">
+    <p class="question-text">{{ question.questionText }}</p>
 
-      <ul class="options-list">
-        <li *ngFor="let option of [question.option1, question.option2, question.option3]">
-          <label class="option-label">
-            <input type="radio" [name]="'q' + i" (change)="selectAnswer(i, option)" class="option-input" />
-            {{ option }}
-          </label>
-        </li>
-      </ul>
-    </div>
-
-    <button (click)="submitAnswers()" class="btn-submit"> Submit Your Answers</button>
+    <ul class="options-list">
+      <li *ngFor="let option of [question.option1, question.option2, question.option3]">
+        <label class="option-label">
+          <input
+            type="radio"
+            [name]="'q' + i"
+            [value]="option"
+            (change)="selectAnswer(i, option)"
+            [checked]="userAnswers[i] === option"
+            class="option-input"
+          />
+          {{ option }}
+        </label>
+      </li>
+    </ul>
   </div>
+
+  <button (click)="submitAnswers()" class="btn-submit">Submit Your Answers</button>
+</div>
+
 </div>
 <!-- Footer -->
 <footer id="footer" class="footer dark-background">

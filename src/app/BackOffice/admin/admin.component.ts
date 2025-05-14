@@ -5,6 +5,7 @@ import { TypeEvent } from 'src/app/models/event';
 import { User } from 'src/app/models/user';
 import { EventService } from 'src/app/services/event.service';
 import { Event as MyEvent} from 'src/app/models/event'; 
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -17,6 +18,7 @@ export class AdminComponent {
   eventParticipants: {event: MyEvent, users: User[]}[] = []; 
   loading = true;
   error = '';
+  topScorer?: User;
   toggleDropdown(): void {
     this.dropdownOpen = !this.dropdownOpen;
   }
@@ -24,7 +26,8 @@ export class AdminComponent {
   closeDropdown() {
     this.dropdownOpen = false;
   }
-  constructor(private authService: AuthService, private router: Router , private eventService: EventService) {}
+  constructor(private authService: AuthService, private router: Router ,
+     private eventService: EventService, private userService : UserService) {}
   isMenuOpen = false;
 
   toggleMenu(): void {
@@ -43,6 +46,7 @@ export class AdminComponent {
 
   ngOnInit(): void {
     this.loadEventParticipants();
+     this.loadTopScorer(); 
   }
 
   loadEventParticipants(): void {
@@ -79,7 +83,19 @@ export class AdminComponent {
       }
     });
   }
+   loadTopScorer(): void {
+    this.userService.getTopScorer().subscribe({
+      next: (user: User) => {
+        this.topScorer = user;
+        console.log('Top scorer:', user);
+      },
+      error: (err) => {
+        console.error('Failed to load top scorer:', err);
+      }
+    });
+  }
   navigateToAddUser(eventId: number): void {
     this.router.navigate(['/addusertoevent', eventId]);
 }
+
 }

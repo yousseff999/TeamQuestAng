@@ -8,19 +8,23 @@ import { ChatMessage } from '../models/chat-message';
 export class NotificationService {
   private stompClient!: Client;
 
-  connect(username: string, onMessage: (msg: any) => void): void {
+  connect(username: string, onMessage: (msg: ChatMessage) => void): void {
     this.stompClient = new Client({
-      brokerURL: 'ws://localhost:8086/ws', // Replace with your backend WS URL
+      brokerURL: 'ws://localhost:8086/ws', // Verify port matches backend
       reconnectDelay: 5000,
       onConnect: () => {
         console.log('Connected via STOMP');
-        this.stompClient.subscribe(`/topic/notifications/${username}`, (message: IMessage) => {
-          const msg = JSON.parse(message.body);
+        // Subscribe to user-specific queue for private messages
+        this.stompClient.subscribe(`/user/${username}/queue/messages`, (message: IMessage) => {
+          const msg = JSON.parse(message.body) as ChatMessage;
           onMessage(msg);
         });
       },
+      onStompError: (frame) => {
+        console.error('STOMP error:', frame);
+      },
       debug: (str) => {
-        console.log(str);
+        console.log('STOMP debug:', str);
       }
     });
 
@@ -30,18 +34,29 @@ export class NotificationService {
   disconnect(): void {
     if (this.stompClient && this.stompClient.active) {
       this.stompClient.deactivate();
+      console.log('Disconnected from STOMP');
     }
   }
-  sendMessage(message: any): void {
-    this.stompClient.publish({
-      destination: '/app/chat.sendMessage',
-      body: JSON.stringify(message),
-    });
+
+  sendMessage(message: ChatMessage): void {
+    if (this.stompClient && this.stompClient.active) {
+      this.stompClient.publish({
+        destination: '/app/chat.sendMessage',
+        body: JSON.stringify(message),
+      });
+    } else {
+      console.error('Cannot send message: STOMP client not connected');
+    }
   }
-  sendPrivateMessage(opponentUsername: string, message: ChatMessage) {
-    this.stompClient.publish({
-      destination: `/private-message/${opponentUsername}`, 
-      body: JSON.stringify(message)
-    });
+
+  sendPrivateMessage(opponentUsername: string, message: ChatMessage): void {
+    if (this.stompClient && this.stompClient.active) {
+      this.stompClient.publish({
+        destination: `/app/private-message/${opponentUsername}`,
+        body: JSON.stringify(message)
+      });
+    } else {
+      console.error('Cannot send private message: STOMP client not connected');
+    }
   }
 }

@@ -27,12 +27,15 @@ import { CreatedepatmentComponent } from './BackOffice/createdepatment/createdep
 import { AlleventsComponent } from './FrontOffice/allevents/allevents.component';
 import { GetstartedComponent } from './FrontOffice/getstarted/getstarted.component';
 import { PortfolioComponent } from './FrontOffice/portfolio/portfolio.component';
+import { RankComponent } from './FrontOffice/rank/rank.component';
+import { ResetPwdComponent } from './FrontOffice/reset-pwd/reset-pwd.component';
 
 
 const routes: Routes = [
   {path: '',component: UsercheckComponent},
   {path: 'login',component: LoginComponent},
   {path: 'signup',component: SignUpComponent},
+  {path: 'forgetpassword',component: ResetPwdComponent},
   {path: 'home',component: HomeComponent,canActivate: [AuthGuard],data: { roles: ['USER'] }},
   {path: 'admin',component: AdminComponent,canActivate: [AuthGuard],data: { roles: ['ADMIN'] }},
   {path: 'showevent',component: ShoweventComponent},
@@ -55,6 +58,7 @@ const routes: Routes = [
   {path: 'allevents',component: AlleventsComponent},
   {path: 'getstarted',component: GetstartedComponent},
   {path: 'portfolio',component: PortfolioComponent},
+  {path: 'rank',component: RankComponent},
   //{path: '',redirectTo: '/login',pathMatch: 'full'}
   //{ path: '**', redirectTo: '/home' } // Handle invalid routes
 ];

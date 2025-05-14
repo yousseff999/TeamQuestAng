@@ -14,7 +14,7 @@
             <li><a href="#" (click)="scrollTo('hero', $event)">Home</a></li>
             <li><a href="#" (click)="scrollTo('services', $event)">Services</a></li>
             <li><a href="#" (click)="scrollTo('about', $event)">Games</a></li>
-            <li><a href="#" (click)="scrollTo('about', $event)">Classement</a></li>
+            <li><a routerLink="/rank">Classement</a></li>
             <li><a href="#" (click)="scrollTo('portfolio', $event)">Portfolio</a></li>   
             <li class="dropdown">
               <a href="#"><span>Team</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -631,7 +631,7 @@
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
           <h2>Contact</h2>
-          <p>Necessitatibus eius consequatur</p>
+          <p>Share your feedback now</p>
         </div><!-- End Section Title -->
   
         <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -644,7 +644,7 @@
                   <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
                     <i class="bi bi-geo-alt"></i>
                     <h3>Address</h3>
-                    <p>A108 Adam Street, New York, NY 535022</p>
+                    <p>Immeuble Les Pins, Bloc B, Lotissement Zone VI Lac II 1053, Tunis 1053</p>
                   </div>
                 </div><!-- End Info Item -->
   
@@ -652,7 +652,7 @@
                   <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
                     <i class="bi bi-telephone"></i>
                     <h3>Call Us</h3>
-                    <p>+1 5589 55488 55</p>
+                    <p> 71 167 300</p>
                   </div>
                 </div><!-- End Info Item -->
   
@@ -660,7 +660,7 @@
                   <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
                     <i class="bi bi-envelope"></i>
                     <h3>Email Us</h3>
-                    <p>info@example.com</p>
+                    <p>youssef.zammit@soprahr.com</p>
                   </div>
                 </div><!-- End Info Item -->
   
@@ -668,35 +668,35 @@
             </div>
   
             <div class="col-lg-6">
-              <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="500">
-                <div class="row gy-4">
-  
-                  <div class="col-md-6">
-                    <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                  </div>
-  
-                  <div class="col-md-6 ">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                  </div>
-  
-                  <div class="col-md-12">
-                    <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                  </div>
-  
-                  <div class="col-md-12">
-                    <textarea class="form-control" name="message" rows="4" placeholder="Message" required=""></textarea>
-                  </div>
-  
-                  <div class="col-md-12 text-center">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Your message has been sent. Thank you!</div>
-  
-                    <button type="submit">Send Message</button>
-                  </div>
-  
-                </div>
-              </form>
+              <form (ngSubmit)="sendMessage()" #contactForm="ngForm" class="php-email-form" data-aos="fade-up" data-aos-delay="500">
+  <div class="row gy-4">
+    
+    <div class="col-md-6">
+      <input type="text" name="name" class="form-control" placeholder="Your Name" [(ngModel)]="contact.name" required>
+    </div>
+
+    <div class="col-md-6">
+      <input type="email" name="email" class="form-control" placeholder="Your Email" [(ngModel)]="contact.email" required>
+    </div>
+
+    <div class="col-md-12">
+      <input type="text" name="subject" class="form-control" placeholder="Subject" [(ngModel)]="contact.subject" required>
+    </div>
+
+    <div class="col-md-12">
+      <textarea name="message" class="form-control" rows="4" placeholder="Message" [(ngModel)]="contact.message" required></textarea>
+    </div>
+
+    <div class="col-md-12 text-center">
+      <div *ngIf="loading">Loading...</div>
+      <div *ngIf="errorMessage" class="error-message text-danger">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="sent-message text-success">{{ successMessage }}</div>
+
+      <button type="submit" [disabled]="loading">Send Message</button>
+    </div>
+
+  </div>
+</form>
             </div><!-- End Contact Form -->
   
           </div>

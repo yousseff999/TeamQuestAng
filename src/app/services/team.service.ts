@@ -62,6 +62,10 @@ export class TeamService {
     });
   }
 
+  getTeamNamesAndScores(): Observable<[string, number][]> {
+    return this.http.get<[string, number][]>(`${this.apiUrl}/scores`);
+  }
+
   // Get team rankings
   getTeamRankings(): Observable<Rank[]> {
     return this.http.get<Rank[]>(`${this.apiUrl}/rankings`);

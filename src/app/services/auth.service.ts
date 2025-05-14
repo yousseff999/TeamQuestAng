@@ -18,6 +18,18 @@ export class AuthService {
  
   constructor(private http: HttpClient,private router: Router) {}
 
+  signUp(name: string, email: string, password: string, confirmPassword: string): Observable<any> {
+    const signUpData = { name, email, password, confirmPassword };
+    return this.http.post<any>(`${this.apiUrl}/signup`, signUpData).pipe(
+      tap(response => {
+        if (response && response.userId && response.role && response.token) {
+          localStorage.setItem('userId', response.userId.toString());
+          localStorage.setItem('role', response.role);
+          localStorage.setItem('token', response.token);
+        }
+      })
+    );
+  }
   // Login method that sends credentials to the backend and stores user data
   login(email: string, password: string): Observable<any> {
     const loginData = { email, password };

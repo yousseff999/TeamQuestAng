@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Rank } from '../models/rank';
 import { AuthService } from './auth.service';
@@ -20,57 +20,46 @@ export class RankService {
 
   // Update user rank
   updateUserRank(userId: number): Observable<Rank> {
-    return this.http.put<Rank>(`${this.apiUrl}/user/${userId}`, {}, {
-      headers: this.getHeaders()
-    });
+    return this.http.put<Rank>(`${this.apiUrl}/update/user/${userId}`, {});
   }
 
   // Update team rank
   updateTeamRank(teamId: number): Observable<Rank> {
-    return this.http.put<Rank>(`${this.apiUrl}/team/${teamId}`, {}, {
-      headers: this.getHeaders()
-    });
+    return this.http.put<Rank>(`${this.apiUrl}/update/team/${teamId}`, {});
   }
 
   // Update department rank
   updateDepartmentRank(departmentId: number): Observable<Rank> {
-    return this.http.put<Rank>(`${this.apiUrl}/department/${departmentId}`, {}, {
-      headers: this.getHeaders()
-    });
+    return this.http.put<Rank>(`${this.apiUrl}/department/${departmentId}`, {});
   }
 
   // Get user ranks
   getUserRanks(): Observable<Rank[]> {
-    return this.http.get<Rank[]>(`${this.apiUrl}/users`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<Rank[]>(`${this.apiUrl}/users`);
   }
 
   // Get team ranks
   getTeamRanks(): Observable<Rank[]> {
-    return this.http.get<Rank[]>(`${this.apiUrl}/teams`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<Rank[]>(`${this.apiUrl}/teams`);
   }
 
   // Delete rank
   deleteRank(rankId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${rankId}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.delete<void>(`${this.apiUrl}/${rankId}`);
   }
 
   // Update rank
-  updateRank(entityId: number, rankType: string): Observable<Rank> {
-    return this.http.put<Rank>(`${this.apiUrl}/update`, { entityId, rankType }, {
-      headers: this.getHeaders()
-    });
-  }
+ updateRank(entityId: number, rankType: 'INDIVIDUAL' | 'TEAM' | 'DEPARTMENT') {
+  const params = new HttpParams()
+    .set('entityId', entityId.toString())
+    .set('rankType', rankType);
+
+  return this.http.put(`${this.apiUrl}/update`, null, { params });
+}
+
 
   // Get leaderboard
   getLeaderboard(type: 'user' | 'team' | 'department'): Observable<Rank[]> {
-    return this.http.get<Rank[]>(`${this.apiUrl}/leaderboard/${type}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<Rank[]>(`${this.apiUrl}/leaderboard/${type}`);
   }
 }

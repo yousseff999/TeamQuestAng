@@ -1,5 +1,5 @@
-<body class="index-page bg-gradient-to-br from-indigo-100 to-teal-100 min-h-screen">
-    <!-- Header -->
+<body class="index-page bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+    <!-- Header (kept exactly as you specified) -->
     <header id="header" class="header d-flex align-items-center fixed-top shadow-lg bg-gray-800 bg-opacity-95 backdrop-blur-sm">
       <div class="container-fluid container-xl position-relative d-flex align-items-center">
         <a href="index.html" class="logo d-flex align-items-center me-auto">
@@ -54,120 +54,203 @@
       </div>
     </header>
   
-    <main class="p-6 bg-gray-100 min-h-screen">
-        <h1 class="text-3xl font-bold text-center mb-6">Rejoindre une équipe</h1>
+    <!-- Stunning Main Content -->
+    <main class="pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto">
+        <!-- Hero Section -->
+       <div class="text-center mb-20 animate-fade-in">
+  <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-20"> <!-- mb-16 = 4rem bottom margin -->
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-teal-500">Join Your Perfect Team</span>
+          
+  </h1>
+  <h1 class="text-xl font-bold text-gray-800 max-w-3xl mx-auto mt-12 tracking-tight">
+    JOIN YOUR PERFECT TEAM
+</h1>
+  <p class="text-xl text-gray-600 max-w-3xl mx-auto mt-12"> <!-- mt-8 = 2rem top margin -->
+    Collaborate, compete, and create unforgettable experiences with teams that match your passion.
+  </p>
+</div>
       
         <!-- Message Display -->
-        <div *ngIf="message" class="mb-6 p-4 rounded-lg text-white text-center font-medium" [ngClass]="message.type === 'success' ? 'bg-green-600' : 'bg-red-600'">
-          {{ message.text }}
+        <div *ngIf="message" class="mb-8 p-6 rounded-xl text-center font-medium shadow-lg transition-all duration-500 animate-pop-in"
+             [ngClass]="{
+               'bg-gradient-to-r from-green-400 to-emerald-500 text-white': message.type === 'success',
+               'bg-gradient-to-r from-rose-500 to-pink-600 text-white': message.type === 'error'
+             }">
+          <div class="flex items-center justify-center space-x-3">
+            <i *ngIf="message.type === 'success'" class="bi bi-check-circle-fill text-2xl"></i>
+            <i *ngIf="message.type === 'error'" class="bi bi-exclamation-triangle-fill text-2xl"></i>
+            <span class="text-lg">{{ message.text }}</span>
+          </div>
         </div>
       
-        <!-- Loading Spinner for Team Loading -->
-        <div *ngIf="isLoading" class="flex justify-center mb-6">
-          <svg class="animate-spin h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
+        <!-- Loading Spinner -->
+        <div *ngIf="isLoading" class="flex justify-center mb-12 animate-pulse">
+          <div class="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
         </div>
       
-        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div *ngFor="let team of teams" class="bg-white shadow-md rounded-lg p-5">
-            <h2 class="text-xl font-semibold mb-2">{{ team.name }}</h2>
-            <p class="text-gray-600 mb-1">{{ team.description }}</p>
-            <p class="text-sm text-gray-400 mb-2">Créée le : {{ team.creationDate | date: 'mediumDate' }}</p>
-      
-            <div class="mb-4">
-              <p class="font-medium">Membres :</p>
-              <ul class="list-disc list-inside ml-4">
-                <li *ngFor="let user of team.members">{{ user.username }}</li>
-                <li *ngIf="team.members.length === 0" class="italic text-gray-400">Aucun membre pour le moment</li>
-              </ul>
-            </div>
-      
-            <button 
-  class="w-full py-2 px-4 bg-orange-500 text-white font-semibold rounded hover:bg-orange-600 transition flex items-center justify-center"
+        <!-- Teams Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div *ngFor="let team of teams" 
+               class="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-200 animate-float-in">
+            <div class="p-6">
+              <div class="flex justify-between items-start mb-4">
+                <h2 class="text-2xl font-bold text-gray-800">{{ team.name }}</h2>
+                <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full shadow-sm">
+                  {{ team.members.length }} member{{ team.members.length !== 1 ? 's' : '' }}
+                </span>
+              </div>
+              
+              <p class="text-gray-600 mb-6">{{ team.description || 'No description provided' }}</p>
+              
+              <div class="mb-6">
+                <div class="flex items-center text-sm text-gray-500 mb-3">
+                  <i class="bi bi-calendar3 mr-2"></i>
+                  <span>Created {{ team.creationDate | date: 'mediumDate' }}</span>
+                </div>
+                
+                <div>
+                  <p class="text-sm font-medium text-gray-500 mb-2">Members:</p>
+                  <div class="flex flex-wrap gap-2">
+                    <div *ngFor="let user of team.members" 
+                         class="flex items-center bg-gray-50 px-3 py-1 rounded-full text-sm shadow-inner">
+                      <div class="w-2 h-2 rounded-full bg-teal-400 mr-2 animate-pulse"></div>
+                      {{ user.username }}
+                    </div>
+                    <div *ngIf="team.members.length === 0" class="text-gray-400 text-sm italic">
+                      Be the first to join!
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+             <button 
+  class="w-full py-3 px-6 bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-black font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center"
   (click)="joinTeam(team.id)"
   [disabled]="loadingTeamId === team.id || !currentUserId">
-  <span *ngIf="loadingTeamId !== team.id">Rejoindre</span>
+  <span *ngIf="loadingTeamId !== team.id" class="flex items-center">
+    <i class="bi bi-people-fill mr-2 text-black"></i> <!-- Made icon black too -->
+    Join Team
+  </span>
   <span *ngIf="loadingTeamId === team.id" class="flex items-center">
-    <svg class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <svg class="animate-spin h-5 w-5 mr-2 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
       <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
     </svg>
     Joining...
   </span>
 </button>
-
+            </div>
           </div>
-        </section>
-      </main>
-      
-  
-    <!-- Footer -->
-    <footer id="footer" class="footer dark-background">
+        </div>
+      </div>
+    </main>
     
-        <div class="container footer-top">
-        <div class="row gy-4">
-            <div class="col-lg-4 col-md-6 footer-about">
-            <a href="index.html" class="logo d-flex align-items-center">
-                <span class="sitename">Dewi</span>
-            </a>
-            <div class="footer-contact pt-3">
-                <p>A108 Adam Street</p>
-                <p>New York, NY 535022</p>
-                <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-                <p><strong>Email:</strong> <span>info@example.com</span></p>
+    <!-- Enhanced Footer -->
+    <footer class="bg-gray-800 text-gray-300 pt-16 pb-8 px-4 sm:px-6 lg:px-8 mt-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+          <!-- Logo Column -->
+          <div>
+            <h3 class="text-2xl font-bold text-indigo-400 mb-6">TeamQuest</h3>
+            <p class="mb-6">Connecting passionate individuals with teams that inspire.</p>
+            <div class="flex space-x-4">
+              <a href="#" class="text-gray-400 hover:text-teal-400 transition-colors duration-300 text-xl">
+                <i class="bi bi-twitter"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-teal-400 transition-colors duration-300 text-xl">
+                <i class="bi bi-facebook"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-teal-400 transition-colors duration-300 text-xl">
+                <i class="bi bi-instagram"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-teal-400 transition-colors duration-300 text-xl">
+                <i class="bi bi-linkedin"></i>
+              </a>
             </div>
-            <div class="social-links d-flex mt-4">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-            </div>
-            </div>
-    
-            <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+          </div>
+          
+          <!-- Quick Links -->
+          <div>
+            <h4 class="text-lg font-semibold text-white mb-6">Quick Links</h4>
+            <ul class="space-y-3">
+              <li><a href="#" class="hover:text-teal-400 transition-colors duration-300 flex items-center">
+                <i class="bi bi-chevron-right mr-2 text-xs text-teal-400"></i> Home
+              </a></li>
+              <li><a href="#" class="hover:text-teal-400 transition-colors duration-300 flex items-center">
+                <i class="bi bi-chevron-right mr-2 text-xs text-teal-400"></i> About Us
+              </a></li>
+              <li><a href="#" class="hover:text-teal-400 transition-colors duration-300 flex items-center">
+                <i class="bi bi-chevron-right mr-2 text-xs text-teal-400"></i> Teams
+              </a></li>
+              <li><a href="#" class="hover:text-teal-400 transition-colors duration-300 flex items-center">
+                <i class="bi bi-chevron-right mr-2 text-xs text-teal-400"></i> Events
+              </a></li>
             </ul>
-            </div>
-    
-            <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
+          </div>
+          
+          <!-- Support -->
+          <div>
+            <h4 class="text-lg font-semibold text-white mb-6">Support</h4>
+            <ul class="space-y-3">
+              <li><a href="#" class="hover:text-teal-400 transition-colors duration-300 flex items-center">
+                <i class="bi bi-chevron-right mr-2 text-xs text-teal-400"></i> FAQ
+              </a></li>
+              <li><a href="#" class="hover:text-teal-400 transition-colors duration-300 flex items-center">
+                <i class="bi bi-chevron-right mr-2 text-xs text-teal-400"></i> Contact
+              </a></li>
+              <li><a href="#" class="hover:text-teal-400 transition-colors duration-300 flex items-center">
+                <i class="bi bi-chevron-right mr-2 text-xs text-teal-400"></i> Privacy Policy
+              </a></li>
+              <li><a href="#" class="hover:text-teal-400 transition-colors duration-300 flex items-center">
+                <i class="bi bi-chevron-right mr-2 text-xs text-teal-400"></i> Terms
+              </a></li>
             </ul>
-            </div>
-    
-            <div class="col-lg-4 col-md-12 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-            <form action="forms/newsletter.php" method="post" class="php-email-form">
-                <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+          </div>
+          
+          <!-- Newsletter -->
+          <div>
+            <h4 class="text-lg font-semibold text-white mb-6">Stay Updated</h4>
+            <p class="mb-4">Subscribe to our newsletter for the latest team opportunities.</p>
+            <form class="flex flex-col space-y-4">
+              <input type="email" placeholder="Your Email" 
+                     class="px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all duration-300">
+              <button type="submit" 
+                      class="bg-gradient-to-r from-indigo-500 to-teal-500 text-white py-3 px-6 rounded-lg font-medium hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+                <i class="bi bi-envelope-fill mr-2"></i> Subscribe
+              </button>
             </form>
-            </div>
-    
+          </div>
         </div>
+        
+        <div class="border-t border-gray-700 mt-12 pt-8 text-center">
+          <p class="text-gray-400">&copy; 2023 TeamQuest. All rights reserved.</p>
         </div>
-    
-        <div class="container copyright text-center mt-4">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">Dewi</strong> <span>All Rights Reserved</span></p>
-        <div class="credits">
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
-        </div>
-        </div>
-    
+      </div>
     </footer>
-  </body>
+
+    <!-- Animations -->
+    <style>
+      @keyframes fade-in {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes pop-in {
+        0% { opacity: 0; transform: scale(0.8); }
+        80% { opacity: 1; transform: scale(1.05); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+      @keyframes float-in {
+        0% { opacity: 0; transform: translateY(30px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+      .animate-pop-in { animation: pop-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+      .animate-float-in { animation: float-in 0.6s ease-out forwards; }
+      .animate-float-in:nth-child(1) { animation-delay: 0.1s; }
+      .animate-float-in:nth-child(2) { animation-delay: 0.2s; }
+      .animate-float-in:nth-child(3) { animation-delay: 0.3s; }
+      .animate-float-in:nth-child(4) { animation-delay: 0.4s; }
+      .animate-float-in:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</body>

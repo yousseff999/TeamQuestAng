@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class FeedbackService {
-  private apiUrl = 'http://localhost:8080/Feedback';
+  private apiUrl = 'http://localhost:8086/Feedback';
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -17,7 +17,9 @@ export class FeedbackService {
       'Authorization': `Bearer ${this.authService.getToken()}`
     });
   }
-
+sendContactForm(contact: any) {
+    return this.http.post('http://localhost:8086/Feedback/sendemail', contact);
+  }
   // Add feedback
   addFeedback(eventId: number, userId: number, feedback: Feedback): Observable<Feedback> {
     return this.http.post<Feedback>(

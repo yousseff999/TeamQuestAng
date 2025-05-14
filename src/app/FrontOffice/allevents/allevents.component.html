@@ -1,111 +1,441 @@
-<main class="bg-gray-100 min-h-screen pt-20 pb-12 px-4">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TeamQuest - Events</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --primary: #6c5ce7;
+      --primary-light: #a29bfe;
+      --secondary: #00b894;
+      --accent: #fd79a8;
+      --dark: #2d3436;
+      --light: #f5f6fa;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #ffffff;
+    }
+    
+    /* Header - Exactly as you provided */
+    .header {
+      background: rgba(57, 55, 100, 0.98);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+      z-index: 999;
+      height: 70px;
+    }
+    
+    .navmenu ul {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    
+    .navmenu > ul > li {
+      position: relative;
+      white-space: nowrap;
+    }
+    
+    .navmenu a {
+      display: flex;
+      align-items: center;
+      color: #ffffff;
+      padding: 10px 15px;
+      margin: 0 5px;
+      transition: 0.3s;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    
+    .navmenu a:hover,
+    .navmenu .active > a {
+      color: var(--primary);
+    }
+    
+    .navmenu .dropdown ul {
+      display: block;
+      position: absolute;
+      left: 0;
+      top: calc(100% + 30px);
+      z-index: 99;
+      opacity: 0;
+      visibility: hidden;
+      padding: 10px 0;
+      background: #fff;
+      box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+      transition: 0.3s;
+      border-radius: 8px;
+    }
+    
+    .navmenu .dropdown:hover > ul {
+      opacity: 1;
+      top: 100%;
+      visibility: visible;
+    }
+    
+    .navmenu .dropdown .dropdown ul {
+      top: 0;
+      left: calc(100% - 30px);
+      visibility: hidden;
+    }
+    
+    .navmenu .dropdown .dropdown:hover > ul {
+      opacity: 1;
+      top: 0;
+      left: 100%;
+      visibility: visible;
+    }
+    
+    .dropdown > a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .dropdown .toggle-dropdown {
+      font-size: 12px;
+      margin-left: 5px;
+      transition: 0.3s;
+    }
+    
+    .dropdown:hover .toggle-dropdown {
+      transform: rotate(180deg);
+    }
+    
+    .dropdown ul li {
+      min-width: 200px;
+    }
+    
+    .dropdown ul a {
+      padding: 10px 20px;
+      font-size: 14px;
+      text-transform: none;
+      color: #2c3e50;
+    }
+    
+    .dropdown ul a:hover {
+      color: var(--primary);
+    }
+    
+    .mobile-nav-toggle {
+      color: #2c3e50;
+      font-size: 28px;
+      cursor: pointer;
+      display: none;
+      line-height: 0;
+      transition: 0.5s;
+    }
+    
+    .sitename {
+      font-size: 26px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin: 0;
+    }
+    
+    /* Event Cards - Premium Styling */
+    .event-card {
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .event-card:hover {
+      transform: translateY(-10px) scale(1.02);
+    }
+    
+    .event-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 8px 8px 0 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .event-card:hover::before {
+      opacity: 1;
+    }
+    
+    .event-image {
+      transition: transform 0.5s ease;
+    }
+    
+    .event-card:hover .event-image {
+      transform: scale(1.05);
+    }
+    
+    .participate-btn {
+      background: linear-gradient(135deg, var(--secondary), #3b378a);
+      transition: all 0.3s ease;
+    }
+    
+    .participate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(30, 36, 103, 0.607);
+    }
+    
+    .action-btn {
+      transition: all 0.3s ease;
+    }
+    
+    .action-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .like-btn:hover {
+      background-color: #e84393;
+      box-shadow: 0 5px 15px rgba(232, 67, 147, 0.4);
+    }
+    
+    .dislike-btn:hover {
+      background-color: #d63031;
+      box-shadow: 0 5px 15px rgba(214, 48, 49, 0.4);
+    }
+    
+    .interested-btn:hover {
+      background-color: #0984e3;
+      box-shadow: 0 5px 15px rgba(9, 132, 227, 0.4);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-card {
+      animation: fadeIn 0.6s ease-out forwards;
+      opacity: 0;
+    }
+    
+    @media (max-width: 1200px) {
+      .mobile-nav-toggle {
+        display: block;
+      }
       
-      <!-- Header -->
-      <div class="flex justify-between items-center mb-8">
-        <h2 class="text-3xl font-bold text-gray-900">Your Events</h2>
+      .navmenu ul {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="font-sans antialiased text-gray-900">
+  <!-- Header - Exactly as you provided -->
+  <header id="header" class="header d-flex align-items-center fixed-top w-full">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center h-full">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">TeamQuest</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Games</a></li>
+          <li><a href="#">Classement</a></li>
+          <li><a href="#">Portfolio</a></li>   
+          <li class="dropdown">
+            <a href="#"><span>Team</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a routerLink="/jointeam">All Teams</a></li>
+              <li><a routerLink="/teamcreation">Create Team</a></li>
+            </ul>
+          </li>
+          
+          <li class="dropdown"><a href="#"><span>Upcoming Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a routerLink="/allevents">All events</a></li>
+              <li class="dropdown"><a href="#"><span>Select event category</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                  <li><a href="#">Sport</a></li>
+                  <li><a href="#">Party</a></li>
+                  <li><a href="#">Camping</a></li>
+                  <li><a href="#">Culture</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header> 
+
+  <!-- Main Content - Premium Styling -->
+  <main class="min-h-screen pt-24 pb-12 px-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Page Header -->
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Discover Exciting Events</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Join the most thrilling experiences curated just for you. Find your next adventure today!</p>
       </div>
   
       <!-- Event Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         <div
           *ngFor="let event of events; let i = index"
-          class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300 animate-fade-in-up"
+          class="event-card bg-white rounded-xl shadow-xl overflow-hidden relative animate-card"
           [style.animation-delay]="i * 100 + 'ms'"
         >
           <!-- Event Image with Type Badge -->
-          <div class="relative h-48 overflow-hidden">
+          <div class="relative h-56 overflow-hidden event-image">
             <img
               *ngIf="eventImageUrls[event.eventId]"
               [src]="eventImageUrls[event.eventId]"
               alt="{{ event.eventName }}"
               class="w-full h-full object-cover"
             />
-            <div *ngIf="!eventImageUrls[event.eventId]" class="w-full h-full bg-gray-200 flex items-center justify-center">
+            <div *ngIf="!eventImageUrls[event.eventId]" class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center">
               <span class="text-gray-500">No Image Available</span>
             </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
             <span class="absolute top-3 left-3 inline-block bg-white/90 text-indigo-600 text-xs font-semibold px-3 py-1 rounded-full shadow">
               {{ event.eventType }}
             </span>
+            <div class="absolute bottom-3 right-3 flex items-center text-sm text-white">
+              <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-.99-14h1.98v6h-1.98zm.99 8.2c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
+              </svg>
+              <span>32 Going</span>
+            </div>
           </div>
   
           <!-- Event Content -->
-          <div class="p-5">
-            <div class="flex items-center text-sm text-gray-500 mb-2">
-              <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="p-6">
+            <div class="flex items-center text-sm text-gray-500 mb-3">
+              <svg class="h-5 w-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
               </svg>
               <span>{{ event.startDate | date:'mediumDate' }}</span>
             </div>
   
             <h3 class="text-xl font-bold text-gray-900 mb-2">{{ event.eventName }}</h3>
-            <p class="text-gray-600 mb-4 line-clamp-2">{{ event.description }}</p>
+            <p class="text-gray-600 mb-5 line-clamp-2">{{ event.description }}</p>
   
-            <div class="flex items-center text-sm text-gray-500 mb-4 cursor-pointer" >
-              <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.104 0 2-.672 2-1.5S13.104 8 12 8s-2 .672-2 1.5.896 1.5 2 1.5zm0 0c-3.866 0-7 3.134-7 7h14c0-3.866-3.134-7-7-7z"/>
+            <div class="flex items-center text-sm text-gray-500 mb-6">
+              <svg class="h-5 w-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
               <span>{{ event.location }}</span>
             </div>
   
-            
-  
             <!-- Actions -->
-            <div class="flex justify-between gap-2">
+            <div class="flex flex-col space-y-3">
               <button
-                (click)="addUser(event.eventId)"
-                class="flex-1 px-4 py-2 bg-teal-600 text-white text-sm rounded-lg hover:bg-teal-700 transition flex items-center justify-center gap-2"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                Participer
-              </button>
+  (click)="addUser(event.eventId)"
+  class="participate-btn w-full px-4 py-3 bg-teal-600 text-black text-sm font-medium rounded-lg flex items-center justify-center gap-2"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+  Join Event
+</button>
+              
+              <div class="grid grid-cols-3 gap-2">
+  <!-- Like Button -->
+  <button
+    #likeBtn
+    (click)="handleInteraction(likeBtn, dislikeBtn, interestBtn, event.eventId, InteractionType.LIKE)"
+    class="action-btn like-btn px-3 py-2 bg-gray-200 text-pink-500 text-xs rounded-lg flex items-center justify-center gap-1 transition-colors"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" 
+         fill="none" 
+         stroke="currentColor" 
+         class="h-4 w-4" 
+         viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+    </svg>
+    Like
+  </button>
   
-              <button
-                (click)="interact(event.eventId, InteractionType.LIKE)"
-                class="flex-1 px-4 py-2 bg-pink-500 text-white text-sm rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-                Like
-              </button>
-              <button
-                (click)="interact(event.eventId, InteractionType.DISLIKE)"
-                class="flex-1 px-4 py-2 bg-pink-500 text-white text-sm rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-                DisLike
-              </button>
-              <button
-                (click)="interact(event.eventId, InteractionType.INTERRESTED)"
-                class="flex-1 px-4 py-2 bg-pink-500 text-white text-sm rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-                Interrested
-              </button>
+  <!-- Dislike Button -->
+  <button
+    #dislikeBtn
+    (click)="handleInteraction(dislikeBtn, likeBtn, interestBtn, event.eventId, InteractionType.DISLIKE)"
+    class="action-btn dislike-btn px-3 py-2 bg-gray-200 text-red-500 text-xs rounded-lg flex items-center justify-center gap-1 transition-colors"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" 
+         fill="none" 
+         stroke="currentColor" 
+         class="h-4 w-4" 
+         viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+    </svg>
+    Dislike
+  </button>
+  
+  <!-- Interested Button -->
+  <button
+    #interestBtn
+    (click)="handleInteraction(interestBtn, likeBtn, dislikeBtn, event.eventId, InteractionType.INTERRESTED)"
+    class="action-btn interested-btn px-3 py-2 bg-gray-200 text-blue-500 text-xs rounded-lg flex items-center justify-center gap-1 transition-colors"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" 
+         fill="none" 
+         stroke="currentColor" 
+         class="h-4 w-4" 
+         viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+    </svg>
+    Interested
+  </button>
+</div>
             </div>
           </div>
         </div>
       </div>
   
-      <!-- Back Button -->
-      <div class="mt-12 flex justify-center">
+      <!-- View More Button -->
+      <div class="mt-16 text-center">
         <button
-          class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition duration-300 font-medium flex items-center gap-2"
+          class="px-8 py-3 bg-white border-2 border-indigo-500 text-indigo-600 rounded-lg hover:bg-indigo-50 transition duration-300 font-medium flex items-center gap-2 mx-auto"
         >
+          View More Events
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
-          Go Back
         </button>
       </div>
     </div>
   </main>
-  
+
+  <script>
+    // Mobile menu toggle
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const navmenu = document.querySelector('#navmenu ul');
+    
+    if (mobileNavToggle) {
+      mobileNavToggle.addEventListener('click', function(e) {
+        navmenu.style.display = navmenu.style.display === 'block' ? 'none' : 'block';
+        this.classList.toggle('bi-list');
+        this.classList.toggle('bi-x');
+      });
+    }
+    
+    // Close mobile menu when clicking on a nav item
+    document.querySelectorAll('#navmenu ul li a').forEach(item => {
+      item.addEventListener('click', () => {
+        if (window.innerWidth <= 1200) {
+          navmenu.style.display = 'none';
+          mobileNavToggle.classList.toggle('bi-list');
+          mobileNavToggle.classList.toggle('bi-x');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

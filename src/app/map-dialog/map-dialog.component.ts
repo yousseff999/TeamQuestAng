@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-map-dialog',
@@ -8,25 +9,43 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./map-dialog.component.css']
 })
 export class MapDialogComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public location: string) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public location: string,
+  private http: HttpClient) {}
 
   map!: L.Map;
 
   ngOnInit(): void {
-    // You can replace this with a real geocoding API later
-    this.initMap();
-  }
+  this.geocodeLocation(this.location);
+}
 
-  initMap(): void {
-    this.map = L.map('map').setView([36.8065, 10.1815], 13); // default to Tunis
+ geocodeLocation(location: string): void {
+  const encodedLocation = encodeURIComponent(location);
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodedLocation}`;
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(this.map);
+  this.http.get<any[]>(url).subscribe((results) => {
+    if (results.length > 0) {
+      const lat = parseFloat(results[0].lat);
+      const lon = parseFloat(results[0].lon);
+      this.initMap(lat, lon);
+    } else {
+      // fallback to default location if not found
+      this.initMap(36.8065, 10.1815);
+    }
+  }, error => {
+    console.error('Geocoding error:', error);
+    this.initMap(36.8065, 10.1815); // fallback
+  });
+}
 
-    // This is where you'd use a geocoding API to convert address to lat/lng
-    L.marker([36.8065, 10.1815]).addTo(this.map)
-      .bindPopup(this.location)
-      .openPopup();
-  }
+initMap(lat: number, lon: number): void {
+  this.map = L.map('map').setView([lat, lon], 13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(this.map);
+
+  L.marker([lat, lon]).addTo(this.map)
+    .bindPopup(this.location)
+    .openPopup();
+}
 }

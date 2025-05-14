@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChatMessage } from 'src/app/models/chat-message';
+import { FeedbackService } from 'src/app/services/feedback.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Portfolio, PortfolioService } from 'src/app/services/portfolio.service'; 
-
+import { RankService } from 'src/app/services/rank.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,8 +13,18 @@ import { Portfolio, PortfolioService } from 'src/app/services/portfolio.service'
 export class HomeComponent implements OnInit  {
   portfolios: Portfolio[] = [];
   imageUrls: { [key: number]: string } = {};
-  constructor(private router: Router,private notificationService: NotificationService,private route: ActivatedRoute, private portfolioService: PortfolioService) {}
-
+  constructor(private router: Router,private notificationService: NotificationService,
+    private route: ActivatedRoute, private portfolioService: PortfolioService,
+  private rankService : RankService, private feedbackService: FeedbackService) {}
+contact = {
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  };
+   loading = false;
+  successMessage = '';
+  errorMessage = '';
   goToLogin(): void {
     this.router.navigate(['/login']);
   }
@@ -34,6 +45,7 @@ export class HomeComponent implements OnInit  {
       });
     });
   }
+  
   scrollTo(id: string, event: Event) {
     event.preventDefault();
     const el = document.getElementById(id);
@@ -45,5 +57,19 @@ export class HomeComponent implements OnInit  {
   ngOnDestroy(): void {
     this.notificationService.disconnect();
   }
-
+sendMessage() {
+    this.loading = true;
+    this.feedbackService.sendContactForm(this.contact).subscribe({
+      next: () => {
+        this.successMessage = 'Your message has been sent. Thank you!';
+        this.errorMessage = '';
+        this.loading = false;
+      },
+      error: () => {
+        this.errorMessage = 'Something went wrong. Please try again later.';
+        this.successMessage = '';
+        this.loading = false;
+      }
+    });
+  }
 }

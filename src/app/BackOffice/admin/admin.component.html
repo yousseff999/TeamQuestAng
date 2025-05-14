@@ -44,7 +44,7 @@
                 </div> 
     
                 <div class="ml-2 capitalize flex ">
-                  <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">Si Youssef</h1>
+                  <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">Youssef</h1>
                   <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
                 </div>                        
               </button>
@@ -650,15 +650,16 @@
     
                 <!-- info -->
                 <div class="py-2 ml-10">
-                    <h1 class="h6">Good Job, Mohamed!</h1>
-                    <p class="text-white text-xs">You've finished all of your tasks for this week.</p>
-    
-                    <ul class="mt-4">
-                        <li class="text-sm font-light"><i class="fad fa-check-double mr-2 mb-2"></i> Finish Dashboard Design</li>
-                        <li class="text-sm font-light"><i class="fad fa-check-double mr-2 mb-2"></i> Fix Issue #74</li>
-                        <li class="text-sm font-light"><i class="fad fa-check-double mr-2"></i> Publish version 1.0.6</li>
-                    </ul>
-                </div>
+<h1 class="h6 text-black">Good Job, {{ topScorer?.username }}!</h1>
+  <p class="text-black text-xs">Keep it up! You're setting the bar high for everyone else!</p>
+
+
+  <div class="p-4 bg-gray-100 rounded mt-4" *ngIf="topScorer">
+    <h2 class="text-lg font-semibold text-black">🏆 Top Scorer</h2>
+    <p class="text-black"> {{ topScorer.username }} — Score: {{ topScorer.score_u }}</p>
+  </div>
+</div>
+
                 <!-- end info -->
     
             </div>
