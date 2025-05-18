@@ -70,4 +70,8 @@ export class TeamService {
   getTeamRankings(): Observable<Rank[]> {
     return this.http.get<Rank[]>(`${this.apiUrl}/rankings`);
   }
+  // Get team by user ID
+getTeamByUserId(userId: number): Observable<Team> {
+  return this.http.get<Team>(`${this.apiUrl}/teamuser/${userId}`);
+}
 }

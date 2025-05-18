@@ -1,0 +1,70 @@
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2em;
+  color: #555;
+}
+
+.alert {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.no-submissions {
+  text-align: center;
+  font-size: 1.1em;
+  color: #777;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.submission-list {
+  list-style: none;
+  padding: 0;
+}
+
+.submission-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.submission-details p {
+  margin: 5px 0;
+}
+
+.score-input {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.form-control {
+  max-width: 100px;
+}
+
+.btn-primary {
+  padding: 5px 15px;
+}

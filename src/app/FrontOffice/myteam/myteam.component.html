@@ -1,0 +1,216 @@
+<body class="min-h-screen bg-fixed bg-center bg-cover bg-no-repeat"
+      style="background-image: url('assets/FrontOffice/img/go.jpg');
+             background-blend-mode: overlay;"
+      [class]="darkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-gray-50 to-gray-100'">
+  <!-- Header -->
+  <header id="header" class="header fixed-top shadow-lg bg-gray-800 bg-opacity-95 backdrop-blur-sm">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename text-2xl font-extrabold text-indigo-400 tracking-wide">TeamQuest</h1>
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul class="flex space-x-6">
+          <li><a href="#" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium cursor-pointer">Home</a></li>
+          <li><a href="#about" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">About</a></li>
+          <li><a href="#services" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Services</a></li>
+          <li><a href="#portfolio" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Portfolio</a></li>
+          <li class="dropdown relative">
+            <a href="#" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium flex items-center">
+              <i class="fad fa-calendar-alt text-xs mr-2"></i>
+              <span>Team</span>
+              <i class="bi bi-chevron-down toggle-dropdown ml-1"></i>
+            </a>
+            <ul class="dropdown-menu absolute hidden bg-gray-700 shadow-xl rounded-lg mt-2 w-48 z-10">
+              <li><a href="#all-teams" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">All Teams</a></li>
+              <li><a href="#create-team" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Create Team</a></li>
+            </ul>
+          </li>
+          <li class="dropdown relative">
+            <a href="#" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium flex items-center">
+              <span>Event</span>
+              <i class="bi bi-chevron-down toggle-dropdown ml-1"></i>
+            </a>
+            <ul class="dropdown-menu absolute hidden bg-gray-700 shadow-xl rounded-lg mt-2 w-48 z-10">
+              <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Dropdown 1</a></li>
+              <li class="dropdown relative">
+                <a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300 flex items-center">
+                  <span>Deep Dropdown</span>
+                  <i class="bi bi-chevron-down toggle-dropdown ml-1"></i>
+                </a>
+                <ul class="dropdown-menu absolute hidden bg-gray-700 shadow-xl rounded-lg ml-48 -mt-10 w-48">
+                  <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 1</a></li>
+                  <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 2</a></li>
+                  <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 3</a></li>
+                  <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 4</a></li>
+                  <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 5</a></li>
+                </ul>
+              </li>
+              <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Dropdown 2</a></li>
+              <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Dropdown 3</a></li>
+              <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Dropdown 4</a></li>
+            </ul>
+          </li>
+          <li><a href="#contact" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list text-gray-200 cursor-pointer"></i>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-24 pb-12 px-4"> <!-- Added padding-top to account for fixed header -->
+    <div class="team-dashboard" *ngIf="!loading && myTeam">
+  <!-- Header Section -->
+  <div class="team-header">
+    <h2 class="team-title">
+      <span class="title-icon">👥</span>
+      <span class="title-text" style="color: #FFFFFF;">Mon Équipe</span>
+      <span class="title-accent"></span>
+    </h2>
+  </div>
+<!-- Toggle Button -->
+<button class="magic-toggle-btn" (click)="toggleDefi()">
+  <span class="btn-icon">✨</span>
+  <span class="btn-text">{{ showDefi ? 'Cacher le Défi' : 'Voir le Dernier Défi' }}</span>
+  <span class="btn-arrow">{{ showDefi ? '▲' : '▼' }}</span>
+</button>
+
+<!-- Defi Card -->
+<div *ngIf="showDefi && lastDefi" class="card mt-4 challenge-card animate-in">
+  <div class="card-body">
+    <div class="card-header-gradient">
+      <h3 class="card-title"><i class="fas fa-thumbtack"></i> Dernier Défi Créé</h3>
+    </div>
+
+    <div class="challenge-details">
+      <p class="detail-item"><span class="detail-icon">🎯</span><strong>Thème :</strong> <span class="highlight-text">{{ lastDefi.theme }}</span></p>
+      <p class="detail-item"><span class="detail-icon">🏷️</span><strong>Titre :</strong> <span class="highlight-text">{{ lastDefi.title }}</span></p>
+      <p class="detail-item"><span class="detail-icon">📝</span><strong>Description:</strong> <span class="highlight-text">{{ lastDefi.description }}</span></p>
+      <p class="detail-item deadline"><span class="detail-icon">⏰</span><strong>Date limite :</strong> <span class="highlight-text">{{ lastDefi.deadline }}</span></p>
+    </div>
+
+    <div style="display: flex; justify-content: center;">
+      <button class="btn participate-btn mt-3" (click)="takePart()">
+        <span class="btn-icon">✅</span> take part in the Défi
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Answer Form -->
+<div *ngIf="showAnswerForm" class="answer-form-container animate-in">
+  <div class="answer-form-card">
+    <div class="form-header">
+      <h3 class="form-title">
+        <span class="title-icon">✍️</span>
+        Votre Réponse au Défi
+      </h3>
+      <div class="form-divider"></div>
+    </div>
+    
+    <div class="form-body">
+      <div class="text-editor">
+        <textarea 
+          [(ngModel)]="answerContent" 
+          class="answer-textarea" 
+          rows="6" 
+          placeholder="Écrivez votre réponse ici... Soyez inspiré! ✨">
+        </textarea>
+        <div class="textarea-decoration"></div>
+      </div>
+      
+      <button class="submit-answer-btn" (click)="submitAnswer()">
+        <span class="btn-sparkle">✨</span>
+        <span class="btn-text">Envoyer la Réponse</span>
+        <span class="btn-arrow">→</span>
+      </button>
+      
+      <div class="submit-feedback" *ngIf="submitMessage">
+        <div class="feedback-icon">🎉</div>
+        <div class="feedback-message">{{ submitMessage }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- No Defi Available -->
+<ng-template #noDefi>
+  <div class="no-challenge-card" *ngIf="showDefi">
+    <div class="info-icon">ℹ️</div>
+    <p>Aucun défi disponible pour le moment.</p>
+  </div>
+</ng-template>
+
+
+  <!-- Main Team Card -->
+  <div class="team-card">
+    <!-- Animated Header -->
+    <div class="card-header">
+      <div class="header-content">
+        <div class="team-avatar">{{ myTeam.name.charAt(0) }}</div>
+        <div class="header-text">
+          <h3 class="team-name">{{ myTeam.name }}</h3>
+          <div class="team-score">
+            <span class="score-icon">score🏆</span>
+            <span class="score-value">{{ myTeam.score_t }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Compact Card Body -->
+    <div class="card-body">
+      <!-- Description Section (moved up) -->
+      <div class="detail-section">
+        <div class="detail-item">
+          <span class="detail-icon">📝</span>
+          <div class="detail-content">
+            <span class="detail-label">Description</span>
+            <p class="detail-text">{{ myTeam.description || "Aucune description fournie" }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date Section (moved down) -->
+      <div class="detail-section">
+        <div class="detail-item">
+          <span class="detail-icon">📅</span>
+          <div class="detail-content">
+            <span class="detail-label">Date de création</span>
+            <span class="detail-value">{{ myTeam.creationDate | date:'mediumDate' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Members Section -->
+      <div *ngIf="myTeam.members?.length" class="members-section">
+        <h4 class="section-title">
+          <span class="section-icon">👤</span>
+          <span>Membres ({{ myTeam.members.length }})</span>
+        </h4>
+        <div class="members-scroll">
+          <div *ngFor="let member of myTeam.members" class="member-item">
+            <div class="member-avatar" [style.--member-color]="'hsl(' + (member.username.length * 50 % 360) + ', 80%, 60%)'">
+              {{ member.username.charAt(0).toUpperCase() }}
+            </div>
+            <span class="member-name">{{ member.username }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading State -->
+<div *ngIf="loading" class="loading-state">
+  <div class="loading-spinner"></div>
+  <p>Chargement de votre équipe...</p>
+</div>
+
+<!-- Error State -->
+<div *ngIf="error" class="error-state">
+  <div class="error-icon">!</div>
+  <p>{{ error }}</p>
+</div>
+  </main>
+</body>

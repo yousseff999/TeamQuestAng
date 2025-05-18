@@ -35,6 +35,10 @@ import { AlleventsComponent } from './FrontOffice/allevents/allevents.component'
 import { GetstartedComponent } from './FrontOffice/getstarted/getstarted.component';
 import { PortfolioComponent } from './FrontOffice/portfolio/portfolio.component';
 import { RankComponent } from './FrontOffice/rank/rank.component';
+import { CreatedefiComponent } from './BackOffice/createdefi/createdefi.component';
+import { MyteamComponent } from './FrontOffice/myteam/myteam.component';
+import { AlldefiComponent } from './BackOffice/alldefi/alldefi.component';
+import { DefisubmissionsComponent } from './BackOffice/defisubmissions/defisubmissions.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +71,10 @@ import { RankComponent } from './FrontOffice/rank/rank.component';
     GetstartedComponent,
     PortfolioComponent,
     RankComponent,
+    CreatedefiComponent,
+    MyteamComponent,
+    AlldefiComponent,
+    DefisubmissionsComponent,
     
   ],
   imports: [

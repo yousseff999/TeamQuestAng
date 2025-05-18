@@ -1,0 +1,40 @@
+<div class="container">
+  <div *ngIf="loading" class="loading">Loading submissions...</div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+
+  <div *ngIf="!loading && !error && submissions.length === 0" class="no-submissions">
+    No submissions found for this DeFi.
+  </div>
+
+  <div *ngIf="!loading && !error && submissions.length > 0">
+    <h2>Submissions for DeFi {{ defiId }}</h2>
+    <ul class="submission-list">
+      <li *ngFor="let submission of submissions" class="submission-item">
+        <div class="submission-details">
+          <p><strong>Team:</strong> {{ submission.team?.name || 'Unknown Team' }}</p>
+          <p><strong>Content:</strong> {{ submission.content }}</p>
+          <p><strong>Submitted At:</strong> {{ submission.submittedAt | date:'medium' }}</p>
+          <p><strong>Current Team Score:</strong> {{ submission.team?.score_t || 0 }}</p>
+        </div>
+        <div class="score-input" *ngIf="submission.team">
+          <input
+            type="number"
+            [(ngModel)]="submission.scoreInput"
+            placeholder="Enter score"
+            min="1"
+            class="form-control"
+          />
+          <button
+            (click)="addScore(submission)"
+            class="btn btn-primary"
+            [disabled]="!submission.scoreInput || submission.scoreInput <= 0"
+          >
+            Add Score
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

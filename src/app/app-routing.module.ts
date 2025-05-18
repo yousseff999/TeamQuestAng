@@ -29,6 +29,10 @@ import { GetstartedComponent } from './FrontOffice/getstarted/getstarted.compone
 import { PortfolioComponent } from './FrontOffice/portfolio/portfolio.component';
 import { RankComponent } from './FrontOffice/rank/rank.component';
 import { ResetPwdComponent } from './FrontOffice/reset-pwd/reset-pwd.component';
+import { CreatedefiComponent } from './BackOffice/createdefi/createdefi.component';
+import { MyteamComponent } from './FrontOffice/myteam/myteam.component';
+import { AlldefiComponent } from './BackOffice/alldefi/alldefi.component';
+import { DefisubmissionsComponent } from './BackOffice/defisubmissions/defisubmissions.component';
 
 
 const routes: Routes = [
@@ -59,6 +63,10 @@ const routes: Routes = [
   {path: 'getstarted',component: GetstartedComponent},
   {path: 'portfolio',component: PortfolioComponent},
   {path: 'rank',component: RankComponent},
+  {path: 'createdefi',component: CreatedefiComponent},
+  {path: 'myteam',component: MyteamComponent},
+  {path: 'alldefi',component: AlldefiComponent},
+  {path: 'defisubmissions',component: DefisubmissionsComponent},
   //{path: '',redirectTo: '/login',pathMatch: 'full'}
   //{ path: '**', redirectTo: '/home' } // Handle invalid routes
 ];

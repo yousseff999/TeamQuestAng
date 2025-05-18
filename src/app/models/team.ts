@@ -1,5 +1,6 @@
 import { User } from './user';
 import { Rank } from './rank';
+import { Submission } from './Submission';
 
 export interface Team {
   id: number;
@@ -9,4 +10,5 @@ export interface Team {
   score_t: number;
   members: User[];
   ranks: Rank[];
+  submissions?: Submission[];
 }
