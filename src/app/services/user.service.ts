@@ -82,4 +82,7 @@ export class UserService {
   getTopScorer(): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/top-scorer`);
   }
+  updateScore(score: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/update-score`, null, { params: { score: score.toString() } });
+  }
 }

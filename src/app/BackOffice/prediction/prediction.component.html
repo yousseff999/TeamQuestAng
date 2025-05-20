@@ -1,0 +1,10 @@
+<div>
+  <h2>Event Success Prediction</h2>
+  <button (click)="predict()">Predict Event Status</button>
+  <div *ngIf="status">
+    <p>Predicted Status: {{ status }}</p>
+  </div>
+  <div *ngIf="error">
+    <p style="color: red;">{{ error }}</p>
+  </div>
+</div>

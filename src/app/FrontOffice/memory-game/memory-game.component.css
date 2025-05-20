@@ -1,0 +1,11 @@
+canvas {
+  width: 100vw;
+  height: 100vh;
+  display: block; /* Remove any default inline spacing */
+  background-color: #1a2b4a; /* Fallback background */
+  position: fixed; /* Ensure it covers the entire viewport */
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+}

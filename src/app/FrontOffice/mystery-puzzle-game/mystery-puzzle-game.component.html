@@ -1,0 +1,12 @@
+<div style="position: relative; width: 100%; height: 100vh;">
+  <canvas #gameCanvas style="width: 100%; height: 100%;"></canvas>
+  <input #userInput
+         type="text"
+         [style.display]="gameState === 'input' ? 'block' : 'none'"
+         (focus)="onInputFocus()"
+         (blur)="onInputBlur()"
+         (input)="onInputChange($event)"
+         (keydown)="onInputKeydown($event)"
+         class="game-input">
+</div>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">

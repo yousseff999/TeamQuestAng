@@ -39,6 +39,11 @@ import { CreatedefiComponent } from './BackOffice/createdefi/createdefi.componen
 import { MyteamComponent } from './FrontOffice/myteam/myteam.component';
 import { AlldefiComponent } from './BackOffice/alldefi/alldefi.component';
 import { DefisubmissionsComponent } from './BackOffice/defisubmissions/defisubmissions.component';
+import { PredictionComponent } from './BackOffice/prediction/prediction.component';
+import { MemoryGameComponent } from './FrontOffice/memory-game/memory-game.component';
+import { UndercoverGameComponent } from './FrontOffice/undercover-game/undercover-game.component';
+import { RouletteGameComponent } from './FrontOffice/roulette-game/roulette-game.component';
+import { MysteryPuzzleGameComponent } from './FrontOffice/mystery-puzzle-game/mystery-puzzle-game.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +80,11 @@ import { DefisubmissionsComponent } from './BackOffice/defisubmissions/defisubmi
     MyteamComponent,
     AlldefiComponent,
     DefisubmissionsComponent,
+    PredictionComponent,
+    MemoryGameComponent,
+    UndercoverGameComponent,
+    RouletteGameComponent,
+    MysteryPuzzleGameComponent,
     
   ],
   imports: [
