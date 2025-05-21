@@ -6,6 +6,8 @@ import { User } from 'src/app/models/user';
 import { EventService } from 'src/app/services/event.service';
 import { Event as MyEvent} from 'src/app/models/event'; 
 import { UserService } from 'src/app/services/user.service';
+import { TeamService } from 'src/app/services/team.service';
+import { DepartmentService } from 'src/app/services/department.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -19,6 +21,13 @@ export class AdminComponent {
   loading = true;
   error = '';
   topScorer?: User;
+   totalUsers: number = 0;
+   users: User[] = [];
+monthlyGrowth: number = 0;
+totalTeams: number = 0;
+weeklyPercentageChange: number = 0;
+totalDepartments: number = 0;
+totalEventParticipants: number = 0;
   toggleDropdown(): void {
     this.dropdownOpen = !this.dropdownOpen;
   }
@@ -27,7 +36,8 @@ export class AdminComponent {
     this.dropdownOpen = false;
   }
   constructor(private authService: AuthService, private router: Router ,
-     private eventService: EventService, private userService : UserService) {}
+     private eventService: EventService, private userService : UserService ,
+     private teamService : TeamService, private departmentService : DepartmentService) {}
   isMenuOpen = false;
 
   toggleMenu(): void {
@@ -47,8 +57,67 @@ export class AdminComponent {
   ngOnInit(): void {
     this.loadEventParticipants();
      this.loadTopScorer(); 
+     this.loadUserCount();
+     this.loadMonthlyUserGrowth();
+     this.loadTeamCount();
+      this.loadWeeklyTeamChange(); 
+      this.loadDepartmentCount();
+      this.loadEventParticipantsCount();
   }
+  
+loadEventParticipantsCount() {
+  this.eventService.getUniqueParticipantsCount().subscribe(
+    (count) => this.totalEventParticipants = count
+  );
+}
+  loadWeeklyTeamChange(): void {
+  this.teamService.getWeeklyPercentageChange().subscribe({
+    next: (percent) => {
+      this.weeklyPercentageChange = percent;
+    },
+    error: (err) => {
+      console.error('Failed to load weekly team percentage change', err);
+    }
+  });
+}
 
+loadDepartmentCount() {
+  this.departmentService.getDepartmentCount().subscribe(
+    (count) => this.totalDepartments = count
+  );
+}
+  loadMonthlyUserGrowth(): void {
+  this.userService.getAllUsers().subscribe({
+    next: (users: User[]) => {
+      this.users = users;
+      this.monthlyGrowth = this.calculateMonthlyUserGrowth(users);
+    },
+    error: (err) => {
+      console.error('Failed to load users for growth calculation:', err);
+    }
+  });
+}
+loadTeamCount(): void {
+  this.teamService.getTeamCount().subscribe({
+    next: (count) => {
+      this.totalTeams = count;
+    },
+    error: (err) => {
+      console.error('Failed to load team count:', err);
+    }
+  });
+}
+loadUserCount(): void {
+    this.userService.countUsers().subscribe({
+      next: (count: number) => {
+        this.totalUsers = count;
+        console.log('Total users:', count);
+      },
+      error: (err) => {
+        console.error('Failed to load user count:', err);
+      }
+    });
+  }
   loadEventParticipants(): void {
     this.loading = true;
     this.error = '';
@@ -96,6 +165,34 @@ export class AdminComponent {
   }
   navigateToAddUser(eventId: number): void {
     this.router.navigate(['/addusertoevent', eventId]);
+}
+calculateMonthlyUserGrowth(users: User[]): number {
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  let currentMonthCount = 0;
+  let lastMonthCount = 0;
+
+  users.forEach(user => {
+    const createdDate = new Date(user.createdAt);
+    const userMonth = createdDate.getMonth();
+    const userYear = createdDate.getFullYear();
+
+    if (userYear === currentYear && userMonth === currentMonth) {
+      currentMonthCount++;
+    } else if (
+      (userYear === currentYear && userMonth === currentMonth - 1) ||
+      (currentMonth === 0 && userYear === currentYear - 1 && userMonth === 11)
+    ) {
+      lastMonthCount++;
+    }
+  });
+
+  if (lastMonthCount === 0) return 100; // Avoid division by zero
+
+  const growth = ((currentMonthCount - lastMonthCount) / lastMonthCount) * 100;
+  return Math.round(growth);
 }
 
 }

@@ -522,20 +522,31 @@
                 <div class="card-body flex flex-col">
                     
                     <!-- top -->
-                    <div class="flex flex-row justify-between items-center">
-                        <div class="h6 text-indigo-700 fad fa-shopping-cart"></div>
-                        <span class="rounded-full text-white badge bg-teal-400 text-xs">
-                            12%
-                            <i class="fal fa-chevron-up ml-1"></i>
-                        </span>
-                    </div>
+                   <div class="flex flex-row justify-between items-center">
+  <div class="h6 text-indigo-700 fad fa-users"></div>
+  <span 
+    class="rounded-full text-white badge text-xs"
+    [ngClass]="monthlyGrowth >= 0 ? 'bg-teal-400' : 'bg-red-500'"
+  >
+    {{ monthlyGrowth }}%
+    <i 
+      class="fal ml-1" 
+      [ngClass]="monthlyGrowth >= 0 ? 'fa-chevron-up' : 'fa-chevron-down'"
+    ></i>
+  </span>
+</div>
+
+
                     <!-- end top -->
     
                     <!-- bottom -->
-                    <div class="mt-8">
-                        <h1 class="h5 num-4"></h1>
-                        <p>items sales</p>
-                    </div>                
+                  <div class="mt-8 flex items-center space-x-2">
+  <p class="text-sm text-gray-400">Total users:</p>
+  <h1 class="text-3xl font-extrabold text-gray-600 bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+    {{ totalUsers }}
+  </h1>
+</div>
+
                     <!-- end bottom -->
         
                 </div>
@@ -546,90 +557,107 @@
     
     
         <!-- card -->
-        <div class="report-card">
-            <div class="card">
-                <div class="card-body flex flex-col">
-                    
-                    <!-- top -->
-                    <div class="flex flex-row justify-between items-center">
-                        <div class="h6 text-red-700 fad fa-store"></div>
-                        <span class="rounded-full text-white badge bg-red-400 text-xs">
-                            6%
-                            <i class="fal fa-chevron-down ml-1"></i>
-                        </span>
-                    </div>
-                    <!-- end top -->
+<div class="report-card">
+  <div class="card">
+    <div class="card-body flex flex-col">
+      
+      <!-- top -->
+      <div class="flex flex-row justify-between items-center">
+        <div class="h6 text-red-700 fad fa-user-friends"></div>
+        <span 
+          class="rounded-full text-white badge text-xs"
+          [ngClass]="weeklyPercentageChange >= 0 ? 'bg-teal-400' : 'bg-red-500'"
+        >
+          {{ weeklyPercentageChange | number:'1.0-2' }}%
+          <i 
+            class="fal ml-1"
+            [ngClass]="weeklyPercentageChange >= 0 ? 'fa-chevron-up' : 'fa-chevron-down'"
+          ></i>
+        </span>
+      </div>
+      <!-- end top -->
+
+      <!-- bottom -->
+      <div class="mt-8 flex items-center space-x-2">
+        <p class="text-sm text-gray-400">Total teams:</p>
+        <h1 class="text-3xl font-extrabold text-gray-600 bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+          {{ totalTeams }}
+        </h1>
+      </div>
+      <!-- end bottom -->
+
+    </div>
+  </div>
+  <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+</div>
+<!-- end card -->
+
     
-                    <!-- bottom -->
-                    <div class="mt-8">
-                        <h1 class="h5 num-4"></h1>
-                        <p>new orders</p>
-                    </div>                
-                    <!-- end bottom -->
-        
-                </div>
-            </div>
-            <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
-        </div>
-        <!-- end card -->
+    
+          <!-- card -->
+<div class="report-card">
+  <div class="card">
+    <div class="card-body flex flex-col">
+
+      <!-- top -->
+      <div class="flex flex-row justify-between items-center">
+        <div class="h6 text-yellow-600 fad fa-building"></div>
+        <span 
+          class="rounded-full text-white badge text-xs bg-teal-400"
+        >
+          +0%
+          <i class="fal fa-chevron-up ml-1"></i>
+        </span>
+      </div>
+      <!-- end top -->
+
+      <!-- bottom -->
+      <div class="mt-8 flex items-center space-x-2">
+        <p class="text-sm text-gray-400">Total departments:</p>
+        <h1 class="text-3xl font-extrabold text-gray-600 bg-clip-text bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500">
+          {{ totalDepartments }}
+        </h1>
+      </div>
+      <!-- end bottom -->
+
+    </div>
+  </div>
+  <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+</div>
+<!-- end card -->
+
     
     
         <!-- card -->
-        <div class="report-card">
-            <div class="card">
-                <div class="card-body flex flex-col">
-                    
-                    <!-- top -->
-                    <div class="flex flex-row justify-between items-center">
-                        <div class="h6 text-yellow-600 fad fa-sitemap"></div>
-                        <span class="rounded-full text-white badge bg-teal-400 text-xs">
-                            72%
-                            <i class="fal fa-chevron-up ml-1"></i>
-                        </span>
-                    </div>
-                    <!-- end top -->
-    
-                    <!-- bottom -->
-                    <div class="mt-8">
-                        <h1 class="h5 num-4"></h1>
-                        <p>total Products</p>
-                    </div>                
-                    <!-- end bottom -->
-        
-                </div>
-            </div>
-            <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
-        </div>
-        <!-- end card -->
-    
-    
-        <!-- card -->
-        <div class="report-card">
-            <div class="card">
-                <div class="card-body flex flex-col">
-                    
-                    <!-- top -->
-                    <div class="flex flex-row justify-between items-center">
-                        <div class="h6 text-green-700 fad fa-users"></div>
-                        <span class="rounded-full text-white badge bg-teal-400 text-xs">
-                            150%
-                            <i class="fal fa-chevron-up ml-1"></i>
-                        </span>
-                    </div>
-                    <!-- end top -->
-    
-                    <!-- bottom -->
-                    <div class="mt-8">
-                        <h1 class="h5 num-4"></h1>
-                        <p>new Visitor</p>
-                    </div>                
-                    <!-- end bottom -->
-        
-                </div>
-            </div>
-            <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
-        </div>
-        <!-- end card -->
+<div class="report-card">
+  <div class="card">
+    <div class="card-body flex flex-col">
+
+      <!-- top -->
+      <div class="flex flex-row justify-between items-center">
+        <div class="h6 text-green-700 fad fa-user-check"></div>
+        <span class="rounded-full text-white badge bg-green-400 text-xs">
+          +0%
+          <i class="fal fa-chevron-up ml-1"></i>
+        </span>
+      </div>
+      <!-- end top -->
+
+      <!-- bottom -->
+      <div class="mt-8 flex items-center space-x-2">
+        <p class="text-sm text-gray-400">Users in Events:</p>
+        <h1 class="text-3xl font-extrabold text-gray-600 bg-clip-text bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500">
+          {{ totalEventParticipants }}
+        </h1>
+      </div>
+      <!-- end bottom -->
+
+    </div>
+  </div>
+  <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+</div>
+<!-- end card -->
+
         
     
     </div>
@@ -672,7 +700,7 @@
             <!-- alert -->
             <div class="alert alert-dark mb-6">
                 Hi! Wait A Minute . . . . . . Follow Me On Twitter 
-                <a class="ml-2" target="_blank" href="https://twitter.com/MohamedSaid__">@moesaid</a>
+                <a class="ml-2" target="_blank" href="https://twitter.com/MohamedSaid__">@{{ topScorer?.username }}</a>
             </div>
             <!-- end alert -->
     

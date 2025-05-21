@@ -17,6 +17,7 @@ export interface User {
   email: string;
   password: string;
   score_u: number;
+  createdAt: Date;
   resetToken?: string;
   tokenExpirationTime?: Date;
   role: Role;

@@ -114,4 +114,7 @@ export class EventService {
   getEventInteractions(eventId: number): Observable<EventInteraction[]> {
     return this.http.get<EventInteraction[]>(`${this.apiUrl}/${eventId}/interactions`);
   }
+  getUniqueParticipantsCount(): Observable<number> {
+  return this.http.get<number>(`${this.apiUrl}/participants/count`);
+}
 }

@@ -74,4 +74,10 @@ export class TeamService {
 getTeamByUserId(userId: number): Observable<Team> {
   return this.http.get<Team>(`${this.apiUrl}/teamuser/${userId}`);
 }
+getTeamCount(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/count`);
+  }
+  getWeeklyPercentageChange(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/weekly-percentage-change`);
+  }
 }

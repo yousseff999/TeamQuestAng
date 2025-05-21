@@ -73,5 +73,7 @@ getUsersByDepartment(departmentId: number): Observable<any[]> {
  getDepartmentNamesAndScores(): Observable<[string, number][]> {
     return this.http.get<[string, number][]>(`${this.apiUrl}/names-scores`);
   }
-
+getDepartmentCount(): Observable<number> {
+  return this.http.get<number>(`${this.apiUrl}/count`);
+}
 }

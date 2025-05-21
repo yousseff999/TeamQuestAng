@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-mystery-puzzle-game',
@@ -24,8 +25,8 @@ export class MysteryPuzzleGameComponent implements AfterViewInit {
   GOLD: string = '#FFD700';
   COSMIC_PURPLE: string = '#2C1A3E';
   STAR_YELLOW: string = '#FFFF99';
-  INPUT_ACTIVE: string = '#1E90FF'; // Dodger blue
-  INPUT_INACTIVE: string = '#87CEEB'; // Light sky blue
+  INPUT_ACTIVE: string = '#1E90FF';
+  INPUT_INACTIVE: string = '#87CEEB';
 
   // Fonts
   BIG_FONT_SIZE: number = 60;
@@ -53,8 +54,12 @@ export class MysteryPuzzleGameComponent implements AfterViewInit {
   inputActive: boolean = false;
   inputBox: { x: number, y: number, width: number, height: number } = { x: 0, y: 0, width: 300, height: 40 };
   inputScale: number = 1.0;
+  showScoreUpdateError: boolean = false;
+  restartButton: { x: number, y: number, width: number, height: number } | null = null;
+  mouseX: number = 0;
+  mouseY: number = 0;
 
-  constructor() {
+  constructor(private userService: UserService) {
     this.shuffle(this.puzzleKeys);
   }
 
@@ -73,6 +78,32 @@ export class MysteryPuzzleGameComponent implements AfterViewInit {
     this.draw();
   }
 
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent): void {
+    if (!this.gameCanvas || !this.gameCanvas.nativeElement || !this.restartButton) return;
+    
+    const rect = this.gameCanvas.nativeElement.getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    const clickY = event.clientY - rect.top;
+
+    if (this.gameState === 'gameOver' && this.restartButton &&
+        clickX >= this.restartButton.x && 
+        clickX <= this.restartButton.x + this.restartButton.width &&
+        clickY >= this.restartButton.y && 
+        clickY <= this.restartButton.y + this.restartButton.height) {
+      this.restartGame();
+    }
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent): void {
+    if (!this.gameCanvas || !this.gameCanvas.nativeElement) return;
+    const rect = this.gameCanvas.nativeElement.getBoundingClientRect();
+    this.mouseX = event.clientX - rect.left;
+    this.mouseY = event.clientY - rect.top;
+    this.draw();
+  }
+
   updateCanvasSize(): void {
     if (!this.gameCanvas || !this.gameCanvas.nativeElement) return;
     this.SCREEN_WIDTH = window.innerWidth;
@@ -81,7 +112,6 @@ export class MysteryPuzzleGameComponent implements AfterViewInit {
     canvas.width = this.SCREEN_WIDTH;
     canvas.height = this.SCREEN_HEIGHT;
 
-    // Adjust font sizes based on screen width
     this.BIG_FONT_SIZE = this.SCREEN_WIDTH * 0.04;
     this.MEDIUM_FONT_SIZE = this.SCREEN_WIDTH * 0.03;
     this.SMALL_FONT_SIZE = this.SCREEN_WIDTH * 0.015;
@@ -118,12 +148,21 @@ export class MysteryPuzzleGameComponent implements AfterViewInit {
     if (this.currentPuzzleIndex >= this.puzzleKeys.length) {
       this.gameState = 'gameOver';
       this.draw();
-      setTimeout(() => {
-        this.currentPuzzleIndex = 0;
-        this.score = 0;
-        this.gameState = 'welcome';
-        this.startGame();
-      }, 3000);
+      
+      const userId = localStorage.getItem('userId');
+      if (userId) {
+        this.userService.updateScore_u(+userId, this.score).subscribe({
+          next: () => {
+            console.log('Score updated successfully');
+          },
+          error: (error) => {
+            console.error('Error updating score', error);
+            this.showScoreUpdateError = true;
+            setTimeout(() => this.showScoreUpdateError = false, 3000);
+            this.draw();
+          }
+        });
+      }
       return;
     }
 
@@ -147,7 +186,6 @@ export class MysteryPuzzleGameComponent implements AfterViewInit {
     this.ctx.fillStyle = gradient;
     this.ctx.fillRect(0, 0, this.SCREEN_WIDTH, this.SCREEN_HEIGHT);
 
-    // Add star-like sparkles
     for (let i = 0; i < 30; i++) {
       const x = Math.random() * this.SCREEN_WIDTH;
       const y = Math.random() * this.SCREEN_HEIGHT;
@@ -174,7 +212,9 @@ export class MysteryPuzzleGameComponent implements AfterViewInit {
     }
   }
 
-  wrapText(text: string, fontSize: number, maxWidth: number): string[] {
+  wrapText(text: string | undefined, fontSize: number, maxWidth: number): string[] {
+    if (!text) return [];
+    
     const font = `bold ${fontSize}px Poppins`;
     const tempCanvas = document.createElement('canvas');
     const tempCtx = tempCanvas.getContext('2d')!;
@@ -201,7 +241,6 @@ export class MysteryPuzzleGameComponent implements AfterViewInit {
   }
 
   drawInputBox(): void {
-    // Pulsating animation for input box border
     this.inputScale = 1.0 + Math.sin(performance.now() / 300) * 0.05;
     const color = this.inputActive ? this.INPUT_ACTIVE : this.INPUT_INACTIVE;
 
@@ -240,7 +279,7 @@ export class MysteryPuzzleGameComponent implements AfterViewInit {
       this.displayText(welcomeText, this.BIG_FONT_SIZE, this.GOLD, (this.SCREEN_WIDTH - textWidth) / 2, this.SCREEN_HEIGHT / 2 - 100, true);
     } else if (this.gameState === 'question') {
       const question = this.puzzleKeys[this.currentPuzzleIndex];
-      const wrappedQuestion = this.wrapText(question, this.MEDIUM_FONT_SIZE, this.SCREEN_WIDTH - 40);
+      const wrappedQuestion = this.wrapText(question || '', this.MEDIUM_FONT_SIZE, this.SCREEN_WIDTH - 40);
       let yOffset = -100;
       for (const line of wrappedQuestion) {
         this.ctx.font = `bold ${this.MEDIUM_FONT_SIZE}px Poppins`;
@@ -250,7 +289,7 @@ export class MysteryPuzzleGameComponent implements AfterViewInit {
       }
     } else if (this.gameState === 'input') {
       const question = this.puzzleKeys[this.currentPuzzleIndex];
-      const wrappedQuestion = this.wrapText(question, this.MEDIUM_FONT_SIZE, this.SCREEN_WIDTH - 40);
+      const wrappedQuestion = this.wrapText(question || '', this.MEDIUM_FONT_SIZE, this.SCREEN_WIDTH - 40);
       let yOffset = -100;
       for (const line of wrappedQuestion) {
         this.ctx.font = `bold ${this.MEDIUM_FONT_SIZE}px Poppins`;
@@ -268,7 +307,55 @@ export class MysteryPuzzleGameComponent implements AfterViewInit {
       this.ctx.font = `bold ${this.BIG_FONT_SIZE}px Poppins`;
       const textWidth = this.ctx.measureText(gameOverText).width;
       this.displayText(gameOverText, this.BIG_FONT_SIZE, this.GOLD, (this.SCREEN_WIDTH - textWidth) / 2, this.SCREEN_HEIGHT / 2 + 100, true);
+
+      // Draw restart button
+      const buttonWidth = 200;
+      const buttonHeight = 50;
+      const buttonX = this.SCREEN_WIDTH / 2 - buttonWidth / 2;
+      const buttonY = this.SCREEN_HEIGHT / 2 + 180;
+      
+      // Check if mouse is over button
+      const isHovering = this.mouseX >= buttonX && 
+                        this.mouseX <= buttonX + buttonWidth &&
+                        this.mouseY >= buttonY && 
+                        this.mouseY <= buttonY + buttonHeight;
+
+      // Button background with hover effect
+      this.ctx.fillStyle = isHovering ? '#4CAF50' : this.GREEN;
+      this.ctx.fillRect(buttonX, buttonY, buttonWidth, buttonHeight);
+
+      // Button border when hovering
+      if (isHovering) {
+        this.ctx.strokeStyle = this.WHITE;
+        this.ctx.lineWidth = 2;
+        this.ctx.strokeRect(buttonX, buttonY, buttonWidth, buttonHeight);
+      }
+      
+      // Button text
+      this.ctx.font = `bold ${this.MEDIUM_FONT_SIZE}px Poppins`;
+      this.ctx.fillStyle = this.WHITE;
+      const restartText = "Play Again";
+      const restartTextWidth = this.ctx.measureText(restartText).width;
+      this.ctx.fillText(restartText, this.SCREEN_WIDTH / 2 - restartTextWidth / 2, buttonY + 35);
+      
+      // Store button position for click detection
+      this.restartButton = {
+        x: buttonX,
+        y: buttonY,
+        width: buttonWidth,
+        height: buttonHeight
+      };
     }
+  }
+
+  restartGame(): void {
+    this.currentPuzzleIndex = 0;
+    this.score = 0;
+    this.userAnswer = '';
+    this.feedbackText = '';
+    this.shuffle(this.puzzleKeys);
+    this.gameState = 'welcome';
+    this.startGame();
   }
 
   onInputFocus(): void {
@@ -291,31 +378,62 @@ export class MysteryPuzzleGameComponent implements AfterViewInit {
       this.submitAnswer();
     }
   }
+levenshteinDistance(a: string, b: string): number {
+  const matrix = Array.from({ length: a.length + 1 }, () =>
+    Array(b.length + 1).fill(0)
+  );
+
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] + cost
+      );
+    }
+  }
+
+  return matrix[a.length][b.length];
+}
 
   submitAnswer(): void {
-    if (this.gameState !== 'input') return;
+  if (this.gameState !== 'input') return;
 
-    const correctAnswer = this.puzzles[this.puzzleKeys[this.currentPuzzleIndex]];
-    if (this.userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-      this.score += 2; // Award 2 points for correct answer
-      this.feedbackText = "Correct!";
-    } else {
-      this.feedbackText = `Wrong! The correct answer is: ${correctAnswer}`;
-    }
+  const correctAnswer = this.puzzles[this.puzzleKeys[this.currentPuzzleIndex]];
+  const userNorm = this.normalize(this.userAnswer);
+  const correctNorm = this.normalize(correctAnswer);
 
-    this.gameState = 'feedback';
-    this.draw();
-    this.userAnswer = '';
-    if (this.userInput && this.userInput.nativeElement) {
-      this.userInput.nativeElement.value = '';
-    }
-    this.inputActive = false;
+  const distance = this.levenshteinDistance(userNorm, correctNorm);
+  const isCloseEnough = distance <= 2; // adjust threshold if needed
 
-    setTimeout(() => {
-      this.currentPuzzleIndex++;
-      this.gameState = 'question';
-      this.draw();
-      this.showNextQuestion();
-    }, 2000);
+  if (userNorm === correctNorm || isCloseEnough) {
+    this.score += 2;
+    this.feedbackText = "Correct!";
+  } else {
+    this.feedbackText = `Wrong! The correct answer is: ${correctAnswer}`;
   }
+
+  this.gameState = 'feedback';
+  this.draw();
+  this.userAnswer = '';
+  if (this.userInput && this.userInput.nativeElement) {
+    this.userInput.nativeElement.value = '';
+  }
+  this.inputActive = false;
+
+  setTimeout(() => {
+    this.currentPuzzleIndex++;
+    this.gameState = 'question';
+    this.draw();
+    this.showNextQuestion();
+  }, 2000);
+}
+normalize(text: string): string {
+  return text.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
 }

@@ -85,4 +85,15 @@ export class UserService {
   updateScore(score: number): Observable<any> {
     return this.http.post(`${this.apiUrl}/update-score`, null, { params: { score: score.toString() } });
   }
+  //add the score of the game
+  updateScore_u(userId: number, scoreToAdd: number): Observable<string> {
+    const url = `${this.apiUrl}/${userId}/score`;
+    return this.http.put(url, null, {
+      params: { scoreToAdd: scoreToAdd.toString() },
+      responseType: 'text'
+    });
+  }
+   countUsers(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/count`);
+  }
 }
