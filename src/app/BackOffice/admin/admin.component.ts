@@ -8,6 +8,8 @@ import { Event as MyEvent} from 'src/app/models/event';
 import { UserService } from 'src/app/services/user.service';
 import { TeamService } from 'src/app/services/team.service';
 import { DepartmentService } from 'src/app/services/department.service';
+import { InteractionService } from 'src/app/services/interaction.service';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -21,23 +23,33 @@ export class AdminComponent {
   loading = true;
   error = '';
   topScorer?: User;
-   totalUsers: number = 0;
-   users: User[] = [];
-monthlyGrowth: number = 0;
-totalTeams: number = 0;
-weeklyPercentageChange: number = 0;
-totalDepartments: number = 0;
-totalEventParticipants: number = 0;
+  totalUsers: number = 0;
+  users: User[] = [];
+  monthlyGrowth: number = 0;
+  totalTeams: number = 0;
+  weeklyPercentageChange: number = 0;
+  totalDepartments: number = 0;
+  totalEventParticipants: number = 0;
+  topScoringTeam: any;
+   categories = ['SPORTS', 'CULTURAL', 'PARTY', 'CAMPING']; // adapte selon ton enum TypeEvent
+  selectedCategory = '';
+  stats: { [key: string]: number } = {};
+  chartLabels = ['Likes', 'Dislikes', 'Interested'];
+  chartData: number[] = [];
+  chartType: 'bar' | 'pie' = 'bar';
   toggleDropdown(): void {
     this.dropdownOpen = !this.dropdownOpen;
   }
-
+toggleChartType() {
+  this.chartType = this.chartType === 'bar' ? 'pie' : 'bar';
+}
   closeDropdown() {
     this.dropdownOpen = false;
   }
   constructor(private authService: AuthService, private router: Router ,
      private eventService: EventService, private userService : UserService ,
-     private teamService : TeamService, private departmentService : DepartmentService) {}
+     private teamService : TeamService, private departmentService : DepartmentService,
+     private interactionService : InteractionService) {}
   isMenuOpen = false;
 
   toggleMenu(): void {
@@ -52,7 +64,6 @@ totalEventParticipants: number = 0;
     this.authService.logout(); // Call logout from AuthService
      // Navigate to login page after logout
   }
-  
 
   ngOnInit(): void {
     this.loadEventParticipants();
@@ -63,7 +74,34 @@ totalEventParticipants: number = 0;
       this.loadWeeklyTeamChange(); 
       this.loadDepartmentCount();
       this.loadEventParticipantsCount();
+        this.loadTopScoringTeam();
+
   }
+loadGlobalStats() {
+    this.interactionService.getGlobalStats().subscribe(data => {
+      this.stats = data;
+      this.chartData = [data['LIKE'] || 0, data['DISLIKE'] || 0, data['INTERESTED'] || 0];
+
+    });
+  }
+
+  onCategoryChange() {
+    if (this.selectedCategory) {
+      this.interactionService.getStatsByCategory(this.selectedCategory).subscribe(data => {
+        this.stats = data;
+        this.chartData = [data['LIKE'] || 0, data['DISLIKE'] || 0, data['INTERESTED'] || 0];
+
+      });
+    }
+  }
+  loadTopScoringTeam() {
+  this.teamService.getTopScoringTeam().subscribe({
+    next: (data) => {
+      this.topScoringTeam = data;
+    },
+    error: (err) => console.error('Error loading top scoring team', err)
+  });
+}
   
 loadEventParticipantsCount() {
   this.eventService.getUniqueParticipantsCount().subscribe(

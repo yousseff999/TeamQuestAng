@@ -80,4 +80,7 @@ getTeamCount(): Observable<number> {
   getWeeklyPercentageChange(): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/weekly-percentage-change`);
   }
+  getTopScoringTeam(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/top-scoring`);
+  }   
 }

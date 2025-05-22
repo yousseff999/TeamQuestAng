@@ -44,6 +44,7 @@ import { MemoryGameComponent } from './FrontOffice/memory-game/memory-game.compo
 import { UndercoverGameComponent } from './FrontOffice/undercover-game/undercover-game.component';
 import { RouletteGameComponent } from './FrontOffice/roulette-game/roulette-game.component';
 import { MysteryPuzzleGameComponent } from './FrontOffice/mystery-puzzle-game/mystery-puzzle-game.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { MysteryPuzzleGameComponent } from './FrontOffice/mystery-puzzle-game/my
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
+    NgChartsModule,
     
   ],
   providers: [],
