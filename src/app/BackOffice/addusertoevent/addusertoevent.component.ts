@@ -15,7 +15,7 @@ export class AddusertoeventComponent implements OnInit {
   usersInEvent: User[] = [];
   allUsers: User[] = [];
   selectedUserId: number | null = null;
-
+eventId: number | undefined;
   constructor(
     private eventService: EventService,
     private userService: UserService,
@@ -26,12 +26,13 @@ export class AddusertoeventComponent implements OnInit {
     this.router.navigate(['/admin']);
   }
   ngOnInit() {
-    const eventId = Number(this.route.snapshot.paramMap.get('id'));
-    if (eventId) {
-      this.eventService.getEventById(eventId).subscribe(event => {
-        this.event = event;
-        this.usersInEvent = event.users || [];
-      });
+    const navState = window.history.state;
+  const eventId = navState.eventId;
+  if (eventId) {
+    this.eventService.getEventById(eventId).subscribe(event => {
+      this.event = event;
+      this.usersInEvent = event.users || [];
+    });
       this.eventService.showEventUsers(eventId).subscribe(users => {
         this.usersInEvent = users;
       });

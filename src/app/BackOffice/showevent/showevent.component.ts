@@ -79,7 +79,8 @@ export class ShoweventComponent implements OnInit {
 
   // Get event details
   getEventDetails(eventId: number): void {
-    this.router.navigate(['/event/update', eventId]);
+    this.router.navigate(['/event/update'], { state: { eventId } });
+localStorage.setItem('eventId', eventId.toString());
   }
 
   // Get events by category

@@ -117,4 +117,7 @@ export class EventService {
   getUniqueParticipantsCount(): Observable<number> {
   return this.http.get<number>(`${this.apiUrl}/participants/count`);
 }
+ getTotalUserParticipations(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/total-participations`);
+  }
 }

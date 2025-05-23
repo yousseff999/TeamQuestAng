@@ -96,4 +96,15 @@ export class UserService {
    countUsers(): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/count`);
   }
+  getMostEngagedUser(): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/most-engaged`);
+  }
+
+  getLeastEngagedUser(): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/least-engaged`);
+  }
+
+  getUsersByEngagement(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/engagement-ranking`);
+  }
 }

@@ -38,7 +38,13 @@ export class UpdateeventComponent implements OnInit {
 
   ngOnInit(): void {
     // Get eventId from route parameters
-    this.eventId = +this.route.snapshot.paramMap.get('id')!;
+   const navState = this.router.getCurrentNavigation()?.extras.state as { eventId?: number };
+  this.eventId = navState?.eventId ?? +localStorage.getItem('eventId')!;
+
+  if (!this.eventId) {
+    this.errorMessage = 'No event ID found. Cannot load event.';
+    return;
+  }
     this.loadEvent();
   }
   onImageSelected(event: any): void {

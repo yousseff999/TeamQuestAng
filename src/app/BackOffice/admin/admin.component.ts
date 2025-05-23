@@ -16,8 +16,9 @@ import { InteractionService } from 'src/app/services/interaction.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
-  
+  dropdownopen = false;
   dropdownOpen = false;
+  subDropdownOpen = false;
   eventTypes = Object.values(TypeEvent);
   eventParticipants: {event: MyEvent, users: User[]}[] = []; 
   loading = true;
@@ -30,6 +31,7 @@ export class AdminComponent {
   weeklyPercentageChange: number = 0;
   totalDepartments: number = 0;
   totalEventParticipants: number = 0;
+  totalAllEventParticipations: number = 0;
   topScoringTeam: any;
    categories = ['SPORTS', 'CULTURAL', 'PARTY', 'CAMPING']; // adapte selon ton enum TypeEvent
   selectedCategory = '';
@@ -37,14 +39,29 @@ export class AdminComponent {
   chartLabels = ['Likes', 'Dislikes', 'Interested'];
   chartData: number[] = [];
   chartType: 'bar' | 'pie' = 'bar';
-  toggleDropdown(): void {
-    this.dropdownOpen = !this.dropdownOpen;
+  mostEngagedUser?: User;
+leastEngagedUser?: User;
+engagementRanking: User[] = [];
+
+toggledropdown(): void {
+     this.dropdownopen = !this.dropdownopen;
   }
+  toggleDropdown(): void {
+     this.dropdownOpen = !this.dropdownOpen;
+  if (!this.dropdownOpen) {
+    this.subDropdownOpen = false; // close subdropdown if main closes
+  }
+  }
+  toggleSubDropdown(event: Event) {
+  event.stopPropagation(); // prevent main toggle from closing
+  this.subDropdownOpen = !this.subDropdownOpen;
+}
 toggleChartType() {
   this.chartType = this.chartType === 'bar' ? 'pie' : 'bar';
 }
   closeDropdown() {
     this.dropdownOpen = false;
+     this.subDropdownOpen = false;
   }
   constructor(private authService: AuthService, private router: Router ,
      private eventService: EventService, private userService : UserService ,
@@ -67,16 +84,52 @@ toggleChartType() {
 
   ngOnInit(): void {
     this.loadEventParticipants();
-     this.loadTopScorer(); 
-     this.loadUserCount();
-     this.loadMonthlyUserGrowth();
-     this.loadTeamCount();
-      this.loadWeeklyTeamChange(); 
-      this.loadDepartmentCount();
-      this.loadEventParticipantsCount();
-        this.loadTopScoringTeam();
+    this.loadTopScorer(); 
+    this.loadUserCount();
+    this.loadMonthlyUserGrowth();
+    this.loadTeamCount();
+    this.loadWeeklyTeamChange(); 
+    this.loadDepartmentCount();
+    this.loadEventParticipantsCount();
+    this.loadTopScoringTeam();
+    this.loadTotalAllEventParticipations();
+    this.loadMostEngagedUser();
+    this.loadLeastEngagedUser();
+    this.loadEngagementRanking();
 
   }
+  loadMostEngagedUser(): void {
+  this.userService.getMostEngagedUser().subscribe({
+    next: (user) => this.mostEngagedUser = user,
+    error: (err) => console.error('Failed to load most engaged user:', err)
+  });
+}
+
+loadLeastEngagedUser(): void {
+  this.userService.getLeastEngagedUser().subscribe({
+    next: (user) => this.leastEngagedUser = user,
+    error: (err) => console.error('Failed to load least engaged user:', err)
+  });
+}
+
+loadEngagementRanking(): void {
+  this.userService.getUsersByEngagement().subscribe({
+    next: (users) => this.engagementRanking = users,
+    error: (err) => console.error('Failed to load engagement ranking:', err)
+  });
+}
+
+  loadTotalAllEventParticipations(): void {
+  this.eventService.getTotalUserParticipations().subscribe({
+    next: (count) => {
+      this.totalAllEventParticipations = count;
+    },
+    error: (err) => {
+      console.error('Failed to load total user participations:', err);
+    }
+  });
+}
+
 loadGlobalStats() {
     this.interactionService.getGlobalStats().subscribe(data => {
       this.stats = data;
@@ -202,7 +255,9 @@ loadUserCount(): void {
     });
   }
   navigateToAddUser(eventId: number): void {
-    this.router.navigate(['/addusertoevent', eventId]);
+  this.router.navigate(['/addusertoevent'], {
+    state: { eventId: eventId }
+  });
 }
 calculateMonthlyUserGrowth(users: User[]): number {
   const now = new Date();
