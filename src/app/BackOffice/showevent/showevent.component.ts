@@ -96,8 +96,9 @@ localStorage.setItem('eventId', eventId.toString());
       console.log('User added to event', event);
     });
   }
-  addActivity(eventId: number): void {
-    this.router.navigate(['/addactivity'], { queryParams: { eventId } });
-    // You can store the ID or use it for future logic
-  }
+  addActivity(event: Event): void {
+  localStorage.setItem('selectedEvent', JSON.stringify(event));
+  this.router.navigate(['/addactivity']);
+}
+
 }

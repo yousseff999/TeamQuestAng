@@ -22,15 +22,17 @@ export class AddactivityComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.eventId = +params['eventId'];
-      if (this.eventId) {
-        this.eventService.getEventById(this.eventId).subscribe(event => {
-          this.selectedEvent = event;
-        });
-      }
-    });
+  const storedEvent = localStorage.getItem('selectedEvent');
+
+  if (storedEvent) {
+    this.selectedEvent = JSON.parse(storedEvent);
+    this.eventId = this.selectedEvent.eventId;
+  } else {
+    alert('No event selected.');
+    this.router.navigate(['/showevent']); // Optional fallback
   }
+}
+
 
   onImageSelected(event: any): void {
     this.selectedImage = event.target.files[0];
