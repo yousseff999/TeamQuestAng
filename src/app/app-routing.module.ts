@@ -38,6 +38,9 @@ import { MemoryGameComponent } from './FrontOffice/memory-game/memory-game.compo
 import { UndercoverGameComponent } from './FrontOffice/undercover-game/undercover-game.component';
 import { RouletteGameComponent } from './FrontOffice/roulette-game/roulette-game.component';
 import { MysteryPuzzleGameComponent } from './FrontOffice/mystery-puzzle-game/mystery-puzzle-game.component';
+import { EventscategoryComponent } from './FrontOffice/eventscategory/eventscategory.component';
+import { PackmanComponent } from './FrontOffice/packman/packman.component';
+import { ActivitiesineventsComponent } from './FrontOffice/activitiesinevents/activitiesinevents.component';
 
 
 const routes: Routes = [
@@ -61,10 +64,12 @@ const routes: Routes = [
   {path: 'addactivity',component: AddactivityComponent},
   {path: 'allactivities',component: AllactivitiesComponent},
   {path: 'updateactivity',component: UpdateactivityComponent},
+  {path: 'activities-in-event',component: ActivitiesineventsComponent},
   {path: 'allusers',component: AllusersComponent},
   {path: 'alldepartments',component: AlldepatmentsComponent},
   {path: 'createdepartment',component: CreatedepatmentComponent},
   {path: 'allevents',component: AlleventsComponent},
+  {path: 'eventscategory/:category',component: EventscategoryComponent},
   {path: 'getstarted',component: GetstartedComponent},
   {path: 'portfolio',component: PortfolioComponent},
   {path: 'rank',component: RankComponent},
@@ -77,6 +82,7 @@ const routes: Routes = [
   {path: 'undercover-game',component: UndercoverGameComponent},
   {path: 'roulette-game',component: RouletteGameComponent},
   {path: 'puzzle-game',component: MysteryPuzzleGameComponent},
+  {path: 'packman-game',component: PackmanComponent},
   //{path: '',redirectTo: '/login',pathMatch: 'full'}
   //{ path: '**', redirectTo: '/home' } // Handle invalid routes
 ];

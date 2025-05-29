@@ -28,14 +28,15 @@
             <li class="dropdown"><a href="#"><span>Upcoming Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
                 <li><a routerLink="/allevents">All events</a></li>
-                <li class="dropdown"><a href="#"><span>Select event category</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                  <ul>
-                    <li><a href="#">Sport</a></li>
-                    <li><a href="#">Party</a></li>
-                    <li><a href="#">Camping</a></li>
-                    <li><a href="#">Culture</a></li>
-                  </ul>
-                </li>
+                <li class="dropdown">
+  <a href="#"><span>Select event category</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+  <ul>
+    <li><a (click)="navigateToCategory('SPORTS')">Sport</a></li>
+    <li><a (click)="navigateToCategory('PARTY')">Party</a></li>
+    <li><a (click)="navigateToCategory('CAMPING')">Camping</a></li>
+    <li><a (click)="navigateToCategory('CULTURAL')">Culture</a></li>
+  </ul>
+</li>
                 <!-- <li><a href="#">Dropdown 2</a></li> -->
               </ul>
             </li>
@@ -70,128 +71,216 @@
       <!-- About Section -->
       <!-- /About Section -->
   
-      <!-- Stats Section -->
-      <section id="stats" class="stats section light-background">
+    <!-- Stats Section -->
+<section id="stats" class="stats section dark-background relative">
+  <!-- Background Image Layer -->
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <img src="assets/FrontOffice/img/d.jpg" 
+         alt="Background" 
+         class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-black/30"></div> <!-- Optional overlay for better readability -->
+  </div>
   
-        <div class="container" data-aos="fade-up" data-aos-delay="100">
-  
-          <div class="row gy-4">
-  
-            <div class="col-lg-3 col-md-6">
-              <div class="stats-item d-flex align-items-center w-100 h-100">
-                <i class="bi bi-emoji-smile color-blue flex-shrink-0"></i>
-                <div>
-                  <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-                  <p>Happy Clients</p>
-                </div>
-              </div>
-            </div><!-- End Stats Item -->
-  
-            <div class="col-lg-3 col-md-6">
-              <div class="stats-item d-flex align-items-center w-100 h-100">
-                <i class="bi bi-journal-richtext color-orange flex-shrink-0"></i>
-                <div>
-                  <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-                  <p>Projects</p>
-                </div>
-              </div>
-            </div><!-- End Stats Item -->
-  
-            <div class="col-lg-3 col-md-6">
-              <div class="stats-item d-flex align-items-center w-100 h-100">
-                <i class="bi bi-headset color-green flex-shrink-0"></i>
-                <div>
-                  <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
-                  <p>Hours Of Support</p>
-                </div>
-              </div>
-            </div><!-- End Stats Item -->
-  
-            <div class="col-lg-3 col-md-6">
-              <div class="stats-item d-flex align-items-center w-100 h-100">
-                <i class="bi bi-people color-pink flex-shrink-0"></i>
-                <div>
-                  <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-                  <p>Hard Workers</p>
-                </div>
-              </div>
-            </div><!-- End Stats Item -->
-  
-          </div>
-  
+  <!-- Original Content (unchanged) -->
+  <div class="container relative z-10" data-aos="fade-up" data-aos-delay="100">
+    <div class="row gy-4">
+
+     <!-- Compact Centered Top Scorer Card -->
+<div class="card mx-auto max-w-md shadow-lg text-white hover:shadow-xl transition-shadow duration-300" 
+     style="background: linear-gradient(135deg, #235ab3 0%, #9b0948 100%); border-color: rgba(255,255,255,0.2);">
+  <div class="card-body flex flex-col items-center text-center p-4">
+    <!-- Animated Happy Avatar -->
+    <div class="img-wrapper w-32 h-32 flex justify-center items-center relative mb-4">
+      <div class="absolute inset-0 bg-white/20 rounded-full animate-ping opacity-75" style="animation-delay: 0.5s"></div>
+      <img src="assets/BackOffice/img/happy.svg" 
+           alt="Top Scorer" 
+           class="w-24 h-24 animate-wiggle">
+    </div>            
+    
+    <!-- Info -->
+    <h1 class="text-lg font-bold text-white mb-1">Good Job, {{ topScorer?.username }}!</h1>
+    <p class="text-sm text-white/90 mb-4">Keep it up! You're setting the bar high!</p>
+
+    <div class="w-full p-3 bg-white/20 rounded-lg backdrop-blur-sm">
+      <h2 class="text-md font-bold text-white flex items-center justify-center">
+        <span class="text-yellow-300 mr-2">🏆</span> 
+        Top Scorer
+      </h2>
+      <p class="text-sm font-medium mt-1">
+        {{ topScorer?.username }} — 
+        <span class="font-bold">Score: {{ topScorer?.score_u }}</span>
+      </p>
+    </div>
+  </div>
+
+        
+        <div class="alert alert-dark mx-auto max-w-md text-center bg-black/30 border-t border-white/20 rounded-lg p-2">
+  <div class="inline-flex items-center">
+    <span class="text-white/90">Follow the champion →</span>
+    <a target="_blank" href="https://twitter.com/MohamedSaid__" 
+       class="ml-2 text-white font-medium hover:text-yellow-200 transition-colors">
+      @{{ topScorer?.username }}
+    </a>
+  </div>
+</div>
+      </div><!-- End Stats Item -->
+
+      <!-- Animated Team Champion Card -->
+<div class="card mx-auto max-w-md shadow-lg text-white hover:shadow-xl transition-shadow duration-300" 
+     style="background: linear-gradient(135deg, #9f0145 0%, #2457a9 100%); border-color: rgba(255,255,255,0.2);">
+  <div class="card-body flex flex-col items-center text-center p-4">
+    <!-- Animated Team Avatar -->
+    <div class="img-wrapper w-32 h-32 flex justify-center items-center relative mb-4">
+      <!-- Pulsing halo effect -->
+      <div class="absolute inset-0 bg-purple-400/30 rounded-full animate-ping opacity-75" style="animation-delay: 0.3s"></div>
+      <!-- Floating animation container -->
+      <div class="relative animate-float">
+        <!-- Team logo with gradient border -->
+         <div class="relative bg-gradient-to-br from-purple-500 to-pink-600 p-1 rounded-full">
+          
+            <img src="assets/FrontOffice/img/teamchampp.png" 
+                 alt="Champion Team" 
+                 class="w-35 h-28 object-contain animate-wiggle-mild">
+          
         </div>
-  
-      </section><!-- /Stats Section -->
+      </div>
+    </div>
+    <h1 class="text-lg font-bold text-white mb-1">Amazing Work, {{ topScoringTeam?.name }}! 👏</h1>
+    <p class="text-sm text-white/90 mb-4">Teamwork makes the dream work! You're dominating the competition!</p>
+    <!-- Team Info -->
+    <h1 class="text-xl font-bold text-white mb-1">{{ topScoringTeam?.name }}🏆</h1>
+    
+
+    <div class="w-full p-3 bg-white/20 rounded-lg backdrop-blur-sm">
+      <div class="flex items-center justify-center space-x-4">
+        <div>
+          <p class="text-sm font-medium">
+            <i class="fas fa-trophy text-yellow-300 mr-1"></i>
+            Score: <span class="font-bold">{{ topScoringTeam?.score_t }}</span>
+          </p>
+        </div>
+        <div class="h-5 w-px bg-white/40"></div>
+        <div>
+          <p class="text-xs font-medium">
+            <i class="far fa-calendar-alt mr-1"></i>
+            {{ topScoringTeam?.creationDate | date:'yyyy' }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+  </div>
+</section><!-- /Stats Section -->
+
+<style>
+  @keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes wiggle-mild {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  75% { transform: rotate(-3deg); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+.animate-wiggle-mild {
+  animation: wiggle-mild 4s ease-in-out infinite;
+}
+  /* Happy.svg Animation */
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+  }
+  .animate-wiggle {
+    animation: wiggle 1.5s ease-in-out infinite;
+  }
+
+  /* Pulsing glow for team card */
+  @keyframes pulse {
+    0%, 100% { opacity: 0.75; }
+    50% { opacity: 0.4; }
+  }
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+</style>
   
       <!-- Services Section -->
-      <section id="services" class="services section">
+<section id="services" class="services section relative">
+  <!-- Background Image Layer -->
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <img src="assets/FrontOffice/img/c.jpg" 
+         alt="Services Background" 
+         class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-black/20"></div> <!-- Optional overlay -->
+  </div>
   
-        <!-- Section Title -->
-        <div class="container section-title" data-aos="fade-up">
-          <h2>Services</h2>
-          <p>Featured Srvices<br></p>
-        </div><!-- End Section Title -->
-  
-        <div class="container" data-aos="fade-up" data-aos-delay="100">
-  
-          <div class="row gy-5">
-  
-            <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-              <div class="service-item">
-                <div class="img">
-                  <img src="assets/FrontOffice/img/challenges.png" class="img-fluid" alt="">
-                </div>
-                <div class="details position-relative">
-                  <div class="icon">
-                    <i class="bi bi-puzzle"></i>
-                </div>
-                  <a href="service-details.html" class="stretched-link">
-                    <h3>challenges</h3>
-                  </a>
-                  <p>A quiet duel between creativity’s daring and knowledge’s discipline every move a balance of instinct and insight. </p>
-                </div>
-              </div>
-            </div><!-- End Service Item -->
-  
-            <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-              <div class="service-item">
-                <div class="img">
-                  <img src="assets/FrontOffice/img/games.jpg" class="img-fluid" alt="">
-                </div>
-                <div class="details position-relative">
-                  <div class="icon">
-                    <i class="bi bi-controller"></i>
-                  </div>
-                  <a href="service-details.html" class="stretched-link">
-                    <h3>gaming</h3>
-                  </a>
-                  <p>A sandbox moment where fun took the controller, the rules glitched delightfully, and every step felt like unlocking a hidden level of creativity.</p>
-                </div>
-              </div>
-            </div><!-- End Service Item -->
-  
-            <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
-              <div class="service-item">
-                <div class="img">
-                  <img src="assets/FrontOffice/img/events.jpg" class="img-fluid" alt="">
-                </div>
-                <div class="details position-relative">
-                  <div class="icon">
-                    <i class="bi bi-balloon"></i>
-                  </div>
-                  <a href="service-details.html" class="stretched-link">
-                    <h3>Events</h3>
-                  </a>
-                  <p>Special events where inspiration didn’t just shine it took the spotlight and had some fun with it, turning every moment into a whirlwind of imagination and joy.</p>
-                </div>
-              </div>
-            </div><!-- End Service Item -->
-  
+  <!-- Original Content (unchanged) -->
+ <div class="container section-title relative z-10" data-aos="fade-up">
+  <h2 style="color: white;">Services</h2>
+  <p style="color: white;">Featured Services<br></p>
+</div>
+
+  <div class="container relative z-10" data-aos="fade-up" data-aos-delay="100">
+    <div class="row gy-5">
+      <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+        <div class="service-item">
+          <div class="img">
+            <img src="assets/FrontOffice/img/challenges.png" class="img-fluid" alt="">
           </div>
-  
+          <div class="details position-relative">
+            <div class="icon">
+              <i class="bi bi-puzzle"></i>
+            </div>
+            <a href="service-details.html" class="stretched-link">
+              <h3>challenges</h3>
+            </a>
+            <p>A quiet duel between creativity's daring and knowledge's discipline every move a balance of instinct and insight.</p>
+          </div>
         </div>
-  
-      </section><!-- /Services Section -->
+      </div><!-- End Service Item -->
+
+      <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+        <div class="service-item">
+          <div class="img">
+            <img src="assets/FrontOffice/img/games.jpg" class="img-fluid" alt="">
+          </div>
+          <div class="details position-relative">
+            <div class="icon">
+              <i class="bi bi-controller"></i>
+            </div>
+            <a href="service-details.html" class="stretched-link">
+              <h3>gaming</h3>
+            </a>
+            <p>A sandbox moment where fun took the controller, the rules glitched delightfully, and every step felt like unlocking a hidden level of creativity.</p>
+          </div>
+        </div>
+      </div><!-- End Service Item -->
+
+      <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+        <div class="service-item">
+          <div class="img">
+            <img src="assets/FrontOffice/img/events.jpg" class="img-fluid" alt="">
+          </div>
+          <div class="details position-relative">
+            <div class="icon">
+              <i class="bi bi-balloon"></i>
+            </div>
+            <a href="service-details.html" class="stretched-link">
+              <h3>Events</h3>
+            </a>
+            <p>Special events where inspiration didn't just shine it took the spotlight and had some fun with it, turning every moment into a whirlwind of imagination and joy.</p>
+          </div>
+        </div>
+      </div><!-- End Service Item -->
+    </div>
+  </div>
+</section><!-- /Services Section -->
   
       <!-- Clients Section -->
       <section id="clients" class="clients section light-background">

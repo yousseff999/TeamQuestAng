@@ -3,7 +3,7 @@ import { EventService } from 'src/app/services/event.service';
 import { Event } from 'src/app/models/event';
 import { AuthService } from 'src/app/services/auth.service';
 import { InteractionType } from 'src/app/models/event-interaction'; // Adjust path as needed
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-allevents',
   templateUrl: './allevents.component.html',
@@ -13,12 +13,12 @@ export class AlleventsComponent implements OnInit {
   events: Event[] = [];
   currentUserId: number | null = null;
   InteractionType = InteractionType;
-  // ✅ Dictionnaire des URLs d'images par ID d'événement
   eventImageUrls: { [eventId: number]: string } = {};
 
   constructor(
     private eventService: EventService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router : Router
   ) {}
 
   ngOnInit(): void {
@@ -51,12 +51,18 @@ export class AlleventsComponent implements OnInit {
   }
 
   addUser(eventId: number): void {
-    if (!this.currentUserId) return;
-    this.eventService.addUserToEvent(eventId, this.currentUserId).subscribe({
-      next: () => console.log('User added to event'),
-      error: (err) => console.error('Failed to add user to event:', err)
-    });
-  }
+  if (!this.currentUserId) return;
+  this.eventService.addUserToEvent(eventId, this.currentUserId).subscribe({
+    next: () => {
+      console.log('User added to event');
+      alert('You have joined the event successfully!');
+    },
+    error: (err) => {
+      console.error('Failed to add user to event:', err);
+      alert('Failed to join the event. Please try again.');
+    }
+  });
+}
 
   interact(eventId: number, type: InteractionType): void {
     if (!this.currentUserId) return;
@@ -97,5 +103,11 @@ export class AlleventsComponent implements OnInit {
     clickedBtn.classList.remove(`bg-${clickedBtn.classList.contains('like-btn') ? 'pink' : clickedBtn.classList.contains('dislike-btn') ? 'red' : 'blue'}-500`);
     clickedBtn.classList.remove('text-white');
   }
+}
+
+ viewActivities(eventId: number) {
+  this.router.navigate(['/activities-in-event'], { 
+    state: { eventId: eventId }  // Make sure the property name matches
+  });
 }
 }

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventComponent } from './event.component';
+import { PackmanComponent } from './packman.component';
 
-describe('EventComponent', () => {
-  let component: EventComponent;
-  let fixture: ComponentFixture<EventComponent>;
+describe('PackmanComponent', () => {
+  let component: PackmanComponent;
+  let fixture: ComponentFixture<PackmanComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [EventComponent]
+      declarations: [PackmanComponent]
     });
-    fixture = TestBed.createComponent(EventComponent);
+    fixture = TestBed.createComponent(PackmanComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

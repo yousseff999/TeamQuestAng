@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChatMessage } from 'src/app/models/chat-message';
+import { User } from 'src/app/models/user';
 import { FeedbackService } from 'src/app/services/feedback.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Portfolio, PortfolioService } from 'src/app/services/portfolio.service'; 
 import { RankService } from 'src/app/services/rank.service';
+import { TeamService } from 'src/app/services/team.service';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,9 +16,14 @@ import { RankService } from 'src/app/services/rank.service';
 export class HomeComponent implements OnInit  {
   portfolios: Portfolio[] = [];
   imageUrls: { [key: number]: string } = {};
+categories: string[] = ['SPORTS', 'CAMPING', 'CULTURAL', 'PARTY']; // example categories
+  selectedCategory: string = '';
+topScorer?: User;
+topScoringTeam: any;
   constructor(private router: Router,private notificationService: NotificationService,
     private route: ActivatedRoute, private portfolioService: PortfolioService,
-  private rankService : RankService, private feedbackService: FeedbackService) {}
+  private rankService : RankService, private feedbackService: FeedbackService,
+ private userService : UserService ,  private teamService : TeamService) {}
 contact = {
     name: '',
     email: '',
@@ -34,7 +42,28 @@ contact = {
       alert(`📢 Message from ${msg.sender}: ${msg.content}`);
     });
     this.loadPortfolios();
+    this.loadTopScorer(); 
+    this.loadTopScoringTeam();
   }
+  loadTopScorer(): void {
+    this.userService.getTopScorer().subscribe({
+      next: (user: User) => {
+        this.topScorer = user;
+        console.log('Top scorer:', user);
+      },
+      error: (err) => {
+        console.error('Failed to load top scorer:', err);
+      }
+    });
+  }
+  loadTopScoringTeam() {
+  this.teamService.getTopScoringTeam().subscribe({
+    next: (data) => {
+      this.topScoringTeam = data;
+    },
+    error: (err) => console.error('Error loading top scoring team', err)
+  });
+}
   loadPortfolios(): void {
     this.portfolioService.getAllPortfolios().subscribe(portfolios => {
       this.portfolios = portfolios;
@@ -72,4 +101,7 @@ sendMessage() {
       }
     });
   }
+  navigateToCategory(category: string) {
+  this.router.navigate(['/eventscategory', category]);
+}
 }

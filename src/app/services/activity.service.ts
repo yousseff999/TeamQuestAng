@@ -92,5 +92,7 @@ export class ActivityService {
   deleteActivity(id: number, options?: any): Observable<any> {
     return this.http.delete(`${this.apiUrl}/delete/${id}`, options);
   }
-  
+  getActivitiesByEventId(eventId: number): Observable<Activity[]> {
+    return this.http.get<Activity[]>(`${this.apiUrl}/by-event/${eventId}`);
+  }
 }

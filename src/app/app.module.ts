@@ -10,7 +10,6 @@ import { LoginComponent } from './FrontOffice/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './FrontOffice/sign-up/sign-up.component';
 import { ResetPwdComponent } from './FrontOffice/reset-pwd/reset-pwd.component';
-import { EventComponent } from './FrontOffice/event/event.component';
 import { ShoweventComponent } from './BackOffice/showevent/showevent.component';
 import { UpdateeventComponent } from './BackOffice/updateevent/updateevent.component';
 import { AddeventComponent } from './BackOffice/addevent/addevent.component';
@@ -45,6 +44,9 @@ import { UndercoverGameComponent } from './FrontOffice/undercover-game/undercove
 import { RouletteGameComponent } from './FrontOffice/roulette-game/roulette-game.component';
 import { MysteryPuzzleGameComponent } from './FrontOffice/mystery-puzzle-game/mystery-puzzle-game.component';
 import { NgChartsModule } from 'ng2-charts';
+import { EventscategoryComponent } from './FrontOffice/eventscategory/eventscategory.component';
+import { PackmanComponent } from './FrontOffice/packman/packman.component';
+import { ActivitiesineventsComponent } from './FrontOffice/activitiesinevents/activitiesinevents.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,6 @@ import { NgChartsModule } from 'ng2-charts';
     LoginComponent,
     SignUpComponent,
     ResetPwdComponent,
-    EventComponent,
     ShoweventComponent,
     UpdateeventComponent,
     AddeventComponent,
@@ -86,6 +87,9 @@ import { NgChartsModule } from 'ng2-charts';
     UndercoverGameComponent,
     RouletteGameComponent,
     MysteryPuzzleGameComponent,
+    EventscategoryComponent,
+    PackmanComponent,
+    ActivitiesineventsComponent,
     
   ],
   imports: [
