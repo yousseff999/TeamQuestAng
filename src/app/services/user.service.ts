@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { AuthService } from './auth.service';
 import { Rank } from '../models/rank';
-
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,7 +32,7 @@ export class UserService {
 
   // Get user by ID
   getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/${id}`);
+    return this.http.get<User>(`${this.apiUrl}/getuser/${id}`);
   }
 
   // Get all users
@@ -107,4 +108,5 @@ export class UserService {
   getUsersByEngagement(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/engagement-ranking`);
   }
+  
 }

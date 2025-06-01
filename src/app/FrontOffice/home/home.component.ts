@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { ChatMessage } from 'src/app/models/chat-message';
+import { GiftCard } from 'src/app/models/gift-card';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
+import { GiftCardService } from 'src/app/services/gift-card.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Portfolio, PortfolioService } from 'src/app/services/portfolio.service'; 
 import { RankService } from 'src/app/services/rank.service';
@@ -20,10 +24,15 @@ categories: string[] = ['SPORTS', 'CAMPING', 'CULTURAL', 'PARTY']; // example ca
   selectedCategory: string = '';
 topScorer?: User;
 topScoringTeam: any;
+  currentUserScore: number = 0;
+  giftCards: GiftCard[] = [];
+  userId: number | null = null;
+  loadingGiftCards: boolean = false;
   constructor(private router: Router,private notificationService: NotificationService,
     private route: ActivatedRoute, private portfolioService: PortfolioService,
   private rankService : RankService, private feedbackService: FeedbackService,
- private userService : UserService ,  private teamService : TeamService) {}
+ private userService : UserService ,  private teamService : TeamService,
+ private authService: AuthService,private giftCardService: GiftCardService) {}
 contact = {
     name: '',
     email: '',
@@ -37,6 +46,14 @@ contact = {
     this.router.navigate(['/login']);
   }
   ngOnInit(): void {
+    const userIdString = this.authService.getUserId();
+    if (userIdString) {
+      this.userId = parseInt(userIdString, 10);
+      this.loadGiftCards();
+      this.loadCurrentUserScore();
+    } else {
+      console.warn('User not logged in');
+    }
     const opponentId = 'opponentUsername'; // Use logged-in user's username
     this.notificationService.connect(opponentId, (msg: ChatMessage) => {
       alert(`📢 Message from ${msg.sender}: ${msg.content}`);
@@ -44,6 +61,64 @@ contact = {
     this.loadPortfolios();
     this.loadTopScorer(); 
     this.loadTopScoringTeam();
+    
+  }
+ loadCurrentUserScore(): void {
+    if (this.userId !== null) {
+      this.userService.getUserById(this.userId).subscribe({
+        next: (user) => {
+          this.currentUserScore = user.score_u; // Assuming 'score' exists
+        },
+        error: (err) => {
+          console.error('Error fetching user score:', err);
+        },
+      });
+    } else {
+      console.warn('User ID is null. Cannot load score.');
+    }
+  }
+
+  loadGiftCards(): void {
+    if (this.userId) {
+      this.loadingGiftCards = true;
+      this.giftCardService.getGiftCards(this.userId).subscribe({
+        next: (data) => {
+          this.giftCards = data;
+          this.loadingGiftCards = false;
+        },
+        error: (error) => {
+          console.error('Error loading gift cards:', error);
+          this.loadingGiftCards = false;
+        }
+      });
+    }
+  }
+
+  exchangeGiftCard(giftCard: GiftCard): void {
+    if (!giftCard.canAfford || giftCard.alreadyOwned || !this.userId) {
+      return;
+    }
+
+    this.loading = true;
+    const request = {
+      giftCardId: giftCard.id,
+      userId: this.userId
+    };
+
+    this.giftCardService.exchangeGiftCard(request).subscribe({
+  next: (response) => {
+    alert(response); // ✔ pas de .message
+    this.currentUserScore -= giftCard.requiredScore;
+    giftCard.alreadyOwned = true;
+    this.loading = false;
+    this.loadGiftCards();
+  },
+  error: (error) => {
+    alert('Exchange failed: ' + (error.error?.error || error.message));
+    this.loading = false;
+  }
+});
+
   }
   loadTopScorer(): void {
     this.userService.getTopScorer().subscribe({

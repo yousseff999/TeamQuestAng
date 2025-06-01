@@ -47,7 +47,9 @@ import { NgChartsModule } from 'ng2-charts';
 import { EventscategoryComponent } from './FrontOffice/eventscategory/eventscategory.component';
 import { PackmanComponent } from './FrontOffice/packman/packman.component';
 import { ActivitiesineventsComponent } from './FrontOffice/activitiesinevents/activitiesinevents.component';
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,7 +102,9 @@ import { ActivitiesineventsComponent } from './FrontOffice/activitiesinevents/ac
     FormsModule,
     MatDialogModule,
     NgChartsModule,
-    
+    MatIconModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
