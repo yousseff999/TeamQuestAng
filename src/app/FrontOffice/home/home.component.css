@@ -359,3 +359,60 @@
     gap: 5px;
   }
 }
+
+.container {
+  background-color: transparent;
+  padding: 2rem;
+  color: #fff; /* texte blanc */
+}
+
+.info-item {
+  background-color: rgba(255, 255, 255, 0.05); /* fond semi-transparent */
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 20px;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+.info-item:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+.info-item i {
+  font-size: 2rem;
+  color: #8108f9; /* couleur d'icône pour contraste */
+  margin-bottom: 10px;
+}
+
+.php-email-form {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.php-email-form input,
+.php-email-form textarea {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+}
+
+.php-email-form input::placeholder,
+.php-email-form textarea::placeholder {
+  color: #ffffff;
+}
+
+.php-email-form button {
+  background-color: #7500d4;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.php-email-form button:hover {
+  background-color: #5f00a7;
+}

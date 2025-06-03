@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import * as p5 from 'p5';
 import * as Tone from 'tone';
-
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-packman',
   templateUrl: './packman.component.html',
@@ -26,8 +26,9 @@ export class PackmanComponent implements OnInit, OnDestroy {
   private maze!: number[][];
   private synth!: Tone.Synth;
   private eatSound!: Tone.Synth;
+  private showScoreUpdateError = false; // Added for error display
 
-  constructor() { }
+  constructor(private userService: UserService) { } // Inject UserService
 
   ngOnInit(): void {
     this.createGame();
@@ -91,6 +92,7 @@ export class PackmanComponent implements OnInit, OnDestroy {
               this.gameOver = true;
               Tone.Transport.stop();
               this.showGameOver();
+              this.updateUserScore(); // Call to update user score when game ends
             }
           }
 
@@ -121,6 +123,14 @@ export class PackmanComponent implements OnInit, OnDestroy {
             }
           }
         }
+
+        // Draw score update error if needed
+        if (this.showScoreUpdateError) {
+          s.fill(255, 0, 0);
+          s.textSize(16);
+          s.textAlign(s.CENTER);
+          s.text("Error updating score", s.width/2, 30);
+        }
       };
 
       s.keyPressed = () => {
@@ -138,6 +148,25 @@ export class PackmanComponent implements OnInit, OnDestroy {
     document.getElementById('restart-button')?.addEventListener('click', () => {
       this.resetGame();
     });
+  }
+
+  private updateUserScore(): void {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.userService.updateScore_u(+userId, this.score).subscribe({
+        next: () => {
+          console.log('Score updated successfully');
+        },
+        error: (error) => {
+          console.error('Error updating score', error);
+          this.showScoreUpdateError = true;
+          setTimeout(() => this.showScoreUpdateError = false, 3000);
+          if (this.p5) {
+            this.p5.redraw();
+          }
+        }
+      });
+    }
   }
 
   private resetGame(): void {
@@ -247,6 +276,7 @@ export class PackmanComponent implements OnInit, OnDestroy {
   }
 }
 
+// PacMan and Enemy classes remain unchanged
 class PacMan {
   gridX: number;
   gridY: number;

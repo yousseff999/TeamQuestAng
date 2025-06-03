@@ -1,0 +1,100 @@
+<div class="games-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <h1 class="main-title">
+      <span class="title-gradient">Game Arena</span>
+      <div class="title-decoration"></div>
+    </h1>
+    <p class="subtitle">Choose your adventure and challenge yourself!</p>
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-icon">🏆</span>
+        <span class="stat-text">{{ games.length }} Exciting Games</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-icon">⚡</span>
+        <span class="stat-text">Interactive & Fun</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category Filter -->
+  <div class="category-filter">
+    <div class="category-container">
+      <button 
+        *ngFor="let category of categories"
+        class="category-btn"
+        [class.active]="selectedCategory === category.id"
+        (click)="onCategorySelect(category.id)"
+      >
+        <span class="category-icon">{{ category.icon }}</span>
+        <span class="category-name">{{ category.name }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Games Grid -->
+  <div class="games-grid">
+    <div 
+      *ngFor="let game of filteredGames; let i = index"
+      class="game-card"
+      [class]="getGameColorClass(game.color)"
+      [class.hovered]="hoveredGame === game.id"
+      (mouseenter)="onGameHover(game.id)"
+      (mouseleave)="onGameHover(null)"
+      (click)="onGameClick(game.id)"
+      [style.animation-delay]="(i * 150) + 'ms'"
+    >
+      <!-- Game Card Background -->
+      <div class="card-background"></div>
+      
+      <!-- Floating Particles -->
+      <div class="particles" *ngIf="hoveredGame === game.id">
+        <div class="particle" *ngFor="let p of [1,2,3,4,5]"></div>
+      </div>
+
+      <!-- Card Header -->
+      <div class="card-header">
+        <div class="game-icon">{{ game.icon }}</div>
+        <div class="difficulty-badge" [class]="getDifficultyClass(game.difficulty)">
+          {{ game.difficulty }}
+        </div>
+      </div>
+
+      <!-- Card Content -->
+      <div class="card-content">
+        <h3 class="game-title">{{ game.name }}</h3>
+        <p class="game-description">{{ game.description }}</p>
+        
+        <div class="game-info">
+          <div class="info-item">
+            <span class="info-icon">👥</span>
+            <span class="info-text">{{ game.players }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">⏱️</span>
+            <span class="info-text">{{ game.estimatedTime }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Footer -->
+      <div class="card-footer">
+        <button class="play-button">
+          <span class="play-icon">▶️</span>
+          <span class="play-text">Play Now</span>
+        </button>
+      </div>
+
+      <!-- Hover Effect -->
+      <div class="hover-overlay" *ngIf="hoveredGame === game.id"></div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="filteredGames.length === 0" class="empty-state">
+    <div class="empty-icon">🎮</div>
+    <h3 class="empty-title">No games found</h3>
+    <p class="empty-text">Try selecting a different category</p>
+  </div>
+</div>

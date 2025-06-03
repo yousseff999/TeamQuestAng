@@ -1,224 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leaderboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: linear-gradient(135deg, #000000, #000000);
-      min-height: 100vh;
-      font-family: 'Arial', sans-serif;
-      color: #ffffff;
-      overflow-x: hidden;
-    }
-
-    .rank-container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: rgba(45, 42, 80, 0.295);
-      border-radius: 1rem;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.699);
-    }
-
-    .score-section {
-      margin-bottom: 3rem;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    .section-title {
-  font-size: 2.5rem;
-  font-weight: 900;
-  text-align: center;
-  background: linear-gradient(90deg, #bba9cc, #e5e5e5);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-bottom: 2rem;
-  position: relative;
-  font-family: 'Playfair Display', serif;
-  text-shadow: 0 0 15px rgba(96, 165, 250, 0.5), 0 0 25px rgba(192, 132, 252, 0.3);
-  animation: glowText 3s ease-in-out infinite alternate;
-}
-
-.section-title::after {
-  content: '';
-  width: 120px;
-  height: 6px;
-  background: linear-gradient(90deg, #8056a9, #184e91);
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 3px;
-  box-shadow: 0 0 20px rgba(34, 115, 214, 0.6), 0 0 30px rgba(128, 88, 168, 0.642);
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="10"><path d="M0,5 Q10,2 20,5 T40,5 T60,5 T80,5 T100,5" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/></svg>');
-  background-size: cover;
-  animation: strokeFlow 4s ease-in-out infinite;
-}
-
-@keyframes glowText {
-  0% {
-    text-shadow: 0 0 15px rgba(69, 133, 217, 0.82), 0 0 25px rgba(255, 255, 255, 0.3);
-  }
-  100% {
-    text-shadow: 0 0 25px rgba(96, 165, 250, 0.7), 0 0 35px rgba(192, 132, 252, 0.5);
-  }
-}
-
-@keyframes strokeFlow {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 100px 0;
-  }
-}
-
-    .score-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: rgba(255, 255, 255, 0);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .table-header {
-      background: #3b7397;
-      color: #ffffff;
-      font-weight: bold;
-      text-transform: uppercase;
-      padding: 1rem;
-      font-size: 1.1rem;
-    }
-
-    .table-row {
-      transition: all 0.3s ease;
-    }
-
-    .table-row:nth-child(1) {
-      background: linear-gradient(90deg, #2d248d, #114ba9);
-      color: #ffffff;
-      font-weight: bold;
-      transform: scale(1.02);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .table-row:nth-child(1) td:first-child::before {
-      content: ' 🏆 ';
-    }
-
-    .table-row:nth-child(2) {
-      background: linear-gradient(90deg, #2fa0e6, #7a8eac);
-      color: #ffffff;
-    }
-
-    .table-row:nth-child(2) td:first-child::before {
-      content: '🥈 ';
-    }
-
-    .table-row:nth-child(3) {
-      background: linear-gradient(90deg, #244f6b, #7334c5);
-      color: #dbdbdb;
-    }
-
-    .table-row:nth-child(3) td:first-child::before {
-      content: '🥉 ';
-    }
-
-   
-
-    .table-row:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
-      cursor: pointer;
-    }
-
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 768px) {
-      .rank-container {
-        padding: 1rem;
-        margin: 1rem;
-      }
-
-      .section-title {
-        font-size: 1.5rem;
-      }
-
-      .table-header, .table-row td {
-        font-size: 0.9rem;
-        padding: 0.75rem;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="rank-container">
-    <!-- Display User Scores -->
-    <div class="score-section user-scores">
-      <h3 class="section-title">Classement des Utilisateurs</h3>
-      <table class="score-table">
-        <thead>
-          <tr>
-            <th class="table-header">Utilisateur</th>
-            <th class="table-header">Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of userScores" class="table-row">
-            <td>{{ user[0] }}</td>
-            <td>{{ user[1] }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Display Team Scores -->
-    <div class="score-section team-scores">
-      <h3 class="section-title">Classement des Équipes</h3>
-      <table class="score-table">
-        <thead>
-          <tr>
-            <th class="table-header">Équipe</th>
-            <th class="table-header">Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let team of teamScores" class="table-row">
-            <td>{{ team[0] }}</td>
-            <td>{{ team[1] }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Display Department Scores -->
-    <!--<div class="score-section department-scores">
-      <h3 class="section-title">Classement des Départements</h3>
-      <table class="score-table">
-        <thead>
-          <tr>
-            <th class="table-header">Département</th>
-            <th class="table-header">Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let department of departmentScores" class="table-row">
-            <td>{{ department[0] }}</td>
-            <td>{{ department[1] }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>-->
+<div class="leaderboard-container">
+  <!-- Animated Background Elements -->
+  <div class="background-elements">
+    <div class="floating-element element-1"></div>
+    <div class="floating-element element-2"></div>
+    <div class="floating-element element-3"></div>
   </div>
-</body>
-</html>
+
+  <div class="content-wrapper">
+    <!-- Header -->
+    <div class="header-section">
+      <h1 class="main-title">🏆 LEADERBOARD 🏆</h1>
+      <p class="subtitle">Compete, Excel, and Rise to the Top!</p>
+      <div class="title-underline"></div>
+    </div>
+
+    <div class="leaderboard-grid">
+      <!-- User Rankings -->
+      <div class="ranking-section">
+        <div class="section-header">
+          <h2 class="section-title user-title">👤 Top Players</h2>
+        </div>
+        
+        <div class="ranking-list">
+          <div *ngFor="let user of userScores; let i = index" 
+               class="ranking-card" 
+               [ngClass]="getRankStyle(i)"
+               [style.animation-delay]="(i * 100) + 'ms'">
+            <div class="card-content">
+              <div class="rank-info">
+                <div class="rank-icon">{{ getRankIcon(i) }}</div>
+                <div class="player-info">
+                  <h3 class="player-name">{{ user[0] }}</h3>
+                  <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span class="status-text">Active Player</span>
+                  </div>
+                </div>
+              </div>
+              <div class="score-info">
+                <div class="score-value">{{ user[1] | number }}</div>
+                <div class="score-label">points</div>
+              </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-container">
+              <div class="progress-bar" 
+                   [style.width]="getProgressWidth(user[1], userScores) + '%'"
+                   [style.animation-delay]="(i * 200) + 'ms'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Rankings -->
+      <div class="ranking-section">
+        <div class="section-header">
+          <h2 class="section-title team-title">🚀 Top Teams</h2>
+        </div>
+        
+        <div class="ranking-list">
+          <div *ngFor="let team of teamScores; let i = index" 
+               class="ranking-card" 
+               [ngClass]="getRankStyle(i)"
+               [style.animation-delay]="(i * 100) + 'ms'">
+            <div class="card-content">
+              <div class="rank-info">
+                <div class="rank-icon">{{ getRankIcon(i) }}</div>
+                <div class="player-info">
+                  <h3 class="player-name">{{ team[0] }}</h3>
+                  <div class="status-indicator">
+                    <div class="status-dot team-dot"></div>
+                    <span class="status-text">Elite Team</span>
+                  </div>
+                </div>
+              </div>
+              <div class="score-info">
+                <div class="score-value">{{ team[1] | number }}</div>
+                <div class="score-label">points</div>
+              </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-container">
+              <div class="progress-bar" 
+                   [style.width]="getProgressWidth(team[1], teamScores) + '%'"
+                   [style.animation-delay]="(i * 200) + 'ms'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-section">
+      <div class="stat-card stat-card-1">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-value">{{ userScores.length }}</div>
+        <div class="stat-label">Active Players</div>
+      </div>
+      
+      <div class="stat-card stat-card-2">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-value">{{ teamScores.length }}</div>
+        <div class="stat-label">Competing Teams</div>
+      </div>
+      
+      <div class="stat-card stat-card-3">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-value">{{ userScores[0][1] | number }}</div>
+        <div class="stat-label">Highest Score</div>
+      </div>
+    </div>
+  </div>
+</div>

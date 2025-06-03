@@ -41,6 +41,8 @@ import { MysteryPuzzleGameComponent } from './FrontOffice/mystery-puzzle-game/my
 import { EventscategoryComponent } from './FrontOffice/eventscategory/eventscategory.component';
 import { PackmanComponent } from './FrontOffice/packman/packman.component';
 import { ActivitiesineventsComponent } from './FrontOffice/activitiesinevents/activitiesinevents.component';
+import { GamesComponent } from './FrontOffice/games/games.component';
+import { SnakeGameComponent } from './FrontOffice/snake-game/snake-game.component';
 
 
 const routes: Routes = [
@@ -78,11 +80,15 @@ const routes: Routes = [
   {path: 'alldefi',component: AlldefiComponent},
   {path: 'defisubmissions',component: DefisubmissionsComponent},
   {path: 'prediction',component: PredictionComponent},
+  {path: 'games',component: GamesComponent},
   {path: 'memory-game',component: MemoryGameComponent},
   {path: 'undercover-game',component: UndercoverGameComponent},
   {path: 'roulette-game',component: RouletteGameComponent},
   {path: 'puzzle-game',component: MysteryPuzzleGameComponent},
   {path: 'packman-game',component: PackmanComponent},
+  {path: 'snake-game',component: SnakeGameComponent},
+  
+   
   //{path: '',redirectTo: '/login',pathMatch: 'full'}
   //{ path: '**', redirectTo: '/home' } // Handle invalid routes
 ];

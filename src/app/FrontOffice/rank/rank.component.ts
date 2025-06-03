@@ -12,6 +12,7 @@ export class RankComponent implements OnInit {
   teamScores: [string, number][] = [];
   userScores: [string, number][] = [];
   departmentScores: [string, number][] = [];
+  
   constructor(private teamService: TeamService, private userService: UserService,private departmentService: DepartmentService) {}
 
   ngOnInit(): void {
@@ -41,5 +42,28 @@ export class RankComponent implements OnInit {
         console.error('Erreur lors du chargement des scores des départements', err);
       }
     });
+  }
+
+  getRankIcon(index: number): string {
+    switch (index) {
+      case 0: return '🏆';
+      case 1: return '🥈';
+      case 2: return '🥉';
+      default: return `#${index + 1}`;
+    }
+  }
+
+  getRankStyle(index: number): string {
+    switch (index) {
+      case 0: return 'gold-gradient';
+      case 1: return 'silver-gradient';
+      case 2: return 'bronze-gradient';
+      default: return 'default-gradient';
+    }
+  }
+
+  getProgressWidth(score: number, scores: any[]): number {
+    const maxScore = Math.max(...scores.map(s => s[1]));
+    return Math.min((score / maxScore) * 100, 100);
   }
 }

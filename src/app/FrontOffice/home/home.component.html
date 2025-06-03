@@ -13,7 +13,7 @@
           <ul>
             <li><a href="#" (click)="scrollTo('hero', $event)">Home</a></li>
             <li><a href="#" (click)="scrollTo('services', $event)">Services</a></li>
-            <li><a href="#" (click)="scrollTo('about', $event)">Games</a></li>
+            <li><a routerLink="/games">Games</a></li>
             <li><a routerLink="/rank">Classement</a></li>
             <li><a href="#" (click)="scrollTo('portfolio', $event)">Portfolio</a></li>   
             <li class="dropdown">
@@ -289,28 +289,28 @@
   
           <div class="row gy-4">
   
-            <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img src="assets/FrontOffice/img/aws.png" class="img-fluid" alt="">
+            <div class="col-xl-2 col-md-8 col-8 client-logo">
+              <img src="assets/FrontOffice/img/awss.png" class="img-fluid" alt="">
             </div><!-- End Client Item -->
   
             <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img src="assets/FrontOffice/img/clients/client-2.png" class="img-fluid" alt="">
+              <img src="assets/FrontOffice/img/redhat.png" class="img-fluid" alt="">
             </div><!-- End Client Item -->
   
             <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img src="assets/FrontOffice/img/clients/client-3.png" class="img-fluid" alt="">
+              <img src="assets/FrontOffice/img/IBM.png" class="img-fluid" alt="">
             </div><!-- End Client Item -->
   
             <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img src="assets/FrontOffice/img/clients/client-4.png" class="img-fluid" alt="">
+              <img src="assets/FrontOffice/img/pegagold.png" class="img-fluid" alt="">
             </div><!-- End Client Item -->
   
             <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img src="assets/FrontOffice/img/clients/client-5.png" class="img-fluid" alt="">
+              <img src="assets/FrontOffice/img/Dassault.png" class="img-fluid" alt="">
             </div><!-- End Client Item -->
   
             <div class="col-xl-2 col-md-3 col-6 client-logo">
-              <img src="assets/FrontOffice/img/clients/client-6.png" class="img-fluid" alt="">
+              <img src="assets/FrontOffice/img/microsoft.png" class="img-fluid" alt="">
             </div><!-- End Client Item -->
   
           </div>
@@ -321,115 +321,123 @@
   
      
   
-      <!-- Services 2 Section -->
-      <section id="services-2" class="services-2 section light-background">
-  
-           <!-- Section Title -->
-<div class="container section-title" data-aos="fade-up">
-  <h2>Gift Card Store</h2>
-  <p>Exchange your points for rewards</p>
-</div>
-<!-- End Section Title -->
+     <!-- Services 2 Section with Background -->
+<section
+  id="services-2"
+  class="services-2 section light-background"
+  style="background-image: url('assets/FrontOffice/img/rvd.png'); background-size: cover; background-position: center; background-repeat: no-repeat; position: relative;"
+>
 
-<div class="container">
- <div class="row gy-4">
-  <!-- User Score Display -->
-  <div *ngIf="userId" class="user-info-section">
-    <div class="user-score-card">
-      <h3>🎁 Gift Card Store</h3>
-      <div class="score-display">
-        <span class="score-label">Your Current Score:</span>
-        <span class="score-value">{{ currentUserScore }} pts</span>
-      </div>
-    </div>
+  <!-- Non-blocking dark overlay -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+              background-color: rgba(0, 0, 0, 0.4); z-index: 1; pointer-events: none;">
   </div>
 
-  <!-- Gift Cards Section -->
-  <div *ngIf="userId" class="gift-cards-section">
-    <!-- Loading indicator -->
-    <div *ngIf="loadingGiftCards" class="loading-indicator">
-      <div class="spinner"></div>
-      <p>Loading gift cards...</p>
-    </div>
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up" style="position: relative; z-index: 2;">
+    <h2 style="color: white;">Gift Card Store</h2>
+    <p style="color: white;">Exchange your points for rewards<br></p>
+  </div>
 
-    <!-- Gift Cards Grid -->
-    <div *ngIf="!loadingGiftCards && giftCards.length > 0" class="gift-cards-grid">
-      <div 
-        *ngFor="let card of giftCards" 
-        class="gift-card"
-        [class.affordable]="card.canAfford"
-        [class.owned]="card.alreadyOwned"
-        [class.locked]="!card.canAfford"
-      >
-        <!-- Card Image -->
-        <div class="card-image">
-          <img [src]="card.imageUrl" [alt]="card.title" />
-          <div *ngIf="card.alreadyOwned" class="owned-badge">✓ Owned</div>
-          <div *ngIf="!card.canAfford" class="locked-badge">🔒 Locked</div>
+  <!-- Section Content -->
+  <div class="container" style="position: relative; z-index: 2;">
+    <div class="row gy-4">
+
+      <!-- User Score Display -->
+      <div *ngIf="userId" class="user-info-section">
+        <div class="user-score-card">
+          <h3>🎁 Gift Card Store</h3>
+          <div class="score-display">
+            <span class="score-label">Your Current Score:</span>
+            <span class="score-value">{{ currentUserScore }} pts</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gift Cards Section -->
+      <div *ngIf="userId" class="gift-cards-section">
+
+        <!-- Loading indicator -->
+        <div *ngIf="loadingGiftCards" class="loading-indicator">
+          <div class="spinner"></div>
+          <p>Loading gift cards...</p>
         </div>
 
-        <!-- Card Content -->
-        <div class="card-content">
-          <h3>{{ card.title }}</h3>
-          <p>{{ card.description }}</p>
-          
-          <div class="card-info">
-            <span class="brand">{{ card.brand }}</span>
-            <span class="category">{{ card.category }}</span>
-          </div>
-          
-          <div class="score-info">
-            <span>Required Score:</span>
-            <span class="score" [class.affordable-score]="card.canAfford">
-              {{ card.requiredScore }} pts
-            </span>
-          </div>
-
-          <!-- Exchange Button -->
-          <button 
-            class="exchange-btn"
-            [disabled]="!card.canAfford || card.alreadyOwned || loading"
-            (click)="exchangeGiftCard(card)"
+        <!-- Gift Cards Grid -->
+        <div *ngIf="!loadingGiftCards && giftCards.length > 0" class="gift-cards-grid">
+          <div 
+            *ngFor="let card of giftCards" 
+            class="gift-card"
+            [class.affordable]="card.canAfford"
+            [class.owned]="card.alreadyOwned"
+            [class.locked]="!card.canAfford"
           >
-            <span *ngIf="card.alreadyOwned">✓ Already Owned</span>
-            <span *ngIf="!card.canAfford && !card.alreadyOwned">🔒 Insufficient Score</span>
-            <span *ngIf="card.canAfford && !card.alreadyOwned">🎁 Exchange Now</span>
-          </button>
+            <!-- Card Image -->
+            <div class="card-image">
+              <img [src]="card.imageUrl" [alt]="card.title" />
+              <div *ngIf="card.alreadyOwned" class="owned-badge">✓ Owned</div>
+              <div *ngIf="!card.canAfford" class="locked-badge">🔒 Locked</div>
+            </div>
+
+            <!-- Card Content -->
+            <div class="card-content">
+              <h3>{{ card.title }}</h3>
+              <p>{{ card.description }}</p>
+
+              <div class="card-info">
+                <span class="brand">{{ card.brand }}</span>
+                <span class="category">{{ card.category }}</span>
+              </div>
+
+              <div class="score-info">
+                <span>Required Score:</span>
+                <span class="score" [class.affordable-score]="card.canAfford">
+                  {{ card.requiredScore }} pts
+                </span>
+              </div>
+
+              <!-- Exchange Button -->
+              <button 
+                class="exchange-btn"
+                [disabled]="!card.canAfford || card.alreadyOwned || loading"
+                (click)="exchangeGiftCard(card)"
+              >
+                <span *ngIf="card.alreadyOwned">✓ Already Owned</span>
+                <span *ngIf="!card.canAfford && !card.alreadyOwned">🔒 Insufficient Score</span>
+                <span *ngIf="card.canAfford && !card.alreadyOwned">🎁 Exchange Now</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- No gift cards message -->
+        <div *ngIf="!loadingGiftCards && giftCards.length === 0" class="no-cards">
+          <h3>No gift cards available</h3>
+          <p>Check back later for new rewards!</p>
+        </div>
+      </div>
+
+      <!-- Processing overlay -->
+      <div *ngIf="loading" class="loading-overlay">
+        <div class="loading-content">
+          <div class="spinner"></div>
+          <p>Processing exchange...</p>
         </div>
       </div>
     </div>
-
-    <!-- No gift cards message -->
-    <div *ngIf="!loadingGiftCards && giftCards.length === 0" class="no-cards">
-      <h3>No gift cards available</h3>
-      <p>Check back later for new rewards!</p>
-    </div>
   </div>
+</section>
 
-  <!-- Processing overlay -->
-  <div *ngIf="loading" class="loading-overlay">
-    <div class="loading-content">
-      <div class="spinner"></div>
-      <p>Processing exchange...</p>
-    </div>
-  </div>
-</div>
-<!-- /Gift Card Section -->
-
-
-  
- </div>
-      </section><!-- /Services 2 Section -->
   
       
   
     <!-- Portfolio Section -->
-<section id="portfolio" class="portfolio section" style="background-image: url('assets/FrontOffice/img/d.jpg'); background-size: cover; background-position: center;">
+<section id="portfolio" class="portfolio section" style="background-image: url('assets/FrontOffice/img/rvd.png'); background-size: cover; background-position: center;">
 
   <!-- Section Title -->
   <div class="container section-title py-3" data-aos="fade-up">
-    <h2>Portfolio</h2>
-    <p>CHECK OUR PORTFOLIO</p>
+    <h2 style="color: white;">Portfolio</h2>
+    <p style="color: white;">CHECK OUR PORTFOLIO<br></p>
   </div><!-- End Section Title -->
 
   <div class="container">
@@ -490,8 +498,8 @@
   
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
-          <h2>Contact</h2>
-          <p>Share your feedback now</p>
+          <h2 style="color: white;">Contact</h2>
+          <p style="color: white;">Share your feedback now<br></p>
         </div><!-- End Section Title -->
   
         <div class="container" data-aos="fade-up" data-aos-delay="100">

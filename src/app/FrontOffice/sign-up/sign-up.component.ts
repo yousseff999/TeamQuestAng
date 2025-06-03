@@ -49,7 +49,7 @@ export class SignUpComponent implements OnInit {
         this.successMessage = 'Registration successful! Redirecting...';
         this.errorMessage = null;
         setTimeout(() => {
-          this.router.navigate(['/home']); // Redirect to dashboard
+          this.router.navigate(['/home']); 
         }, 2000);
       },
       error: (err) => {
@@ -59,7 +59,7 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  // Clear error message when user starts typing
+  
   clearMessages(): void {
     this.errorMessage = null;
     this.successMessage = null;

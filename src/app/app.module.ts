@@ -50,6 +50,9 @@ import { ActivitiesineventsComponent } from './FrontOffice/activitiesinevents/ac
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { GamesComponent } from './FrontOffice/games/games.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SnakeGameComponent } from './FrontOffice/snake-game/snake-game.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,6 +95,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     EventscategoryComponent,
     PackmanComponent,
     ActivitiesineventsComponent,
+    GamesComponent,
+    SnakeGameComponent,
+   
+    
     
   ],
   imports: [
@@ -104,7 +111,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     NgChartsModule,
     MatIconModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
