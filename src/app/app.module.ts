@@ -9,7 +9,6 @@ import { AdminComponent } from './BackOffice/admin/admin.component';
 import { LoginComponent } from './FrontOffice/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './FrontOffice/sign-up/sign-up.component';
-import { ResetPwdComponent } from './FrontOffice/reset-pwd/reset-pwd.component';
 import { ShoweventComponent } from './BackOffice/showevent/showevent.component';
 import { UpdateeventComponent } from './BackOffice/updateevent/updateevent.component';
 import { AddeventComponent } from './BackOffice/addevent/addevent.component';
@@ -53,6 +52,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { GamesComponent } from './FrontOffice/games/games.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnakeGameComponent } from './FrontOffice/snake-game/snake-game.component';
+import { ForgotpasswordComponent } from './FrontOffice/forgotpassword/forgotpassword.component';
+import { ResetpasswordComponent } from './FrontOffice/resetpassword/resetpassword.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +61,7 @@ import { SnakeGameComponent } from './FrontOffice/snake-game/snake-game.componen
     AdminComponent,
     LoginComponent,
     SignUpComponent,
-    ResetPwdComponent,
+    
     ShoweventComponent,
     UpdateeventComponent,
     AddeventComponent,
@@ -97,6 +98,8 @@ import { SnakeGameComponent } from './FrontOffice/snake-game/snake-game.componen
     ActivitiesineventsComponent,
     GamesComponent,
     SnakeGameComponent,
+    ForgotpasswordComponent,
+    ResetpasswordComponent,
    
     
     

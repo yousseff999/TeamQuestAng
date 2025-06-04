@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './FrontOffice/login/login.component';
 import { HomeComponent } from './FrontOffice/home/home.component';
@@ -28,7 +27,6 @@ import { AlleventsComponent } from './FrontOffice/allevents/allevents.component'
 import { GetstartedComponent } from './FrontOffice/getstarted/getstarted.component';
 import { PortfolioComponent } from './FrontOffice/portfolio/portfolio.component';
 import { RankComponent } from './FrontOffice/rank/rank.component';
-import { ResetPwdComponent } from './FrontOffice/reset-pwd/reset-pwd.component';
 import { CreatedefiComponent } from './BackOffice/createdefi/createdefi.component';
 import { MyteamComponent } from './FrontOffice/myteam/myteam.component';
 import { AlldefiComponent } from './BackOffice/alldefi/alldefi.component';
@@ -43,13 +41,16 @@ import { PackmanComponent } from './FrontOffice/packman/packman.component';
 import { ActivitiesineventsComponent } from './FrontOffice/activitiesinevents/activitiesinevents.component';
 import { GamesComponent } from './FrontOffice/games/games.component';
 import { SnakeGameComponent } from './FrontOffice/snake-game/snake-game.component';
+import { ForgotpasswordComponent } from './FrontOffice/forgotpassword/forgotpassword.component';
+import { ResetpasswordComponent } from './FrontOffice/resetpassword/resetpassword.component';
 
 
 const routes: Routes = [
   {path: '',component: UsercheckComponent},
   {path: 'login',component: LoginComponent},
   {path: 'signup',component: SignUpComponent},
-  {path: 'forgetpassword',component: ResetPwdComponent},
+  {path: 'forgetpwd',component: ForgotpasswordComponent},
+  {path: 'reset-password',component: ResetpasswordComponent},
   {path: 'home',component: HomeComponent,canActivate: [AuthGuard],data: { roles: ['USER'] }},
   {path: 'admin',component: AdminComponent,canActivate: [AuthGuard],data: { roles: ['ADMIN'] }},
   {path: 'showevent',component: ShoweventComponent},

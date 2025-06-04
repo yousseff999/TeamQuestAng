@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 /*interface LoginResponse {
     id: number;
@@ -13,11 +13,36 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8086/api/auth'; // Replace with your actual backend API URL
+  private apiUrl = 'http://localhost:8086/api/auth';
   
  
   constructor(private http: HttpClient,private router: Router) {}
+forgotPassword(email: string): Observable<any> {
+  return this.http.post(`${this.apiUrl}/forgot-password`, { email }, {
+    responseType: 'json'  // Explicitly expect JSON
+  }).pipe(
+    catchError(error => {
+      console.error('Forgot password error:', error);
+      return throwError(() => ({
+        message: error.error?.message || 'Failed to send reset link'
+      }));
+    })
+  );
+}
 
+  resetPassword(token: string, newPassword: string): Observable<any> {
+  return this.http.post(`${this.apiUrl}/reset-password`, {
+    token,
+    newPassword
+  }).pipe(
+    catchError(error => {
+      console.error('Reset password error:', error);
+      return throwError(() => ({
+        message: error.error?.message || 'Failed to reset password'
+      }));
+    })
+  );
+}
   signUp(name: string, email: string, password: string, confirmPassword: string): Observable<any> {
     const signUpData = { name, email, password, confirmPassword };
     return this.http.post<any>(`${this.apiUrl}/signup`, signUpData).pipe(
