@@ -9,6 +9,9 @@
 <body>
   <div class="wrapper">
     <form (ngSubmit)="login()">
+      <div class="logo-container">
+  <img src="assets/FrontOffice/img/m.png" alt="Logo" class="logo" />
+</div>
       <h2>Login</h2>
 
       <!-- Email input -->
@@ -45,7 +48,7 @@
           <input type="checkbox" id="remember">
           <p>Remember me</p>
         </label>
-        <a routerLink="/forgetpwd">Forgot password?</a>
+        <a routerLink="/forgot-password">Forgot password?</a>
       </div>
 
       <!-- Login button -->

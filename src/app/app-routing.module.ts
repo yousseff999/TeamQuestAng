@@ -49,7 +49,7 @@ const routes: Routes = [
   {path: '',component: UsercheckComponent},
   {path: 'login',component: LoginComponent},
   {path: 'signup',component: SignUpComponent},
-  {path: 'forgetpwd',component: ForgotpasswordComponent},
+  {path: 'forgot-password',component: ForgotpasswordComponent},
   {path: 'reset-password',component: ResetpasswordComponent},
   {path: 'home',component: HomeComponent,canActivate: [AuthGuard],data: { roles: ['USER'] }},
   {path: 'admin',component: AdminComponent,canActivate: [AuthGuard],data: { roles: ['ADMIN'] }},
