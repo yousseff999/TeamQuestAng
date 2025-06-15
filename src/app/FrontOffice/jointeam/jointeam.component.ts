@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TeamService } from 'src/app/services/team.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Team } from 'src/app/models/team';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-jointeam',
@@ -17,7 +18,8 @@ export class JointeamComponent implements OnInit {
 
   constructor(
     private teamService: TeamService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -72,4 +74,14 @@ export class JointeamComponent implements OnInit {
       }
     });
   }
+  scrollTo(id: string, event: Event) {
+    event.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+  navigateToCategory(category: string) {
+  this.router.navigate(['/eventscategory', category]);
+}
 }

@@ -4,6 +4,8 @@ import { Event } from 'src/app/models/event';
 import { AuthService } from 'src/app/services/auth.service';
 import { InteractionType } from 'src/app/models/event-interaction'; // Adjust path as needed
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { MapDialogComponent } from 'src/app/map-dialog/map-dialog.component';
 @Component({
   selector: 'app-allevents',
   templateUrl: './allevents.component.html',
@@ -18,9 +20,15 @@ export class AlleventsComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private authService: AuthService,
-    private router : Router
+    private router : Router, 
+    private dialog: MatDialog
   ) {}
-
+openMap(location: string): void {
+    this.dialog.open(MapDialogComponent, {
+      width: '500px',
+      data: location
+    });
+  }
   ngOnInit(): void {
     const userId = this.authService.getUserId();
     if (userId) {
@@ -109,5 +117,15 @@ export class AlleventsComponent implements OnInit {
   this.router.navigate(['/activities-in-event'], { 
     state: { eventId: eventId }  // Make sure the property name matches
   });
+}
+scrollTo(id: string, event: MouseEvent): void {
+  event.preventDefault();
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+  navigateToCategory(category: string) {
+  this.router.navigate(['/eventscategory', category]);
 }
 }

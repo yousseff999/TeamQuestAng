@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
 import { Event as MyEvent } from 'src/app/models/event';
 import { InteractionType } from 'src/app/models/event-interaction';
+import { MatDialog } from '@angular/material/dialog';
+import { MapDialogComponent } from 'src/app/map-dialog/map-dialog.component';
 
 @Component({
   selector: 'app-eventscategory',
@@ -16,10 +18,14 @@ export class EventscategoryComponent implements OnInit {
   currentUserId: number | null = null;
   InteractionType = InteractionType;
 
-  constructor(private eventService: EventService, private route: ActivatedRoute,private router : Router) {}
-
+  constructor(private eventService: EventService, private route: ActivatedRoute,private router : Router, private dialog: MatDialog) {}
+openMap(location: string): void {
+    this.dialog.open(MapDialogComponent, {
+      width: '500px',
+      data: location
+    });
+  }
   ngOnInit() {
-    // 🔐 Get current user ID (adjust as needed)
     const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
       this.currentUserId = parseInt(storedUserId, 10);
@@ -109,7 +115,17 @@ export class EventscategoryComponent implements OnInit {
   }
   viewActivities(eventId: number) {
   this.router.navigate(['/activities-in-event'], { 
-    state: { eventId: eventId }  // Make sure the property name matches
+    state: { eventId: eventId }  
   });
+}
+scrollTo(id: string, event: Event) {
+    event.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+  navigateToCategory(category: string) {
+  this.router.navigate(['/eventscategory', category]);
 }
 }

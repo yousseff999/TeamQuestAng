@@ -18,7 +18,7 @@ export class AddeventComponent implements OnInit {
   errorMessage: string | null = null;
   isLoading: boolean = false;
   selectedImageFile: File | null = null;
-  predictionResult: string | null = null; // Store prediction result
+  predictionResult: string | null = null; 
 
   // Mapping eventType to category_encoded (adjust based on your LabelEncoder)
   private eventTypeToCategoryEncoded: { [key: string]: number } = {
@@ -32,7 +32,7 @@ export class AddeventComponent implements OnInit {
     private fb: FormBuilder,
     private eventService: EventService,
     private router: Router,
-    private predictionService: PredictionService // Inject PredictionService
+    private predictionService: PredictionService 
   ) {
     this.eventForm = this.fb.group({
       eventName: ['', [Validators.required]],
@@ -62,9 +62,9 @@ export class AddeventComponent implements OnInit {
       // Prepare prediction data
       const startDate = new Date(this.eventForm.value.startDate);
       const predictionData = {
-        Attendance: 250, // Placeholder; adjust based on your needs (e.g., user input)
+        Attendance: 250, 
         year: startDate.getFullYear(),
-        month: startDate.getMonth() + 1, // getMonth() is 0-based
+        month: startDate.getMonth() + 1, 
         day: startDate.getDate(),
         category_encoded: this.eventTypeToCategoryEncoded[this.eventForm.value.eventType]
       };

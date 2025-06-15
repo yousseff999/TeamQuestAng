@@ -20,7 +20,7 @@ import { UserService } from 'src/app/services/user.service';
 export class HomeComponent implements OnInit  {
   portfolios: Portfolio[] = [];
   imageUrls: { [key: number]: string } = {};
-categories: string[] = ['SPORTS', 'CAMPING', 'CULTURAL', 'PARTY']; // example categories
+categories: string[] = ['SPORTS', 'CAMPING', 'CULTURAL', 'PARTY']; 
   selectedCategory: string = '';
 topScorer?: User;
 topScoringTeam: any;

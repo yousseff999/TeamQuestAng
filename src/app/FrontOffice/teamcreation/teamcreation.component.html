@@ -1,48 +1,46 @@
     <body class="index-page bg-gradient-to-br from-indigo-100 to-teal-100 min-h-screen">
         <!-- Header -->
-        <header id="header" class="header d-flex align-items-center fixed-top shadow-lg bg-gray-800 bg-opacity-95 backdrop-blur-sm">
-        <div class="container-fluid container-xl position-relative d-flex align-items-center">
-            <a href="index.html" class="logo d-flex align-items-center me-auto">
-            <h1 class="sitename text-2xl font-extrabold text-indigo-400 tracking-wide">TeamQuest</h1>
-            </a>
-            <nav id="navmenu" class="navmenu">
-            <ul class="flex space-x-6">
-                <li><a (click)="goBack()" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium cursor-pointer">Home</a></li>
-                <li><a href="#about" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">About</a></li>
-                <li><a href="#services" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Services</a></li>
-                <li><a href="#portfolio" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Portfolio</a></li>
-                <li><a href="#team" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Team</a></li>
-                <li class="dropdown relative">
-                <a href="#" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium flex items-center">
-                    <span>Event</span>
-                    <i class="bi bi-chevron-down toggle-dropdown ml-1"></i>
-                </a>
-                <ul class="dropdown-menu absolute hidden bg-gray-700 shadow-xl rounded-lg mt-2 w-48 z-10">
-                    <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Dropdown 1</a></li>
-                    <li class="dropdown relative">
-                    <a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300 flex items-center">
-                        <span>Deep Dropdown</span>
-                        <i class="bi bi-chevron-down toggle-dropdown ml-1"></i>
-                    </a>
-                    <ul class="dropdown-menu absolute hidden bg-gray-700 shadow-xl rounded-lg ml-48 -mt-10 w-48">
-                        <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 1</a></li>
-                        <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 2</a></li>
-                        <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 3</a></li>
-                        <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 4</a></li>
-                        <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Deep Dropdown 5</a></li>
-                    </ul>
-                    </li>
-                    <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Dropdown 2</a></li>
-                    <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Dropdown 3</a></li>
-                    <li><a href="#" class="block px-4 py-2 text-gray-200 hover:bg-gray-600 hover:text-teal-400 transition duration-300">Dropdown 4</a></li>
-                </ul>
-                </li>
-                <li><a href="#contact" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Contact</a></li>
-            </ul>
-            <i class="mobile-nav-toggle d-xl-none bi bi-list text-gray-200 cursor-pointer"></i>
-            </nav>
-        </div>
-        </header>
+        <header id="header" class="header fixed-top shadow-lg bg-gray-800 bg-opacity-95 backdrop-blur-sm">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename text-2xl font-extrabold text-indigo-400 tracking-wide">TeamQuest</h1>
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul class="flex space-x-6">
+          <li><a routerLink="/home" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium cursor-pointer">Home</a></li>
+          <li><a routerLink="/home">Service</a></li>
+          <li><a routerLink="/games" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Games</a></li>
+          <li><a routerLink="/rank" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Classement</a></li>
+          <li><a routerLink="/home" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Portfolio</a></li>
+          <li class="dropdown">
+              <a href="#" (click)="scrollTo('services', $event)"><span>Team</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a routerLink="/myteam">My Team</a></li>
+                <li><a routerLink="/jointeam">All Teams</a></li>
+                <li><a routerLink="/teamcreation">Create Team</a></li>
+              </ul>
+            </li>
+          <li class="dropdown"><a href="#" (click)="scrollTo('services', $event)"><span>Upcoming Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a routerLink="/allevents">All events</a></li>
+                <li class="dropdown">
+  <a href="#"><span>Select event category</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+  <ul>
+    <li><a (click)="navigateToCategory('SPORTS')">Sport</a></li>
+    <li><a (click)="navigateToCategory('PARTY')">Party</a></li>
+    <li><a (click)="navigateToCategory('CAMPING')">Camping</a></li>
+    <li><a (click)="navigateToCategory('CULTURAL')">Culture</a></li>
+  </ul>
+</li>
+                <!-- <li><a href="#">Dropdown 2</a></li> -->
+              </ul>
+            </li>
+          <li><a routerLink="/home" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list text-gray-200 cursor-pointer"></i>
+      </nav>
+    </div>
+  </header>
     
     <!-- Main Content -->
 <main class="main pt-24 pb-16">

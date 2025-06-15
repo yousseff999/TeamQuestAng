@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Team } from 'src/app/models/team';
 import { Defi } from 'src/app/models/defi';
 import { DefiService } from 'src/app/services/defi.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-myteam',
   templateUrl: './myteam.component.html',
@@ -19,7 +20,8 @@ showAnswerForm: boolean = false;
   answerContent: string = '';
   submitMessage: string = '';
    darkMode = false;
-  constructor(private teamService: TeamService, private authService: AuthService, private defiService : DefiService) {}
+  constructor(private teamService: TeamService, private authService: AuthService,
+     private defiService : DefiService, private router: Router) {}
 
   ngOnInit(): void {
 
@@ -102,4 +104,14 @@ takePart(): void {
       });
     }
   }
+  scrollTo(id: string, event: Event) {
+    event.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+  navigateToCategory(category: string) {
+  this.router.navigate(['/eventscategory', category]);
+}
 }

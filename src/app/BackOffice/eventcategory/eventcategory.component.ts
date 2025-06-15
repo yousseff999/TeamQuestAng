@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
 import { Event as MyEvent } from 'src/app/models/event';
-
+import { MatDialog } from '@angular/material/dialog';
+import { MapDialogComponent } from 'src/app/map-dialog/map-dialog.component';
 @Component({
   selector: 'app-eventcategory',
   templateUrl: './eventcategory.component.html',
@@ -13,8 +14,13 @@ export class EventcategoryComponent implements OnInit {
   selectedCategory: string = '';
   imageUrls: { [eventId: number]: string } = {};
 
-  constructor(private eventService: EventService, private route: ActivatedRoute) {}
-
+  constructor(private eventService: EventService, private route: ActivatedRoute, private dialog: MatDialog) {}
+openMap(location: string): void {
+    this.dialog.open(MapDialogComponent, {
+      width: '500px',
+      data: location
+    });
+  }
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const category = params.get('category');

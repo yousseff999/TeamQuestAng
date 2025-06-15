@@ -504,34 +504,35 @@
             </a>
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="#" onclick="scrollToSection('hero', event)">Home</a></li>
-                    <li><a href="#" onclick="scrollToSection('services', event)">Services</a></li>
-                    <li><a href="#" onclick="scrollToSection('about', event)">Games</a></li>
-                    <li><a href="#" onclick="scrollToSection('about', event)">Classement</a></li>
-                    <li><a href="#" onclick="scrollToSection('portfolio', event)">Portfolio</a></li>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/home">Services</a></li>
+                    <li><a href="/games">Games</a></li>
+                    <li><a href="/rank">Classement</a></li>
+                    <li><a href="/home">Portfolio</a></li>
                     <li class="dropdown">
-                        <a href="#"><span>Team</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                        <ul>
-                            <li><a href="/jointeam">All Teams</a></li>
-                            <li><a href="/teamcreation">Create Team</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#"><span>Upcoming Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                        <ul>
-                            <li><a href="/allevents">All events</a></li>
-                            <li class="dropdown">
-                                <a href="#"><span>Select event category</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                <ul>
-                                    <li><a href="#">Sport</a></li>
-                                    <li><a href="#">Party</a></li>
-                                    <li><a href="#">Camping</a></li>
-                                    <li><a href="#">Culture</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#" onclick="scrollToSection('contact', event)">Contact</a></li>
+              <a href="#" (click)="scrollTo('services', $event)"><span>Team</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a routerLink="/myteam">My Team</a></li>
+                <li><a routerLink="/jointeam">All Teams</a></li>
+                <li><a routerLink="/teamcreation">Create Team</a></li>
+              </ul>
+            </li>
+                    <li class="dropdown"><a href="#" (click)="scrollTo('services', $event)"><span>Upcoming Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a routerLink="/allevents">All events</a></li>
+                <li class="dropdown">
+  <a href="#"><span>Select event category</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+  <ul>
+    <li><a (click)="navigateToCategory('SPORTS')">Sport</a></li>
+    <li><a (click)="navigateToCategory('PARTY')">Party</a></li>
+    <li><a (click)="navigateToCategory('CAMPING')">Camping</a></li>
+    <li><a (click)="navigateToCategory('CULTURAL')">Culture</a></li>
+  </ul>
+</li>
+                <!-- <li><a href="#">Dropdown 2</a></li> -->
+              </ul>
+            </li>
+                    <li><a href="/home">Contact</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>

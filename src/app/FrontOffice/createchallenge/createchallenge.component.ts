@@ -137,4 +137,15 @@ export class CreatechallengeComponent implements OnInit {
       }
     });
   }
+
+  scrollTo(id: string, event: Event) {
+    event.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+  navigateToCategory(category: string) {
+  this.router.navigate(['/eventscategory', category]);
+}
 }

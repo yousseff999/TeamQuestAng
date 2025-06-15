@@ -3,6 +3,7 @@ import { ChallengeService } from 'src/app/services/challenge.service';
 import { Question } from 'src/app/models/question';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RankService } from 'src/app/services/rank.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-question',
@@ -24,7 +25,7 @@ export class QuestionComponent implements OnInit {
     { value: 3, label: 'Hard' }
   ];
 
-  constructor(private challengeService: ChallengeService, private rankService : RankService) {}
+  constructor(private challengeService: ChallengeService, private rankService : RankService, private router : Router) {}
 
   ngOnInit(): void {
     // Option 1: Get difficulty from localStorage (saved after challenge creation)
@@ -90,4 +91,14 @@ export class QuestionComponent implements OnInit {
       }
     });
   }
+  scrollTo(id: string, event: Event) {
+    event.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+  navigateToCategory(category: string) {
+  this.router.navigate(['/eventscategory', category]);
+}
 }

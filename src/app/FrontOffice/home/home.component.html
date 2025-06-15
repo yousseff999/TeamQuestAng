@@ -17,7 +17,7 @@
             <li><a routerLink="/rank">Classement</a></li>
             <li><a href="#" (click)="scrollTo('portfolio', $event)">Portfolio</a></li>   
             <li class="dropdown">
-              <a href="#"><span>Team</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <a href="#" (click)="scrollTo('hero', $event)"><span>Team</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
                 <li><a routerLink="/myteam">My Team</a></li>
                 <li><a routerLink="/jointeam">All Teams</a></li>
@@ -25,7 +25,7 @@
               </ul>
             </li>
             
-            <li class="dropdown"><a href="#"><span>Upcoming Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <li class="dropdown"><a href="#" (click)="scrollTo('hero', $event)"><span>Upcoming Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
                 <li><a routerLink="/allevents">All events</a></li>
                 <li class="dropdown">

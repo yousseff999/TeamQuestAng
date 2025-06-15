@@ -28,7 +28,7 @@
       box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
       transition: all 0.3s;
       z-index: 999;
-      height: 70px;
+      height: 90px;
     }
     
     .navmenu ul {
@@ -47,8 +47,8 @@
       display: flex;
       align-items: center;
       color: #ffffff;
-      padding: 10px 15px;
-      margin: 0 5px;
+      padding: 1px 7px;
+      margin: 0 2px;
       transition: 0.3s;
       font-size: 15px;
       font-weight: 500;
@@ -233,46 +233,47 @@
 </head>
 <body class="font-sans antialiased text-gray-900">
   <!-- Header - Exactly as you provided -->
-  <header id="header" class="header d-flex align-items-center fixed-top w-full">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center h-full">
+  <header id="header" class="header fixed-top shadow-lg bg-gray-800 bg-opacity-95 backdrop-blur-sm">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
       <a href="index.html" class="logo d-flex align-items-center me-auto">
-        <h1 class="sitename">TeamQuest</h1>
+        <h1 class="sitename text-2xl font-extrabold text-indigo-400 tracking-wide">TeamQuest</h1>
       </a>
-
       <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Games</a></li>
-          <li><a href="#">Classement</a></li>
-          <li><a href="#">Portfolio</a></li>   
+        <ul class="flex space-x-0">
+          <li><a routerLink="/home" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium cursor-pointer">Home</a></li>
+          <li><a routerLink="/home">Service</a></li>
+          <li><a routerLink="/games" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Games</a></li>
+          <li><a routerLink="/rank" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Classement</a></li>
+          <li><a routerLink="/home" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Portfolio</a></li>
           <li class="dropdown">
-            <a href="#"><span>Team</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a routerLink="/jointeam">All Teams</a></li>
-              <li><a routerLink="/teamcreation">Create Team</a></li>
-            </ul>
-          </li>
-          
-          <li class="dropdown"><a href="#"><span>Upcoming Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a routerLink="/allevents">All events</a></li>
-              <li class="dropdown"><a href="#"><span>Select event category</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                  <li><a href="#">Sport</a></li>
-                  <li><a href="#">Party</a></li>
-                  <li><a href="#">Camping</a></li>
-                  <li><a href="#">Culture</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li><a href="#">Contact</a></li>
+              <a href="#" (click)="scrollTo('services', $event)"><span>Team</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a routerLink="/myteam">My Team</a></li>
+                <li><a routerLink="/jointeam">All Teams</a></li>
+                <li><a routerLink="/teamcreation">Create Team</a></li>
+              </ul>
+            </li>
+          <li class="dropdown"><a href="#" (click)="scrollTo('services', $event)"><span>Upcoming Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a routerLink="/allevents">All events</a></li>
+                <li class="dropdown">
+  <a href="#"><span>Select event category</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+  <ul>
+    <li><a (click)="navigateToCategory('SPORTS')">Sport</a></li>
+    <li><a (click)="navigateToCategory('PARTY')">Party</a></li>
+    <li><a (click)="navigateToCategory('CAMPING')">Camping</a></li>
+    <li><a (click)="navigateToCategory('CULTURAL')">Culture</a></li>
+  </ul>
+</li>
+                <!-- <li><a href="#">Dropdown 2</a></li> -->
+              </ul>
+            </li>
+          <li><a routerLink="/home" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Contact</a></li>
         </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list text-gray-200 cursor-pointer"></i>
       </nav>
     </div>
-  </header> 
+  </header>
 
   <!-- Main Content - Premium Styling -->
   <main class="min-h-screen pt-24 pb-12 px-4">
@@ -329,13 +330,10 @@
             <h3 class="text-xl font-bold text-gray-900 mb-2">{{ event.eventName }}</h3>
             <p class="text-gray-600 mb-5 line-clamp-2">{{ event.description }}</p>
   
-            <div class="flex items-center text-sm text-gray-500 mb-6">
-              <svg class="h-5 w-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
-              <span>{{ event.location }}</span>
-            </div>
+            <div class="flex items-center text-sm text-gray-500 mb-4 cursor-pointer" (click)="openMap(event.location)">
+  <i class="far fa-map-marker-alt mr-2"></i>
+  <span>{{ event.location }}</span>
+</div>
             
             <!-- Actions -->
             <div class="flex flex-col space-y-3">

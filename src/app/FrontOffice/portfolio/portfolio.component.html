@@ -386,47 +386,47 @@
 </head>
 <body class="index-page">
     <!-- HEADER -->
-    <header id="header" class="header d-flex align-items-center fixed-top">
-      <div class="container-fluid container-xl position-relative d-flex align-items-center">
-        <a href="/" class="logo d-flex align-items-center me-auto">
-          <h1 class="sitename">TeamQuest</h1>
-        </a>
-  
-        <nav id="navmenu" class="navmenu">
-          <ul>
-            <li><a href="#" >Home</a></li>
-            <li><a href="#" >Services</a></li>
-            <li><a href="#" >Games</a></li>
-            <li><a href="#" >Classement</a></li>
-            <li><a href="#" >Portfolio</a></li>
-            <li class="dropdown">
-              <a href="#"><span>Team</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+   <header id="header" class="header fixed-top shadow-lg bg-gray-800 bg-opacity-95 backdrop-blur-sm">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename text-2xl font-extrabold text-indigo-400 tracking-wide">TeamQuest</h1>
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul class="flex space-x-0">
+          <li><a routerLink="/home" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium cursor-pointer">Home</a></li>
+          <li><a routerLink="/home">Service</a></li>
+          <li><a routerLink="/games" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Games</a></li>
+          <li><a routerLink="/rank" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Classement</a></li>
+          <li><a routerLink="/home" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Portfolio</a></li>
+          <li class="dropdown">
+              <a href="#" (click)="scrollTo('services', $event)"><span>Team</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
+                <li><a routerLink="/myteam">My Team</a></li>
                 <li><a routerLink="/jointeam">All Teams</a></li>
                 <li><a routerLink="/teamcreation">Create Team</a></li>
               </ul>
             </li>
-            <li class="dropdown">
-              <a href="#"><span>Upcoming Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li class="dropdown"><a href="#" (click)="scrollTo('services', $event)"><span>Upcoming Event</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
                 <li><a routerLink="/allevents">All events</a></li>
                 <li class="dropdown">
-                  <a href="#"><span>Select event category</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                  <ul>
-                    <li><a href="#">Sport</a></li>
-                    <li><a href="#">Party</a></li>
-                    <li><a href="#">Camping</a></li>
-                    <li><a href="#">Culture</a></li>
-                  </ul>
-                </li>
+  <a href="#"><span>Select event category</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+  <ul>
+    <li><a (click)="navigateToCategory('SPORTS')">Sport</a></li>
+    <li><a (click)="navigateToCategory('PARTY')">Party</a></li>
+    <li><a (click)="navigateToCategory('CAMPING')">Camping</a></li>
+    <li><a (click)="navigateToCategory('CULTURAL')">Culture</a></li>
+  </ul>
+</li>
+                <!-- <li><a href="#">Dropdown 2</a></li> -->
               </ul>
             </li>
-            <li><a href="#" >Contact</a></li>
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-        </nav>
-      </div>
-    </header>
+          <li><a routerLink="/home" class="nav-link text-gray-200 hover:text-teal-400 transition duration-300 font-medium">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list text-gray-200 cursor-pointer"></i>
+      </nav>
+    </div>
+  </header>
   
     <!-- MAIN CONTENT -->
     <main class="container mt-5 pt-5">
