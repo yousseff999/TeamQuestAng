@@ -11,9 +11,11 @@ import { Router } from '@angular/router';
 export class AllactivitiesComponent implements OnInit {
   activities: Activity[] = [];
   searchQuery: string = '';
-
+ isCardView: boolean = true;
   constructor(private activityService: ActivityService, private router:Router) {}
-
+ toggleView(): void {
+    this.isCardView = !this.isCardView;
+  }
   ngOnInit(): void {
     this.loadAllActivities();
   }

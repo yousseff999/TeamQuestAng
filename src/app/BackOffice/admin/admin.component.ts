@@ -33,7 +33,7 @@ export class AdminComponent {
   totalEventParticipants: number = 0;
   totalAllEventParticipations: number = 0;
   topScoringTeam: any;
-   categories = ['SPORTS', 'CULTURAL', 'PARTY', 'CAMPING']; // adapte selon ton enum TypeEvent
+   categories = ['SPORTS', 'CULTURAL', 'PARTY', 'CAMPING']; 
   selectedCategory = '';
   stats: { [key: string]: number } = {};
   chartLabels = ['Likes', 'Dislikes', 'Interested'];
@@ -133,7 +133,7 @@ loadEngagementRanking(): void {
 loadGlobalStats() {
     this.interactionService.getGlobalStats().subscribe(data => {
       this.stats = data;
-      this.chartData = [data['LIKE'] || 0, data['DISLIKE'] || 0, data['INTERESTED'] || 0];
+      this.chartData = [data['LIKE'] || 0, data['DISLIKE'] || 0, data['INTERRESTED'] || 0];
 
     });
   }
@@ -142,7 +142,7 @@ loadGlobalStats() {
     if (this.selectedCategory) {
       this.interactionService.getStatsByCategory(this.selectedCategory).subscribe(data => {
         this.stats = data;
-        this.chartData = [data['LIKE'] || 0, data['DISLIKE'] || 0, data['INTERESTED'] || 0];
+        this.chartData = [data['LIKE'] || 0, data['DISLIKE'] || 0, data['INTERRESTED'] || 0];
 
       });
     }

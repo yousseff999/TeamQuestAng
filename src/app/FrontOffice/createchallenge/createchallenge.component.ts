@@ -9,7 +9,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ChatMessage } from 'src/app/models/chat-message';
 import { Router } from '@angular/router';
-
+import { FormControl } from '@angular/forms';
+import { Observable, startWith, map } from 'rxjs';
 @Component({
   selector: 'app-createchallenge',
   templateUrl: './createchallenge.component.html',
@@ -26,6 +27,9 @@ export class CreatechallengeComponent implements OnInit {
     { value: 2, label: 'Medium' },
     { value: 3, label: 'Hard' }
   ];
+  opponentControl = new FormControl('');
+  isOpponentFocused: boolean = false;
+filteredParticipants$: Observable<User[]> = new Observable();
   constructor(
     private fb: FormBuilder,
     private challengeService: ChallengeService,
@@ -54,7 +58,7 @@ export class CreatechallengeComponent implements OnInit {
       const username = this.authService.getUsername();
         if (username) {
           this.notificationService.connect(username, (message: ChatMessage) => {
-            alert(`New challenge: ${message.content}`); // Replace with toast notification
+            alert(`New challenge: ${message.content}`); 
           });
         }
       }
@@ -63,7 +67,7 @@ export class CreatechallengeComponent implements OnInit {
     }
   }
   ngOnDestroy(): void {
-    this.notificationService.disconnect(); // Clean up WebSocket connection
+    this.notificationService.disconnect(); 
   }
 
   loadUsers(): void {
@@ -73,6 +77,10 @@ export class CreatechallengeComponent implements OnInit {
         this.availableParticipants = users.filter(user => user.id !== this.currentUserId);
         console.log('Available participants:', this.availableParticipants);
         this.isLoading = false;
+        this.filteredParticipants$ = this.opponentControl.valueChanges.pipe(
+          startWith(''),
+          map(value => this.filterParticipants(value || ''))
+        );
       },
       error: (err: HttpErrorResponse) => {
         this.errorMessage = err.error?.message || 'Failed to load users.';
@@ -80,7 +88,18 @@ export class CreatechallengeComponent implements OnInit {
       }
     });
   }
-
+  onOpponentBlur(): void {
+  // attend un peu pour permettre le clic sur un élément de la liste
+  setTimeout(() => {
+    this.isOpponentFocused = false;
+  }, 200);
+}
+ private filterParticipants(value: string): User[] {
+    const filterValue = value.toLowerCase();
+    return this.availableParticipants.filter(user =>
+      user.username.toLowerCase().includes(filterValue) || user.email.toLowerCase().includes(filterValue)
+    );
+  }
   onSubmit(): void {
     console.log('Selected opponentId:', this.challengeForm.value.opponentId); // Debug
   if (this.challengeForm.invalid || !this.currentUserId) {

@@ -13,8 +13,11 @@ export class EventcategoryComponent implements OnInit {
   events: MyEvent[] = [];
   selectedCategory: string = '';
   imageUrls: { [eventId: number]: string } = {};
-
+  isCardView: boolean = true;
   constructor(private eventService: EventService, private route: ActivatedRoute, private dialog: MatDialog) {}
+  toggleView(): void {
+    this.isCardView = !this.isCardView;
+  }
 openMap(location: string): void {
     this.dialog.open(MapDialogComponent, {
       width: '500px',

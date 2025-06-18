@@ -167,27 +167,52 @@
               </p>
             </div>
 
-            <!-- Opponent Selection -->
-            <div>
-              <label class="block text-sm font-semibold text-black-300 mb-2">Select Opponent</label>
-              <div class="relative">
-                <select
-                  id="opponentId"
-                  formControlName="opponentId"
-                  class="w-full px-5 py-4 rounded-xl border border-gray-700 focus:ring-4 focus:ring-indigo-400 focus:border-indigo-500 transition duration-300 bg-gray-800 text-gray-300 appearance-none"
-                  [ngClass]="{ 'border-red-500': challengeForm.get('opponentId')?.invalid && challengeForm.get('opponentId')?.touched }"
-                >
-                  <option value="" disabled selected>Choose an opponent...</option>
-                  <option *ngFor="let user of availableParticipants" [value]="user.id">
-                    {{ user.username }} ({{ user.email }})
-                  </option>
-                </select>
-                <i class="fas fa-chevron-down absolute right-5 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
-              </div>
-              <p class="mt-2 text-sm text-red-400" *ngIf="challengeForm.get('opponentId')?.invalid && challengeForm.get('opponentId')?.touched">
-                Please select an opponent
-              </p>
-            </div>
+           <!-- Opponent Selection with Search Autocomplete (CORRECT VERSION) -->
+<div>
+  <label class="block text-sm font-semibold text-black-300 mb-2">Select Opponent</label>
+  <div class="relative">
+    <input
+  type="text"
+  [formControl]="opponentControl"
+  placeholder="Type to search..."
+  class="w-full px-5 py-4 rounded-xl border border-gray-700 focus:ring-4 focus:ring-indigo-400 focus:border-indigo-500 transition duration-300 bg-gray-800 text-gray-300"
+  [ngClass]="{ 'border-red-500': challengeForm.get('opponentId')?.invalid && challengeForm.get('opponentId')?.touched }"
+  autocomplete="off"
+  (focus)="isOpponentFocused = true"
+  (blur)="onOpponentBlur()"
+/>
+
+
+    <!-- Separate ng-container to avoid errors -->
+    <ng-container *ngIf="filteredParticipants$ | async as filtered">
+  <ul
+    *ngIf="isOpponentFocused && filtered.length > 0"
+    class="absolute z-10 w-full bg-gray-700 mt-1 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+  >
+    <li
+      *ngFor="let user of filtered"
+      class="px-4 py-2 hover:bg-indigo-600 text-gray-100 cursor-pointer"
+      (click)="
+        challengeForm.get('opponentId')?.setValue(user.id);
+        opponentControl.setValue(user.username);
+        isOpponentFocused = false
+      "
+    >
+      {{ user.username }} ({{ user.email }})
+    </li>
+  </ul>
+</ng-container>
+
+  </div>
+
+  <!-- Hidden form control value -->
+  <input type="hidden" formControlName="opponentId" />
+
+  <p class="mt-2 text-sm text-red-400" *ngIf="challengeForm.get('opponentId')?.invalid && challengeForm.get('opponentId')?.touched">
+    Please select an opponent
+  </p>
+</div>
+
 
             <!-- Difficulty Level -->
 <div class="text-center">

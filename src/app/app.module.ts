@@ -54,6 +54,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnakeGameComponent } from './FrontOffice/snake-game/snake-game.component';
 import { ForgotpasswordComponent } from './FrontOffice/forgotpassword/forgotpassword.component';
 import { ResetpasswordComponent } from './FrontOffice/resetpassword/resetpassword.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +64,6 @@ import { ResetpasswordComponent } from './FrontOffice/resetpassword/resetpasswor
     AdminComponent,
     LoginComponent,
     SignUpComponent,
-    
     ShoweventComponent,
     UpdateeventComponent,
     AddeventComponent,
@@ -105,6 +107,9 @@ import { ResetpasswordComponent } from './FrontOffice/resetpassword/resetpasswor
     
   ],
   imports: [
+    MatInputModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

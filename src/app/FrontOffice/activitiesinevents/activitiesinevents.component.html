@@ -47,7 +47,26 @@
           <h3 class="text-xl font-bold text-gray-900 mb-2">{{ activity.activityName }}</h3>
           <p class="text-gray-600 mb-4 line-clamp-2">{{ activity.description }}</p>
 
-          
+          <div *ngFor="let activity of activities" class="activity-card">
+  
+
+  <img [src]="images[activity.activityID]" 
+       alt="Activity Image" 
+       width="200" 
+       class="my-2 rounded shadow"/>
+
+  <p class="text-gray-600">Participants : {{ activity.currentParticipants }}/{{ activity.maxParticipants }}</p>
+
+ <button 
+  (click)="registerToActivity(activity)"
+  [disabled]="activity.currentParticipants >= activity.maxParticipants || activity.status !== 'Open'"
+  class="bg-teal-600 text-white px-4 py-2 mt-2 rounded hover:bg-teal-700 disabled:opacity-50 transition">
+  S'inscrire à cette activité
+</button>
+
+
+</div>
+
 
           
         </div>

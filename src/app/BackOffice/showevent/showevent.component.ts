@@ -17,13 +17,16 @@ interface NominatimResponse {
 export class ShoweventComponent implements OnInit {
   events: Event[] = [];
   eventTypeEnum = TypeEvent;
-  
+  isCardView: boolean = true;
   constructor(private eventService: EventService,private router: Router,private location: Location,private dialog: MatDialog) { }
   openMap(location: string): void {
     this.dialog.open(MapDialogComponent, {
       width: '500px',
       data: location
     });
+  }
+  toggleView(): void {
+    this.isCardView = !this.isCardView;
   }
   ngOnInit(): void {
     this.loadEvents();

@@ -76,12 +76,11 @@ export class ActivityService {
   }
 
   // Register user to activity
-  registerUserToActivity(userId: number, activityId: number, eventId: number): Observable<Activity> {
-    return this.http.post<Activity>(
-      `${this.apiUrl}/registerUserToActivity/${activityId}/register/${userId}/event/${eventId}`,
-      {}
-    );
-  }
+ registerUserToActivity(userId: number, activityId: number, eventId: number) {
+  const url = `${this.apiUrl}/registerUserToActivity/${activityId}/register/${userId}/event/${eventId}`;
+  return this.http.post(url, null, { responseType: 'text' });
+}
+
 
   // Get users by activity
   getUsersByActivity(activityId: number): Observable<User[]> {

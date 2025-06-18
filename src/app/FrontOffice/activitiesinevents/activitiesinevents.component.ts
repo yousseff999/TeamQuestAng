@@ -57,4 +57,31 @@ export class ActivitiesineventsComponent  implements OnInit {
       });
     });
   }
+  registerToActivity(activity: Activity) {
+  const userIdString = this.authService.getUserId();
+
+  if (!userIdString) {
+    alert("Utilisateur non connecté !");
+    return;
+  }
+
+  if (activity.status !== 'Open') {
+    alert("Cette activité est fermée et ne permet plus l'inscription.");
+    return;
+  }
+
+  const userId = Number(userIdString);
+
+  this.activityService.registerUserToActivity(userId, activity.activityID, this.eventId).subscribe({
+    next: () => {
+      alert('Inscription réussie à l’activité !');
+      this.loadActivities();
+    },
+    error: (err) => {
+      alert('Erreur : ' + err.error);
+    }
+  });
+}
+
+
 }
