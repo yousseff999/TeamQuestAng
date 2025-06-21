@@ -8,7 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ChatMessage } from 'src/app/models/chat-message';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
 @Component({
@@ -32,6 +32,7 @@ export class CreatechallengeComponent implements OnInit {
 filteredParticipants$: Observable<User[]> = new Observable();
   constructor(
     private fb: FormBuilder,
+    private route: ActivatedRoute,
     private challengeService: ChallengeService,
     private authService: AuthService,
     private userService: UserService,
@@ -47,25 +48,55 @@ filteredParticipants$: Observable<User[]> = new Observable();
   }
 
   ngOnInit(): void {
-    const userId = this.authService.getUserId();
-    if (userId) {
-      this.currentUserId = parseInt(userId, 10);
-      if (isNaN(this.currentUserId)) {
-        this.currentUserId = null;
-        this.errorMessage = 'Invalid user ID. Please log in again.';
-      } else {
-        this.loadUsers();
-      const username = this.authService.getUsername();
-        if (username) {
-          this.notificationService.connect(username, (message: ChatMessage) => {
-            alert(`New challenge: ${message.content}`); 
-          });
+  // 1. Handle challengeId from email link
+  this.route.queryParams.subscribe(params => {
+    const challengeId = params['challengeId'];
+    const accept = params['accept'];
+
+    if (challengeId && accept === 'true') {
+      console.log('Received challengeId from email:', challengeId);
+
+      // Appel au backend pour récupérer la difficulté
+      this.challengeService.getChallengeById(challengeId).subscribe({
+        next: (challenge: Challenge) => {
+          const difficulty = challenge.difficultyLevel;
+          console.log('➡️ redirecting to questions with difficulty:', difficulty);
+          // Rediriger vers questions avec les queryParams
+          this.router.navigate(['/questions'], { queryParams: { challengeId, difficulty } });
+        },
+        error: (err) => {
+          console.error('Error fetching challenge difficulty:', err);
+          // En cas d’erreur, rediriger sans difficulty
+          this.router.navigate(['/questions'], { queryParams: { challengeId } });
         }
-      }
-    } else {
-      this.errorMessage = 'You must be logged in to create a challenge.';
+      });
     }
+  });
+
+  // 2. Load current user info and notifications
+  const userId = this.authService.getUserId();
+  if (userId) {
+    this.currentUserId = parseInt(userId, 10);
+    if (isNaN(this.currentUserId)) {
+      this.currentUserId = null;
+      this.errorMessage = 'Invalid user ID. Please log in again.';
+    } else {
+      this.loadUsers();
+
+      // Connect to WebSocket for notifications
+      const username = this.authService.getUsername();
+      if (username) {
+        this.notificationService.connect(username, (message: ChatMessage) => {
+          console.log('Notification reçue:', message);
+          alert(`Notification: ${message.content}`);
+        });
+      }
+    }
+  } else {
+    this.errorMessage = 'You must be logged in to create a challenge.';
   }
+}
+
   ngOnDestroy(): void {
     this.notificationService.disconnect(); 
   }
@@ -131,20 +162,24 @@ filteredParticipants$: Observable<User[]> = new Observable();
         alert('Challenge created successfully!');
         //////zyeda
         const opponent = this.availableParticipants.find(user => user.id === challengeData.opponentId);
+      const currentUsername = this.authService.getUsername();
 
-        if (opponent) {
-          const message: ChatMessage = {
-            id: Date.now(), // temporary unique id (timestamp) for frontend, server can generate real one
-            sender: this.authService.getUserId()!, // logged-in user ID or username
-            content: 'You have been challenged! 💪'
-          };
+      if (opponent && currentUsername) {
+        // Send challenge notification to opponent
+        this.notificationService.sendChallengeNotification(
+          opponent.username,
+          {
+            title: challengeData.title,
+            description: challengeData.description
+          },
+          currentUsername
+        );
+        console.log('Challenge notification sent to:', opponent.username);
+      } else {
+        console.error('Opponent not found or current user not authenticated');
+      }
       
-          // Send the message to the opponent
-          this.notificationService.sendPrivateMessage(opponent.username, message);
-        } else {
-          console.error('Opponent not found');
-        }
-        localStorage.setItem('selectedDifficulty', String(challengeData.difficultyLevel));
+      localStorage.setItem('selectedDifficulty', String(challengeData.difficultyLevel));
 
         this.router.navigate(['/questions'], {
   state: { difficulty: challengeData.difficultyLevel }

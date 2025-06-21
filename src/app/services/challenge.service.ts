@@ -43,11 +43,9 @@ export class ChallengeService {
   }
 
   // Get challenge by ID
-  getChallengeById(id: number): Observable<Challenge> {
-    return this.http.get<Challenge>(`${this.apiUrl}/${id}`, {
-      headers: this.getHeaders()
-    });
-  }
+getChallengeById(id: number) {
+  return this.http.get<Challenge>(`${this.apiUrl}/${id}`);
+}
 
   // Update challenge
   updateChallenge(id: number, challenge: Challenge): Observable<Challenge> {
